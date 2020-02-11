@@ -1,4 +1,4 @@
-module github.com/sciabarracom/openwhisk-ide/wskide
+module github.com/pagopa/io-sdk/wskide
 
 go 1.12
 
