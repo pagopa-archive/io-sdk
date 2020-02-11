@@ -1,6 +1,6 @@
 package main
 
-import "github.com/sciabarracom/openwhisk-ide/wskide"
+import "github.com/pagopa/io-sdk/wskide"
 
 //main
 func main() {
