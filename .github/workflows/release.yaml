@@ -1,0 +1,78 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Create Release And Upload Assets
+
+jobs:
+  build:
+    name: Create Release And Upload Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: Get dependencies and build ELF 64-bit LSB executable, x86-64
+        run: |
+          export GOOS=linux
+          go get -v -t -d ./...
+          go build -v -o bin/wskide 
+
+      - name: Get dependencies and build PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
+        run: |
+          export GOOS=windows
+          go get -v -t -d ./...
+          go build -v -o bin/wskide.exe
+
+      - name: Get dependencies and build Mach-O 64-bit x86_64 executable
+        run: |
+          export GOOS=darwin
+          go get -v -t -d ./...
+          go build -v -o bin/wskide+mac-Darwin
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Linux Release Asset
+        id: upload-release-asset-linux
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/wskide
+          asset_name: wskide
+          asset_content_type: application/octet-stream
+
+      - name: Upload Windows Release Asset
+        id: upload-release-asset-windows
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/wskide.exe
+          asset_name: wskide.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload macOS Release Asset
+        id: upload-release-asset-macos
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/wskide+mac-Darwin
+          asset_name: wskide+mac-Darwin
+          asset_content_type: application/octet-stream
+
