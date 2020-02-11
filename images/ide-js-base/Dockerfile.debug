@@ -1,0 +1,11 @@
+ARG NODE_VERSION=10
+FROM node:${NODE_VERSION}-alpine
+# See : https://github.com/theia-ide/theia-apps/issues/34
+RUN addgroup theia && \
+    adduser -G theia -s /bin/sh -D theia;
+RUN chmod g+rw /home && \
+    mkdir -p /home/project /home/plugins /home/theia && \
+    chown -R theia:theia /home/theia /home/project /home/plugins
+ADD Dockerfile /home/plugins
+ADD ide-plugin /home/plugins/ide-plugin
+RUN cd /home/plugins/ide-plugin && npm install && npm run build
