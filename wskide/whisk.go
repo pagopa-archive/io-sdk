@@ -38,6 +38,7 @@ func WhiskDestroy() error {
 }
 
 func whiskDockerRun() string {
+	fmt.Printf("docker run -d -p 3232:3232 -p 3233:3233 --rm --name openwhisk --hostname openwhisk -v /var/run/docker.sock:/var/run/docker.sock -e CONTAINER_EXTRA_ENV=__OW_DEBUG_PORT=8081 openwhisk/standalone:nightly")
 	return Sys(`docker run -d -p 3232:3232
 -p 3233:3233 --rm --name openwhisk
 --hostname openwhisk -v /var/run/docker.sock:/var/run/docker.sock
