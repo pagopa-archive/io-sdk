@@ -9,7 +9,8 @@ import (
 
 var (
 	startCmd    = kingpin.Command("start", "Start Development Enviroment")
-	startDirArg = startCmd.Arg("dir", "Project dir").Default("").String()
+	startDirArg = startCmd.Arg("dir", "Project dir").Default("project").String()
+	initCmd     = kingpin.Command("init", "Initialise SDK Repository")
 	stopCmd     = kingpin.Command("stop", "Stop Development Environment")
 )
 
@@ -18,13 +19,17 @@ func startParse(cmd string) bool {
 	case startCmd.FullCommand():
 		err := Start(*startDirArg)
 		ShowError(err)
-		if err != nil {
+		if err == nil {
 			time.Sleep(2 * time.Second)
 			browser.OpenURL(BrowserURL)
 		}
 		return true
 	case stopCmd.FullCommand():
 		Stop()
+		return true
+	case initCmd.FullCommand():
+		err := Init(*initDirFlag, *initLangFlag)
+		ShowError(err)
 		return true
 	}
 	return false
