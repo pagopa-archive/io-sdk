@@ -5,6 +5,7 @@ import (
 )
 
 func ExampleStart() {
+	*DryRunFlag = true
 	DryRunPush(MinDockerVersion, "", "172.17.0.2")
 	fmt.Println(Start(""))
 	// Output:
@@ -14,11 +15,12 @@ func ExampleStart() {
 	// Done.
 	// Deploying IDE...
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock  actionloop/ide-js --add-host 172.17.0.2
+	// docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:172.17.0.2  actionloop/ide-js
 	// <nil>
 }
 
 func ExampleStop() {
+	*DryRunFlag = true
 	DryRunPush()
 	fmt.Println(Stop())
 	// Output:

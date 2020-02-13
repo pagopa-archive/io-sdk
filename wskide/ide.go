@@ -64,7 +64,6 @@ func ideDockerRun(dir string) error {
 -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s
 actionloop/ide-js`, openwhiskIP, mount)
 	//OpenWhiskDockerWait()
-	fmt.Println(command)
 	Sys(command)
 	return nil
 }
