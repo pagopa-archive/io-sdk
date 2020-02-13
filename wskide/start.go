@@ -28,7 +28,7 @@ func startParse(cmd string) bool {
 		Stop()
 		return true
 	case initCmd.FullCommand():
-		err := Init()
+		err := Init(*initDirFlag, *initLangFlag)
 		ShowError(err)
 		return true
 	}

@@ -12,11 +12,11 @@ var (
 	initDirFlag  = initCmd.Flag("directory", "SDK dir").Default("project").String()
 )
 
-// Init openwhisk-ide
-func Init() error {
+// Init io-sdk
+func Init(dir, lang string) error {
 
-	repo := fmt.Sprintf("https://github.com/pagopa/io-sdk-%s", *initLangFlag)
-	_, err := git.PlainClone(*initDirFlag, false, &git.CloneOptions{
+	repo := fmt.Sprintf("https://github.com/pagopa/io-sdk-%s", lang)
+	_, err := git.PlainClone(dir, false, &git.CloneOptions{
 		URL:      repo,
 		Progress: os.Stdout,
 	})
