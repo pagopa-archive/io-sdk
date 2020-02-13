@@ -14,7 +14,7 @@ var (
 func ideParse(cmd string) bool {
 	switch cmd {
 	case ideDeployCmd.FullCommand():
-		IdeDeploy("project")
+		IdeDeploy(*startDirArg)
 		return true
 	case ideDestroyCmd.FullCommand():
 		IdeDestroy()
@@ -23,7 +23,7 @@ func ideParse(cmd string) bool {
 	return false
 }
 
-// IdeDeploy deploys ide and mounts a folder
+// IdeDeploy deploys and mounts a folder
 func IdeDeploy(dir string) error {
 	fmt.Println("Deploying IDE...")
 	if dir != "" {
@@ -56,13 +56,15 @@ func ideDockerRun(dir string) error {
 		}
 	}
 	openwhiskIP := Sys("docker inspect", "--format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "openwhisk")
+	openwhiskIP = strings.TrimSpace(openwhiskIP)
 	if strings.HasPrefix(openwhiskIP, "Error:") {
 		return fmt.Errorf("%s", openwhiskIP)
 	}
 	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js
--v /var/run/docker.sock:/var/run/docker.sock
-actionloop/ide-js --add-host %s %s`, openwhiskIP, mount)
+-v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s
+actionloop/ide-js`, openwhiskIP, mount)
 	//OpenWhiskDockerWait()
+	fmt.Println(command)
 	Sys(command)
 	return nil
 }
