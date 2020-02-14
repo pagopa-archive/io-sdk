@@ -32,4 +32,7 @@ jobs:
       run: go build -o bin/wskide
 
     - name: Test
-      run : bin/wskide start
+      run : |
+        bin/wskide --skip-docker-version start
+        docker ps
+

@@ -10,6 +10,7 @@ var VerboseFlag = kingpin.Flag("verbose", "Verbose").
 	Short('v').Default("false").Bool()
 
 var debugCmd = kingpin.Command("debug", "debug").Hidden()
+var skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
 
 // Main entrypoint for wskide
 func Main() {
