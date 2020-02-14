@@ -34,6 +34,6 @@ jobs:
 
     - name: Test
       run : |
-        bin/wskide project --verbose --skip-docker-version start
+        bin/wskide start --verbose --skip-docker-version
         docker ps
 
