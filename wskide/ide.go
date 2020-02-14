@@ -52,8 +52,7 @@ func ideDockerRun(dir string) error {
 		dir, err = filepath.Abs(dir)
 		LogIf(err)
 		if err == nil {
-			mount = fmt.Sprintf(" -v %s:/home/project", dir)
-			mount = strings.TrimSpace(mount)
+			mount = fmt.Sprintf("-v %s:/home/project", dir)
 		}
 	}
 	openwhiskIP := Sys("docker inspect", "--format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "openwhisk")
@@ -61,9 +60,9 @@ func ideDockerRun(dir string) error {
 	if strings.HasPrefix(openwhiskIP, "Error:") {
 		return fmt.Errorf("%s", openwhiskIP)
 	}
-	command := fmt.Sprintf("docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s%s actionloop/ide-js", openwhiskIP, mount)
+	// command := fmt.Sprintf("docker run --env DOCKER_VERSION=3.0.10+azure -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s actionloop/ide-js", openwhiskIP, mount)
+	command := fmt.Sprintf("docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s actionloop/ide-js", openwhiskIP, mount)
 	//OpenWhiskDockerWait()
-	fmt.Println(command)
 	Sys(command)
 	return nil
 }

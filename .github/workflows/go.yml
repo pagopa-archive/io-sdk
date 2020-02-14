@@ -8,7 +8,8 @@ jobs:
     strategy:
       matrix:
         go: ['1.12', '1.13']
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        #os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
     steps:
 
     - name: Set up Go ${{ matrix.go }}
@@ -33,7 +34,12 @@ jobs:
 
     - name: Test
       run : |
-        bin/wskide  --skip-docker-version start
-        sleep 10
+        docker pull openwhisk/standalone:nightly
+        docker pull actionloop/ide-js:latest
+        bin/wskide init --directory project
+        bin/wskide start project --verbose --skip-docker-version
+        docker exec openwhisk waitready
+        #bin/wskide debug ide-deploy --verbose
         docker ps
+        # docker exec ide-js pwd
 
