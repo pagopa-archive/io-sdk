@@ -34,7 +34,9 @@ jobs:
 
     - name: Test
       run : |
+        docker pull actionloop/ide-js
         bin/wskide start --verbose --skip-docker-version
-        sleep 20
+        docker exec openwhisk waitready
         docker ps
+        docker exec ide-js pwd
 
