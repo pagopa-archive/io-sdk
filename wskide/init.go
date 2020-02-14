@@ -2,7 +2,7 @@ package wskide
 
 import (
 	"fmt"
-	"os"
+	"io/ioutil"
 
 	"gopkg.in/src-d/go-git.v4"
 )
@@ -18,7 +18,7 @@ func Init(dir, lang string) error {
 	repo := fmt.Sprintf("https://github.com/pagopa/io-sdk-%s", lang)
 	_, err := git.PlainClone(dir, false, &git.CloneOptions{
 		URL:      repo,
-		Progress: os.Stdout,
+		Progress: ioutil.Discard,
 	})
 
 	return err
