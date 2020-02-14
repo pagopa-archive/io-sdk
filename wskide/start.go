@@ -3,7 +3,6 @@ package wskide
 import (
 	"time"
 
-	"github.com/pkg/browser"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -22,7 +21,7 @@ func startParse(cmd string) bool {
 		ShowError(err)
 		if err == nil {
 			time.Sleep(2 * time.Second)
-			browser.OpenURL(BrowserURL)
+			//	browser.OpenURL(BrowserURL)
 		}
 		return true
 	case stopCmd.FullCommand():
