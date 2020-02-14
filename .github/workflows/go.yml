@@ -30,3 +30,6 @@ jobs:
 
     - name: Build
       run: go build -o bin/wskide
+
+    - name: Test
+      run : bin/wskide start
