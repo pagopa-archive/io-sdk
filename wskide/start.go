@@ -3,13 +3,12 @@ package wskide
 import (
 	"time"
 
-	"github.com/pkg/browser"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
 	startCmd    = kingpin.Command("start", "Start Development Enviroment")
-	startDirArg = startCmd.Arg("dir", "Project dir").Default("project").String()
+	startDirArg = startCmd.Arg("dir", "Project dir").String()
 	initCmd     = kingpin.Command("init", "Initialise SDK Repository")
 	stopCmd     = kingpin.Command("stop", "Stop Development Environment")
 	httpCmd     = kingpin.Command("httpd", "Start Httpd Server")
@@ -22,7 +21,7 @@ func startParse(cmd string) bool {
 		ShowError(err)
 		if err == nil {
 			time.Sleep(2 * time.Second)
-			browser.OpenURL(BrowserURL)
+			//	browser.OpenURL(BrowserURL)
 		}
 		return true
 	case stopCmd.FullCommand():
