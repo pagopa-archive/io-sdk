@@ -8,7 +8,7 @@ import (
 
 var (
 	startCmd    = kingpin.Command("start", "Start Development Enviroment")
-	startDirArg = startCmd.Arg("dir", "Project dir").Default("project").String()
+	startDirArg = startCmd.Arg("dir", "Project dir").String()
 	initCmd     = kingpin.Command("init", "Initialise SDK Repository")
 	stopCmd     = kingpin.Command("stop", "Stop Development Environment")
 	httpCmd     = kingpin.Command("httpd", "Start Httpd Server")
