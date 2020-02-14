@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleEnsureDockerVersion() {
-	// *DryRunFlag = false
+	*DryRunFlag = true
 	DryRunPush("19.03.5", "10.03.5", MinDockerVersion)
 	fmt.Println(preflightEnsureDockerVersion())
 	fmt.Println(preflightEnsureDockerVersion())
