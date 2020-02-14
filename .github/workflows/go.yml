@@ -34,6 +34,7 @@ jobs:
 
     - name: Test
       run : |
+        docker pull openwhisk/standalone:nightly
         docker pull actionloop/ide-js
         bin/wskide start --verbose --skip-docker-version
         docker exec openwhisk waitready
