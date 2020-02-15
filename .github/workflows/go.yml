@@ -38,7 +38,6 @@ jobs:
         docker pull actionloop/ide-js
         bin/wskide start --verbose --skip-docker-version
         docker exec openwhisk waitready
-        sleep 100
         docker ps
-        docker exec ide-js pwd
+        # docker exec ide-js pwd
 
