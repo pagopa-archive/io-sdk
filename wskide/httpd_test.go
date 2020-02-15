@@ -1,9 +1,9 @@
 package wskide
 
 func ExampleHttpd() {
-	*DryRunFlag = true
-	Httpd(8080, "src")
+	*DryRunFlag = false
+	Sys("pwd")
 
 	// Output:
-	//
+	// /home/nimmichele/Work/PagoPA/io-sdk/wskide
 }

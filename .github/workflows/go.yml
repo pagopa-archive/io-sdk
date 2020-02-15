@@ -35,9 +35,11 @@ jobs:
     - name: Test
       run : |
         docker pull openwhisk/standalone:nightly
-        docker pull actionloop/ide-js
-        bin/wskide start --verbose --skip-docker-version
+        docker pull actionloop/ide-js:latest
+        bin/wskide init --directory project
+        bin/wskide start project --verbose --skip-docker-version
         docker exec openwhisk waitready
+        #bin/wskide debug ide-deploy --verbose
         docker ps
-        docker exec ide-js pwd
+        # docker exec ide-js pwd
 
