@@ -1,13 +1,8 @@
 package wskide
 
-import "fmt"
-
-func ExamplePlayground() {
-	*DryRunFlag = false
-	ideDockerRun("")
-
-	// Output:
-}
+import (
+	"fmt"
+)
 
 func ExampleIdeDockerRun() {
 	*DryRunFlag = true
