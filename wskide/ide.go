@@ -60,7 +60,7 @@ func ideDockerRun(dir string) error {
 	if strings.HasPrefix(openwhiskIP, "Error:") {
 		return fmt.Errorf("%s", openwhiskIP)
 	}
-	command := fmt.Sprintf("docker run -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s actionloop/ide-js", openwhiskIP, mount)
+	command := fmt.Sprintf("docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s actionloop/ide-js", openwhiskIP, mount)
 	//OpenWhiskDockerWait()
 	Sys(command)
 	return nil
