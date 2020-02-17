@@ -42,5 +42,4 @@ jobs:
         docker exec openwhisk waitready
         bin/wskide debug ide-deploy --verbose
         docker ps
-        # docker exec ide-js pwd
-
+        docker exec -ti ide-js sh /home/project/test.sh
