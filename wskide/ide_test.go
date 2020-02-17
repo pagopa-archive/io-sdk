@@ -1,6 +1,8 @@
 package wskide
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func ExampleIdeDockerRun() {
 	*DryRunFlag = true
