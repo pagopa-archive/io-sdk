@@ -37,8 +37,7 @@ jobs:
         docker pull openwhisk/standalone:nightly
         docker pull actionloop/ide-js:latest
         bin/wskide start --verbose --skip-docker-version
-        #bin/wskide debug whisk-deploy --verbose
         docker exec openwhisk waitready
-        bin/wskide debug ide-deploy --verbose
+        #bin/wskide debug ide-deploy --verbose
         docker ps
-        docker exec -ti ide-js sh /home/project/test.sh
+        docker exec -t ide-js sh /home/project/test.sh
