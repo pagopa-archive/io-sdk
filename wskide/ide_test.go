@@ -2,13 +2,6 @@ package wskide
 
 import "fmt"
 
-func ExamplePlayground() {
-	*DryRunFlag = false
-	ideDockerRun("")
-
-	// Output:
-}
-
 func ExampleIdeDockerRun() {
 	*DryRunFlag = true
 	DryRunPush("172.17.0.2", "641792b3e0112c8fa1896b8944a846dbbab88fe5729f3d464e71475afd9e6057", "Error:", "172.17.0.2")
