@@ -33,7 +33,8 @@ func startParse(cmd string) bool {
 		ShowError(err)
 		return true
 	case httpCmd.FullCommand():
-		err := Httpd(*httpPortArg, *httpDirArg)
+		//err := Httpd(*httpPortArg, *httpDirArg)
+		err := Httpd(*httpPortArg)
 		ShowError(err)
 		return true
 	}

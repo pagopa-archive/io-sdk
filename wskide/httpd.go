@@ -3,24 +3,18 @@ package wskide
 import (
 	"net/http"
 	"strconv"
+
+	"github.com/markbates/pkger"
 )
 
 var (
 	httpPortArg = httpCmd.Flag("port", "httpd port").Default("8080").Uint16()
-	httpDirArg  = httpCmd.Flag("directory", "directory to serve").Default("src").ExistingDir()
 )
 
 // Httpd starts httpd server
-func Httpd(port uint16, dir string) error {
-	// http.Handle("/", http.FileServer(http.Dir("./src")))
-	http.Handle("/", http.FileServer(http.Dir(dir)))
-	// http.HandleFunc("/ping", ping)
+func Httpd(port uint16) error {
 	listen := "127.0.0.1:" + strconv.FormatInt(int64(port), 10)
-	err := http.ListenAndServe(listen, nil)
+	dir := http.FileServer(pkger.Dir("github.com/pagopa/io-sdk:/backend/public/"))
+	err := http.ListenAndServe(listen, dir)
 	return err
 }
-
-// // Ping start ping
-// func ping(w http.ResponseWriter, r *http.Request) {
-// 	w.Write([]byte("pong"))
-// }
