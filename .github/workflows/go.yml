@@ -39,6 +39,7 @@ jobs:
         bin/wskide init --directory project
         bin/wskide start project --verbose --skip-docker-version
         docker exec openwhisk waitready
+        bin/wskide debug ide-deploy --verbose
         docker ps
         # docker exec ide-js pwd
 
