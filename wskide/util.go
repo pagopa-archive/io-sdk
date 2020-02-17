@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"regexp"
 	"strings"
 
 	log "github.com/sirupsen/logrus"
@@ -78,7 +79,8 @@ func DryRunPop(buf ...string) string {
 // If the command starts with "@" do not print the output.
 // It also honor the DryRunFlag, in this case it always print the command
 func Sys(cli string, args ...string) string {
-	a := strings.Split(strings.ReplaceAll(cli, "\n", " "), " ")
+	re := regexp.MustCompile(`[\r\t\n\f ]+`)
+	a := strings.Split(re.ReplaceAllString(cli, " "), " ")
 	params := args
 	if len(a) > 1 {
 		params = append(a[1:], args...)
