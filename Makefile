@@ -1,3 +1,3 @@
-.PHONY: wskide
-wskide: 
-	go build -o bin/wskide
+.PHONY: iosdk
+iosdk: 
+	go build -o bin/iosdk

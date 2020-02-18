@@ -24,7 +24,7 @@ func whiskParse(cmd string) bool {
 // WhiskDeploy deploys openwhisk standalone
 func WhiskDeploy() error {
 	fmt.Println("Deploying Whisk...")
-	whiskDockerRun()
+	fmt.Println(whiskDockerRun())
 	fmt.Println("Done.")
 	return nil
 }
