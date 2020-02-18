@@ -3,11 +3,14 @@ package wskide
 import (
 	"net/http"
 	"strconv"
+
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
-	httpPortArg = httpCmd.Flag("port", "httpd port").Default("8080").Uint16()
+	httpCmd     = kingpin.Command("httpd", "Start Httpd Server").Hidden()
 	httpDirArg  = httpCmd.Flag("directory", "directory to serve").Default("src").ExistingDir()
+	httpPortArg = httpCmd.Flag("port", "httpd port").Default("8080").Uint16()
 )
 
 // Httpd starts httpd server

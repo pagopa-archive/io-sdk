@@ -1,6 +1,6 @@
 package wskide
 
-func ExampleHttpd() {
+func OffExampleHttpd() {
 	*DryRunFlag = false
 	Sys("pwd")
 

@@ -93,3 +93,16 @@ func ExampleShowError() {
 	// Output:
 	// *** ERROR: error ***
 }
+
+func ExampleRun() {
+	//*DryRunFlag = false
+	DryRunPush("", "", "wrong")
+	fmt.Println(Run("docker pull busybox"))
+	fmt.Println(Run("@docker pull busybox"))
+	fmt.Println(Run("@docker pull busybox1"))
+	// Output:
+	// docker pull busybox
+	// <nil>
+	// <nil>
+	// wrong
+}
