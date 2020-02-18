@@ -1,4 +1,3 @@
-.PHONY: wskide
-wskide: 
-	pkger
-	go build -o bin/wskide
+.PHONY: iosdk
+iosdk: 
+	go build -o bin/iosdk

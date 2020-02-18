@@ -17,12 +17,17 @@ func ExampleWhiskParse() {
 
 func ExampleWhiskDockerRun() {
 	//*DryRunFlag = false
-	DryRunPush("991c7972fa4612c873b3804a4c334b3af66687a7f1e548a36dfdfe0c6a717cbe")
+	DryRunPush("", "991c7972fa4612c873b3804a4c334b3af66687a7f1e548a36dfdfe0c6a717cbe", "cannot pull")
+	fmt.Println(whiskDockerRun())
 	fmt.Println(whiskDockerRun())
 	// Output:
-	// docker run -d -p 3232:3232 -p 3233:3233 --rm --name openwhisk --hostname openwhisk -v /var/run/docker.sock:/var/run/docker.sock -e CONTAINER_EXTRA_ENV=__OW_DEBUG_PORT=8081 openwhisk/standalone:nightly
+	// docker pull openwhisk/standalone:nightly
+	// docker run -d -p 3232:3232 -p 3233:3233 --rm --name openwhisk --hostname openwhisk -v //var/run/docker.sock:/var/run/docker.sock openwhisk/standalone:nightly
 	// 991c7972fa4612c873b3804a4c334b3af66687a7f1e548a36dfdfe0c6a717cbe
+	// docker pull openwhisk/standalone:nightly
+	// cannot pull openwhisk/standalone:nightly
 }
+
 func ExampleWhiskDockerRm() {
 	// *DryRunFlag = false
 	fmt.Println(WhiskDestroy())
