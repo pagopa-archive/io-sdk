@@ -30,14 +30,14 @@ jobs:
         #fi
 
     - name: Build
-      run: go build -o bin/wskide
+      run: go build -o bin/iosdk
 
     - name: Test
       run : |
         docker pull openwhisk/standalone:nightly
         docker pull actionloop/ide-js:latest
-        bin/wskide start --verbose --skip-docker-version
+        bin/iosdk start --verbose --skip-docker-version
         docker exec openwhisk waitready
-        #bin/wskide debug ide-deploy --verbose
+        #bin/iosdk debug ide-deploy --verbose
         docker ps
         docker exec -t ide-js sh /home/project/test.sh

@@ -18,19 +18,19 @@ jobs:
         run: |
           export GOOS=linux
           go get -v -t -d ./...
-          go build -v -o bin/wskide 
+          go build -v -o bin/iosdk_lin
 
       - name: Get dependencies and build PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
         run: |
           export GOOS=windows
           go get -v -t -d ./...
-          go build -v -o bin/wskide.exe
+          go build -v -o bin/iosdk_win
 
       - name: Get dependencies and build Mach-O 64-bit x86_64 executable
         run: |
           export GOOS=darwin
           go get -v -t -d ./...
-          go build -v -o bin/wskide+mac-Darwin
+          go build -v -o bin/iosdk_mac
 
       - name: Create Release
         id: create_release
@@ -50,8 +50,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/wskide
-          asset_name: wskide
+          asset_path: ./bin/iosdk_lin
+          asset_name: iosdk_lin
           asset_content_type: application/octet-stream
 
       - name: Upload Windows Release Asset
@@ -61,8 +61,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/wskide.exe
-          asset_name: wskide.exe
+          asset_path: ./bin/iosdk_win
+          asset_name: iosdk_win
           asset_content_type: application/octet-stream
 
       - name: Upload macOS Release Asset
@@ -72,7 +72,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/wskide+mac-Darwin
-          asset_name: wskide+mac-Darwin
+          asset_path: ./bin/iosdk_mac
+          asset_name: iosdk_mac
           asset_content_type: application/octet-stream
 
