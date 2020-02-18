@@ -12,6 +12,7 @@ var (
 	startDirArg = startCmd.Arg("dir", "Project dir").String()
 	initCmd     = kingpin.Command("init", "Initialise SDK Repository")
 	stopCmd     = kingpin.Command("stop", "Stop Development Environment")
+	httpCmd     = kingpin.Command("httpd", "Start http server")
 )
 
 func startParse(cmd string) bool {
