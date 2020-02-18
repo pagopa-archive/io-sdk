@@ -1,6 +1,7 @@
 package wskide
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -106,6 +107,44 @@ func Sys(cli string, args ...string) string {
 		fmt.Printf(res)
 	}
 	return res
+}
+
+// Run executes a command, without capturing input, in a convenient way:
+// it splits the paramenter in arguments if separated by spaces,
+// then accepts multiple arguments;
+//returns the error
+// It also honor the DryRunFlag, in this case it always prints the command
+func Run(cli string, args ...string) error {
+	re := regexp.MustCompile(`[\r\t\n\f ]+`)
+	a := strings.Split(re.ReplaceAllString(cli, " "), " ")
+	params := args
+	if len(a) > 1 {
+		params = append(a[1:], args...)
+	}
+	exe := strings.TrimPrefix(a[0], "@")
+	silent := strings.HasPrefix(a[0], "@")
+
+	if !silent {
+		if len(params) > 0 {
+			fmt.Printf("%s %s\n", exe, strings.Join(params, " "))
+		} else {
+			fmt.Println(exe)
+		}
+	}
+
+	if *DryRunFlag {
+		errs := DryRunPop()
+		if errs == "" {
+			return nil
+		}
+		return errors.New(errs)
+	}
+
+	log.Tracef("< %s %v\n", exe, params)
+	cmd := exec.Command(exe, params...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
 
 // SysCd works as Sys,

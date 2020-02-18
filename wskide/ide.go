@@ -45,8 +45,13 @@ func IdeDestroy() error {
 
 // ideDockerRun starts the ide
 // it also mounts the project folder if the directory is not empty
-func ideDockerRun(dir string) error {
-	var err error
+func ideDockerRun(dir string) (err error) {
+
+	err = Run("docker pull " + IdeJsImage)
+	if err != nil {
+		return err
+	}
+
 	mount := ""
 	if dir != "" {
 		dir, err = filepath.Abs(dir)
@@ -55,12 +60,17 @@ func ideDockerRun(dir string) error {
 			mount = fmt.Sprintf("-v %s:/home/project", dir)
 		}
 	}
-	openwhiskIP := Sys("docker inspect", "--format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "openwhisk")
+
+	openwhiskIP := Sys("docker inspect",
+		"--format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}",
+		"openwhisk")
 	openwhiskIP = strings.TrimSpace(openwhiskIP)
 	if strings.HasPrefix(openwhiskIP, "Error:") {
 		return fmt.Errorf("%s", openwhiskIP)
 	}
-	command := fmt.Sprintf("docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk:%s %s actionloop/ide-js", openwhiskIP, mount)
+
+	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js 
+	--add-host=openwhisk:%s %s %s`, openwhiskIP, mount, IdeJsImage)
 	//OpenWhiskDockerWait()
 	Sys(command)
 	return nil
