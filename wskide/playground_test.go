@@ -5,7 +5,7 @@ func ExamplePlayground() {
 	ideDockerRun("")
 
 	// Output:
+	// docker pull actionloop/ide-js:latest
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// docker run -d -p 3000:3000 --rm --name ide-js -v /var/run/docker.sock:/var/run/docker.sock --add-host=openwhisk: actionloop/ide-js
-
+	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk: actionloop/ide-js:latest
 }
