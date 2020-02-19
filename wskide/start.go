@@ -13,6 +13,7 @@ var (
 	initCmd     = kingpin.Command("init", "Initialise SDK Repository")
 	stopCmd     = kingpin.Command("stop", "Stop Development Environment")
 	httpCmd     = kingpin.Command("httpd", "Start http server")
+	statusCmd   = kingpin.Command("status", "Check Containers Status")
 )
 
 func startParse(cmd string) bool {
@@ -35,6 +36,10 @@ func startParse(cmd string) bool {
 	case httpCmd.FullCommand():
 		//err := Httpd(*httpPortArg, *httpDirArg)
 		err := Httpd(*httpPortArg)
+		ShowError(err)
+		return true
+	case statusCmd.FullCommand():
+		err := dockerStatus()
 		ShowError(err)
 		return true
 	}
