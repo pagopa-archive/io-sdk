@@ -36,14 +36,8 @@ jobs:
       run : |
         docker pull openwhisk/standalone:nightly
         docker pull actionloop/ide-js:latest
-<<<<<<< HEAD
         bin/iosdk start --verbose --skip-docker-version
         docker exec openwhisk waitready
         #bin/iosdk debug ide-deploy --verbose
-=======
-        bin/wskide start --verbose --skip-docker-version
-        docker exec openwhisk waitready
-        #bin/wskide debug ide-deploy --verbose
->>>>>>> c289b5a4397b444efe538ca9a7b7c94508bd0ee9
         docker ps
         docker exec -t ide-js sh /home/project/test.sh
