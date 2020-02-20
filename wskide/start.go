@@ -13,6 +13,7 @@ var (
 	initCmd     = kingpin.Command("init", "Initialise SDK Repository")
 	stopCmd     = kingpin.Command("stop", "Stop Development Environment")
 	statusCmd   = kingpin.Command("status", "Check Containers Status")
+	sendCmd     = kingpin.Command("send", "Send Message To IO")
 )
 
 func startParse(cmd string) bool {
@@ -38,6 +39,10 @@ func startParse(cmd string) bool {
 		return true
 	case statusCmd.FullCommand():
 		err := dockerStatus()
+		ShowError(err)
+		return true
+	case sendCmd.FullCommand():
+		err := SendMessage(*sendSubjectArg, *sendMarkdownArg, *sendDestArg, *sendKeyArg)
 		ShowError(err)
 		return true
 	}
