@@ -88,12 +88,12 @@ func TestMain(m *testing.M) {
 	flag.Parse()
 	*DryRunFlag = true
 	*testFlag = true
-	log.SetOutput(os.Stderr)
+	//log.SetOutput(os.Stderr)
+	log.SetOutput(ioutil.Discard)
 	log.SetFormatter(&log.TextFormatter{
 		DisableColors:    true,
 		DisableTimestamp: true,
 	})
 	log.SetLevel(log.DebugLevel)
-	//log.SetOutput(ioutil.Discard)
 	os.Exit(m.Run())
 }
