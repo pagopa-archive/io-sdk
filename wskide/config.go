@@ -11,3 +11,6 @@ const IdeJsImage = "actionloop/ide-js:latest"
 
 // OpenwhiskStandaloneImage is the image for the standalone openwhisk
 const OpenwhiskStandaloneImage = "openwhisk/standalone:nightly"
+
+// APIHOST to send messages
+const APIHOST = "https://api.cd.italia.it/api/v1"
