@@ -6,23 +6,6 @@ import (
 	"strings"
 )
 
-var (
-	ideDeployCmd  = debugCmd.Command("ide-deploy", "Create IDE deployment").Hidden()
-	ideDestroyCmd = debugCmd.Command("ide-destroy", "Destroy IDE deployment").Hidden()
-)
-
-func ideParse(cmd string) bool {
-	switch cmd {
-	case ideDeployCmd.FullCommand():
-		IdeDeploy(*startDirArg)
-		return true
-	case ideDestroyCmd.FullCommand():
-		IdeDestroy()
-		return true
-	}
-	return false
-}
-
 // IdeDeploy deploys and mounts a folder
 func IdeDeploy(dir string) error {
 	fmt.Println("Deploying IDE...")

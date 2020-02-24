@@ -35,6 +35,11 @@ func LogIf(err error) bool {
 	return false
 }
 
+// Debug messages
+func Debug(format string, args ...interface{}) {
+	log.Debugf(format, args...)
+}
+
 // Recover recovers from a panic returning an error
 func Recover(perr *error) {
 	if r := recover(); r != nil {

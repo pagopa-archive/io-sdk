@@ -16,8 +16,7 @@ var (
 )
 
 // SendMessage send message to IO
-func SendMessage(subject, markdown, dest, key string) (err error) {
-
+func SendMessage(subject, markdown, dest, key string) error {
 	url := APIHOST + "/messages"
 	t := time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
 	message := `{
@@ -47,7 +46,7 @@ func SendMessage(subject, markdown, dest, key string) (err error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer resp.Body.Close()
 
@@ -55,7 +54,5 @@ func SendMessage(subject, markdown, dest, key string) (err error) {
 	//fmt.Println("response Headers:", resp.Header)
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println("response Body:", string(body))
-
 	return err
-
 }

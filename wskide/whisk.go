@@ -4,19 +4,10 @@ import (
 	"fmt"
 )
 
-var (
-	whiskDeployCmd  = debugCmd.Command("whisk-deploy", "Create Whisk deployment").Hidden()
-	whiskDestroyCmd = debugCmd.Command("whisk-destroy", "Destroy Whisk deployment").Hidden()
-)
+var ()
 
 func whiskParse(cmd string) bool {
 	switch cmd {
-	case whiskDeployCmd.FullCommand():
-		WhiskDeploy()
-		return true
-	case whiskDestroyCmd.FullCommand():
-		WhiskDestroy()
-		return true
 	}
 	return false
 }

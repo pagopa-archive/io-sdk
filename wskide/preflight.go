@@ -10,12 +10,13 @@ import (
 )
 
 func preflightEnsureDockerVersion() error {
-	if *skipDockerVersion != true {
-		vA := semver.New(MinDockerVersion)
-		vB := semver.New(strings.TrimSpace(dockerVersion()))
-		if vB.Compare(*vA) == -1 {
-			return fmt.Errorf("Installed docker version %s is no longer supported", vB)
-		}
+	if *skipDockerVersion {
+		return nil
+	}
+	vA := semver.New(MinDockerVersion)
+	vB := semver.New(strings.TrimSpace(dockerVersion()))
+	if vB.Compare(*vA) == -1 {
+		return fmt.Errorf("Installed docker version %s is no longer supported", vB)
 	}
 	return nil
 }
