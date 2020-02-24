@@ -13,6 +13,7 @@ func ExampleStart() {
 	// Deploying Whisk...
 	// docker pull openwhisk/standalone:nightly
 	// docker run -d -p 3232:3232 -p 3233:3233 --rm --name openwhisk --hostname openwhisk -v //var/run/docker.sock:/var/run/docker.sock openwhisk/standalone:nightly
+
 	// Done.
 	// Deploying IDE...
 	// docker pull actionloop/ide-js:latest
