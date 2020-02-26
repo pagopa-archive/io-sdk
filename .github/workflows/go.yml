@@ -32,12 +32,14 @@ jobs:
     - name: Build
       run: go build -o bin/iosdk
 
-    - name: Test
+    - name: Go test
+      run: cd wskide && go test -v
+
+    - name: Test iosdk
       run : |
         docker pull openwhisk/standalone:nightly
         docker pull actionloop/ide-js:latest
-        bin/iosdk start --verbose --skip-docker-version
+        bin/iosdk start "" --skip-docker-version
         docker exec openwhisk waitready
-        #bin/iosdk debug ide-deploy --verbose
         docker ps
         docker exec -t ide-js sh /home/project/test.sh
