@@ -1,0 +1,8 @@
+packages:
+  backend:
+    version: 1.0
+    actions:
+      hello:
+        runtime: nodejs:8
+        web: true
+        function: src/hello.js

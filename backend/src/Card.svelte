@@ -14,7 +14,7 @@
                 </div>
                 <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a class="read-more" href="#">
+                <a class="read-more" href="-">
                   <span class="text">Leggi di più</span>
                   <svg class="icon">
                     <use xlink:href="/svg/sprite.svg#it-arrow-right"></use>
