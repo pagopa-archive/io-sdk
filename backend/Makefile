@@ -1,4 +1,5 @@
 IMG=actionloop/iosdk:latest
+AUTH=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
 
 .PHONE: build
 build:
@@ -6,6 +7,9 @@ build:
 	npm install
 	npm run build
 	docker build -t $(IMG) .
+
+push: build
+	docker push $(IMG)
 
 .PHONY: start
 start:
@@ -19,8 +23,6 @@ start:
 .PHONY: stop
 stop:
 	-docker exec openwhisk stop
-
-AUTH=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
 
 .PHONY: wsk
 wsk:
