@@ -12,8 +12,8 @@
             <Router>
               <MenuItem />
               <MenuItem icon="far fa-envelope" description="Send Message"  to="send"/>
-              <MenuItem icon="fas fa-file-code" description="Development" to="ide" />
-              <MenuItem icon="fas fa-info-circle" description="About" to="info"/>
+              <MenuItem icon="fas fa-file-code" description="Development" to="devel" />
+              <MenuItem icon="fas fa-info-circle" description="About" to="about"/>
             </Router>
           </ul>
         </div>

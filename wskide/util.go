@@ -114,6 +114,50 @@ func Sys(cli string, args ...string) string {
 	return res
 }
 
+// SysErr executes a command in a convenient way:
+// it splits the paramenter in arguments if separated by spaces,
+// then accepts multiple arguments;
+// logs errors in stderr and prints output in stdout;
+// also returns output as a string, or an error if there is an error
+// If the command starts with "@" do not print the output.
+// It also honor the DryRunFlag, in this case it always print the command
+func SysErr(cli string, args ...string) (string, error) {
+	re := regexp.MustCompile(`[\r\t\n\f ]+`)
+	a := strings.Split(re.ReplaceAllString(cli, " "), " ")
+	params := args
+	if len(a) > 1 {
+		params = append(a[1:], args...)
+	}
+	exe := strings.TrimPrefix(a[0], "@")
+	silent := strings.HasPrefix(a[0], "@")
+	if *DryRunFlag {
+		if len(params) > 0 {
+			fmt.Printf("%s %s\n", exe, strings.Join(params, " "))
+		} else {
+			fmt.Println(exe)
+		}
+		res := DryRunPop()
+		if strings.HasPrefix(res, "!") {
+			return "", errors.New(res[1:])
+		}
+		return res, nil
+	}
+
+	log.Tracef("< %s %v\n", exe, params)
+	cmd := exec.Command(exe, params...)
+	out, err := cmd.CombinedOutput()
+	res := string(out)
+	if err != nil {
+		log.Tracef("> ERROR: %s", err.Error())
+		return "", err
+	}
+	log.Tracef("> %s", res)
+	if !silent {
+		fmt.Printf(res)
+	}
+	return res, nil
+}
+
 // Run executes a command, without capturing input, in a convenient way:
 // it splits the paramenter in arguments if separated by spaces,
 // then accepts multiple arguments;
