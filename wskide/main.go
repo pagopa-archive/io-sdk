@@ -40,8 +40,6 @@ var (
 	stopCmd = kingpin.Command("stop", "Stop Development Environment")
 	// status
 	statusCmd = kingpin.Command("status", "Check Containers Status")
-	// send command
-	sendCmd = kingpin.Command("send", "Send Message To IO")
 )
 
 func parse(cmd string) {
@@ -73,9 +71,6 @@ func parse(cmd string) {
 	case statusCmd.FullCommand():
 		dockerStatus("openwhisk")
 		dockerStatus("ide-js")
-	// send
-	case sendCmd.FullCommand():
-		ShowError(SendMessage(*sendSubjectArg, *sendMarkdownArg, *sendDestArg, *sendKeyArg))
 	default:
 		kingpin.Usage()
 	}
