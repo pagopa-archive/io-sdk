@@ -7,7 +7,8 @@ import (
 
 func ExampleEnsureDockerVersion() {
 	*DryRunFlag = true
-	DryRunPush("19.03.5", "10.03.5", MinDockerVersion)
+	DryRunPush("19.03.5", "10.03.5", MinDockerVersion, "!no docker")
+	fmt.Println(preflightEnsureDockerVersion())
 	fmt.Println(preflightEnsureDockerVersion())
 	fmt.Println(preflightEnsureDockerVersion())
 	fmt.Println(preflightEnsureDockerVersion())
@@ -18,6 +19,8 @@ func ExampleEnsureDockerVersion() {
 	// Installed docker version 10.3.5 is no longer supported
 	// docker version --format {{.Server.Version}}
 	// <nil>
+	// docker version --format {{.Server.Version}}
+	// no docker
 }
 
 func ExampleInHomePath() {
