@@ -1,13 +1,15 @@
 package wskide
 
-func dockerVersion() string {
-	return Sys("@docker version --format {{.Server.Version}}")
+import "fmt"
+
+func dockerVersion() (string, error) {
+	return SysErr("@docker version --format {{.Server.Version}}")
 }
 
-func dockerStatus() (err error) {
-	err = Run("docker ps -a")
+func dockerStatus(container string) {
+	res, err := SysErr("@docker inspect --format {{.State.Status}} " + container)
 	if err != nil {
-		return err
+		res = "not running\n"
 	}
-	return nil
+	fmt.Print(container, ": ", res)
 }

@@ -4,14 +4,6 @@ import (
 	"fmt"
 )
 
-var ()
-
-func whiskParse(cmd string) bool {
-	switch cmd {
-	}
-	return false
-}
-
 // WhiskDeploy deploys openwhisk standalone
 func WhiskDeploy() error {
 	fmt.Println("Deploying Whisk...")
@@ -28,13 +20,22 @@ func WhiskDestroy() error {
 	return nil
 }
 
+// return empty string if ok, otherwise the error
 func whiskDockerRun() string {
 	err := Run("docker pull " + OpenwhiskStandaloneImage)
 	if err != nil {
 		return "cannot pull " + OpenwhiskStandaloneImage
 	}
-	cmd := fmt.Sprintf(`docker run -d -p 3232:3232
--p 3233:3233 --rm --name openwhisk --hostname openwhisk
+	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
+--rm --name openwhisk --hostname openwhisk
 -v //var/run/docker.sock:/var/run/docker.sock %s`, OpenwhiskStandaloneImage)
-	return Sys(cmd)
+	_, err = SysErr(cmd)
+	if err != nil {
+		return "cannot start server: " + err.Error()
+	}
+	err = Run("docker exec openwhisk waitready")
+	if err != nil {
+		return "server readyness error: " + err.Error()
+	}
+	return ""
 }
