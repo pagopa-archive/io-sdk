@@ -17,7 +17,7 @@ var (
 	// global flags
 	debugFlag = kingpin.Flag("debug", "Enable Debug log").Hidden().Default("false").Bool()
 	traceFlag = kingpin.Flag("trace", "Enable Trace log").Hidden().Default("false").Bool()
-	testFlag  = kingpin.Flag("test", "Enable Test Model").Hidden().Default("false").Bool()
+	testFlag  = kingpin.Flag("test", "Enable Test Mode").Hidden().Default("false").Bool()
 
 	// hidden global flags
 	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
@@ -40,8 +40,6 @@ var (
 	stopCmd = kingpin.Command("stop", "Stop Development Environment")
 	// status
 	statusCmd = kingpin.Command("status", "Check Containers Status")
-	// send command
-	sendCmd = kingpin.Command("send", "Send Message To IO")
 )
 
 func parse(cmd string) {
@@ -71,13 +69,8 @@ func parse(cmd string) {
 		ShowError(Init(*initDirArg, *initLangFlag, os.Stderr))
 	// Status
 	case statusCmd.FullCommand():
-		ShowError(dockerStatus())
-	// httpd
-	case httpCmd.FullCommand():
-		ShowError(Httpd(*httpPortArg, *httpDirArg))
-	// send
-	case sendCmd.FullCommand():
-		ShowError(SendMessage(*sendSubjectArg, *sendMarkdownArg, *sendDestArg, *sendKeyArg))
+		dockerStatus("openwhisk")
+		dockerStatus("ide-js")
 	default:
 		kingpin.Usage()
 	}

@@ -6,9 +6,12 @@
 </script>
 
 <main>
+<div id="root">
 	<Header/>
 	<Body/>
-	<Footer/>
 	<Cookiebar/>
+	<Footer/>
+</div>
+
 </main>
 
