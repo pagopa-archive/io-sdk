@@ -2,7 +2,11 @@ packages:
   backend:
     version: 1.0
     actions:
-      hello:
-        runtime: nodejs:8
+      echo:
+        docker: openwhisk/action-golang-v1.12
         web: true
-        function: src/hello.js
+        function: src/echo.go
+      send:
+        docker: openwhisk/action-golang-v1.12
+        web: true
+        function: src/send/main.go
