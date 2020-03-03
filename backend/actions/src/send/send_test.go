@@ -1,11 +1,10 @@
-package wskide
+package main
+
+import "fmt"
 
 func ExampleSendMessage() {
-	Debug("test disabled - need to store secrets in a safe way")
-
+	fmt.Println("test disabled - need to store secrets in a safe way")
 	return
-	*DryRunFlag = true
-	DryRunPush("response Body: {\"id\":\"01E1FHC33GSY6CE64JTGDYTYMP\"}")
 	var subject = "Welcome new user !"
 	var markdown = `# This is a markdown header\n\nto show how easily markdown can be converted to **HTML**\n\nRemember: this has to be a long text.`
 	// need this for the Example!!

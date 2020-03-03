@@ -13,8 +13,12 @@ func preflightEnsureDockerVersion() error {
 	if *skipDockerVersion {
 		return nil
 	}
+	version, err := dockerVersion()
+	if err != nil {
+		return err
+	}
 	vA := semver.New(MinDockerVersion)
-	vB := semver.New(strings.TrimSpace(dockerVersion()))
+	vB := semver.New(strings.TrimSpace(version))
 	if vB.Compare(*vA) == -1 {
 		return fmt.Errorf("Installed docker version %s is no longer supported", vB)
 	}
