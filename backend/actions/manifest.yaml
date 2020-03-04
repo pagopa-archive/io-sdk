@@ -1,0 +1,12 @@
+packages:
+  backend:
+    version: 1.0
+    actions:
+      echo:
+        docker: openwhisk/action-golang-v1.12
+        web: true
+        function: src/echo.go
+      send:
+        docker: openwhisk/action-golang-v1.12
+        web: true
+        function: src/send/main.go

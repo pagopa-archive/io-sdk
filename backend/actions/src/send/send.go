@@ -1,4 +1,4 @@
-package wskide
+package main
 
 import (
 	"bytes"
@@ -8,12 +8,7 @@ import (
 	"time"
 )
 
-var (
-	sendDestArg     = sendCmd.Arg("recipient", "Message Recipient (fiscal code)").String()
-	sendSubjectArg  = sendCmd.Arg("subject", "Message Subject").String()
-	sendMarkdownArg = sendCmd.Arg("markdown", "Message Markdown").String()
-	sendKeyArg      = sendCmd.Arg("key", "API Key").String()
-)
+var APIHOST = ""
 
 // SendMessage send message to IO
 func SendMessage(subject, markdown, dest, key string) error {
