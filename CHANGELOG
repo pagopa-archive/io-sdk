@@ -1,0 +1,16 @@
+# v0.4-pre
+
+- sample send message (not yet operative)
+- automated deployment of backoffice
+- backoffice
+- status cmd
+
+# v0.3-pre
+
+- init command
+- sample importer
+
+# v0.2-pre
+
+- the backend
+- the ide

@@ -52,6 +52,29 @@ func ExampleSys() {
 	// bar
 }
 
+func ExampleSysErr() {
+	*DryRunFlag = false
+	SysErr("/bin/echo 1 2 3")
+	SysErr("/bin/echo 3", "4", "5")
+	SysErr("@sh -c", "echo foo >/tmp/foo")
+	fmt.Print(Sys("cat /tmp/foo"))
+	SysErr("@sh -c", "echo bar >/tmp/bar")
+	fmt.Print(Sys("@cat /tmp/bar"))
+	_, err := SysErr("false")
+	fmt.Println("ERR", err)
+	_, err = SysErr("donotexist")
+	fmt.Println("ERR", err)
+	*DryRunFlag = true
+	// Output:
+	// 1 2 3
+	// 3 4 5
+	// foo
+	// foo
+	// bar
+	// ERR exit status 1
+	// ERR exec: "donotexist": executable file not found in $PATH
+}
+
 func ExampleSysCd() {
 	*DryRunFlag = false
 	Sys("@mkdir -p /tmp/example-syscd/hello-i-am-a-dir")
@@ -84,7 +107,27 @@ func ExampleDryRun() {
 	// second
 	// dummy
 	// ''
+}
 
+func ExampleDryRunErr() {
+	DryRunPush("first", "second", "!third")
+	out, err := SysErr("dummy")
+	fmt.Println(1, out, err)
+	out, err = SysErr("dummy", "alpha", "beta")
+	fmt.Println(2, out, err)
+	out, err = SysErr("dummy")
+	fmt.Println(3, "out", out, "err", err)
+	out, err = SysErr("dummy")
+	fmt.Println(4, "out", out, "err", err)
+	// Output:
+	// dummy
+	// 1 first <nil>
+	// dummy alpha beta
+	// 2 second <nil>
+	// dummy
+	// 3 out  err third
+	// dummy
+	// 4 out  err <nil>
 }
 
 func ExampleShowError() {
