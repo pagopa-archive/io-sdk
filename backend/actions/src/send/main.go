@@ -5,12 +5,6 @@ import (
 	"html/template"
 )
 
-const answer = `<table>
- <tr><th>CodFiscDesc</th><td>{{.CodFiscDest}}</td></td>
- <tr><th>Message</th><td>{{.Message}}</td></td>
-</table>
-`
-
 // Main function for the action
 func Main(data map[string]interface{}) map[string]interface{} {
 	t := template.Must(template.New("answer").Parse(answer))

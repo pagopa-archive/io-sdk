@@ -9,4 +9,4 @@ packages:
       send:
         docker: openwhisk/action-golang-v1.12
         web: true
-        function: src/send/main.go
+        function: zip/send.zip
