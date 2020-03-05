@@ -17,7 +17,7 @@ RUN cd /home/plugins/ide-plugin && npm install && npm run build
 WORKDIR /home/theia
 ADD latest.package.json /home/theia/package.json
 RUN yarn --pure-lockfile && \
-    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
+    NODE_OPTIONS="--max_old_space_size=8192" yarn theia build && \
     yarn --production && \
     yarn autoclean --init && \
     echo *.ts >> .yarnclean && \
