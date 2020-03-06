@@ -21,6 +21,9 @@ build:
 	npm run build
 	docker build -t $(IMG) .
 
+push: build
+	docker push $(IMG)
+
 .PHONY: wsk
 wsk:
 	wsk property set --apihost http://localhost:3280 --auth $(AUTH)
