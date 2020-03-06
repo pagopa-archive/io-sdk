@@ -1,8 +1,5 @@
 IMG=actionloop/iosdk:latest
-<<<<<<< HEAD
-=======
 AUTH=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
->>>>>>> e6b2df6053b8c531571140e1242f37e38454cd8b
 
 .PHONE: build
 build:
@@ -23,8 +20,6 @@ start:
 .PHONY: stop
 stop:
 	-docker exec openwhisk stop
-
-AUTH=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
 
 .PHONY: wsk
 wsk:
