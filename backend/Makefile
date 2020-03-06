@@ -28,6 +28,11 @@ push: build
 wsk:
 	wsk property set --apihost http://localhost:3280 --auth $(AUTH)
 
+.PHONY: devel
+devel:
+	npm install
+	npm run dev
+
 .PHONY: deploy
 deploy: wsk
 	cd actions ; wsk project deploy
