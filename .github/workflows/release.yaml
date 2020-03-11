@@ -9,12 +9,16 @@ name: Create Release And Upload Assets
 jobs:
   build:
     name: Create Release And Upload Assets
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@master
 
       - name: Get dependencies and build ELF 64-bit LSB executable, x86-64
+        if: matrix.os == 'ubuntu-latest'
         run: |
           export GOOS=linux
           go get -v -t -d ./...
@@ -22,6 +26,7 @@ jobs:
           go build -v -o bin/linux/iosdk_lin
 
       - name: Get dependencies and build PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
+        if: matrix.os == 'windows-latest'
         run: |
           export GOOS=windows
           go get -v -t -d ./...
@@ -29,6 +34,7 @@ jobs:
           go build -v -o bin/windows/iosdk_win.exe
 
       - name: Get dependencies and build Mach-O 64-bit x86_64 executable
+        if: matrix.os == 'ubuntu-latest'
         run: |
           export GOOS=darwin
           go get -v -t -d ./...
@@ -36,6 +42,7 @@ jobs:
           go build -v -o bin/mac/iosdk_mac
 
       - name: Create Release
+        if: matrix.os == 'ubuntu-latest'
         id: create_release
         uses: actions/create-release@v1.0.0
         env:
@@ -47,6 +54,7 @@ jobs:
           prerelease: true
 
       - name: Upload Linux Release Asset
+        if: matrix.os == 'ubuntu-latest'
         id: upload-release-asset-linux
         uses: actions/upload-release-asset@v1.0.1
         env:
@@ -58,6 +66,7 @@ jobs:
           asset_content_type: application/octet-stream
 
       - name: Upload Windows Release Asset
+        if: matrix.os == 'windows-latest'
         id: upload-release-asset-windows
         uses: actions/upload-release-asset@v1.0.1
         env:
@@ -69,6 +78,7 @@ jobs:
           asset_content_type: application/octet-stream
 
       - name: Upload macOS Release Asset
+        if: matrix.os == 'ubuntu-latest'
         id: upload-release-asset-macos
         uses: actions/upload-release-asset@v1.0.1
         env:
