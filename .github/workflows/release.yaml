@@ -26,7 +26,7 @@ jobs:
           export GOOS=windows
           go get -v -t -d ./...
           mkdir -p bin/windows
-          go build -v -o bin/windows/iosdk_win.exe
+          go build
 
       - name: Get dependencies and build Mach-O 64-bit x86_64 executable
         run: |
