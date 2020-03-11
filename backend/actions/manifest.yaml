@@ -2,10 +2,10 @@ packages:
   backend:
     version: 1.0
     actions:
-      echo:
-        docker: openwhisk/action-golang-v1.12
+      import:
         web: true
-        function: src/echo.go
+        function: src/import/import.js
+        runtime: nodejs:10
       send:
         docker: openwhisk/action-golang-v1.12
         web: true
