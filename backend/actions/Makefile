@@ -3,5 +3,5 @@
 deploy: zip/send.zip
 	wsk project deploy
 
-zip/send.zip: src/send/main.go src/send/const.go
+zip/send.zip: src/send/main.go src/send/const.go src/send/send.go
 	zip -j $@ $^
