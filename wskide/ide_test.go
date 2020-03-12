@@ -34,5 +34,4 @@ func ExampleIdeDockerRm() {
 	// Destroying IDE...
 	// docker kill ide-js
 	// 172.17.0.3
-	// Done.
 }

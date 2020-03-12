@@ -8,7 +8,6 @@ import (
 func WhiskDeploy() error {
 	fmt.Println("Deploying Whisk...")
 	fmt.Println(whiskDockerRun())
-	fmt.Println("Done.")
 	return nil
 }
 
@@ -16,7 +15,6 @@ func WhiskDeploy() error {
 func WhiskDestroy() error {
 	fmt.Println("Destroying Whisk...")
 	fmt.Println(Sys("docker exec openwhisk stop"))
-	fmt.Println("Done.")
 	return nil
 }
 
