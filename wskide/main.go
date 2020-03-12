@@ -28,6 +28,8 @@ var (
 	ideDestroyCmd   = debugCmd.Command("ide-destroy", "Destroy IDE deployment").Hidden()
 	whiskDeployCmd  = debugCmd.Command("whisk-deploy", "Create Whisk deployment").Hidden()
 	whiskDestroyCmd = debugCmd.Command("whisk-destroy", "Destroy Whisk deployment").Hidden()
+	redisDeployCmd  = debugCmd.Command("redis-deploy", "Create Redis deployment").Hidden()
+	redisDestroyCmd = debugCmd.Command("redius-destroy", "Destroy Redis deployment").Hidden()
 
 	// start, stop, init and status
 	startCmd    = kingpin.Command("start", "Start Development Enviroment")
@@ -53,6 +55,10 @@ func parse(cmd string) {
 		WhiskDeploy()
 	case whiskDestroyCmd.FullCommand():
 		WhiskDestroy()
+	case redisDeployCmd.FullCommand():
+		RedisDeploy()
+	case redisDestroyCmd.FullCommand():
+		RedisDestroy()
 	// Start
 	case startCmd.FullCommand():
 		err := Start(*startDirArg)
@@ -70,6 +76,7 @@ func parse(cmd string) {
 	// Status
 	case statusCmd.FullCommand():
 		dockerStatus("openwhisk")
+		dockerStatus("redis")
 		dockerStatus("ide-js")
 	default:
 		kingpin.Usage()

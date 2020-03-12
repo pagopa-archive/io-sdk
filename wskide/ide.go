@@ -22,7 +22,6 @@ func IdeDeploy(dir string) error {
 func IdeDestroy() error {
 	fmt.Println("Destroying IDE...")
 	fmt.Println(Sys("docker kill ide-js"))
-	fmt.Println("Done.")
 	return nil
 }
 

@@ -39,6 +39,5 @@ func ExampleWhiskDockerRm() {
 	// Destroying Whisk...
 	// docker exec openwhisk stop
 	//
-	// Done.
 	// <nil>
 }
