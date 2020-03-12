@@ -47,8 +47,12 @@
       <label for="apiKeyIO">API Key IO</label>
     </div>
     <div class="form-group">
-      <textarea id="messageBody" rows="3" bind:value={data.Message}></textarea>
-      <label for="messageBody">Corpo del messaggio</label>
+      <input type="text" class="form-control" id="messageSubject" bind:value={data.MessageSuject}>
+      <label for="messageSubject">Soggetto del messaggio</label>
+    </div>
+    <div class="form-group">
+      <textarea id="message" rows="3" bind:value={data.Message}></textarea>
+      <label for="message">Markdown del messaggio</label>
     </div>
     <div class="form-group">
     <button type="button" class="btn btn-primary" on:click={submitForm}>Invia</button>

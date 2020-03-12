@@ -8,11 +8,9 @@ import (
 	"time"
 )
 
-var APIHOST = ""
-
 // SendMessage send message to IO
 func SendMessage(subject, markdown, dest, key string) error {
-	url := APIHOST + "/messages"
+	url := apihost + "/messages"
 	t := time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
 	message := `{
 		"time_to_live": 3600,
@@ -32,7 +30,7 @@ func SendMessage(subject, markdown, dest, key string) error {
 	//fmt.Println("URL:>", url)
 	var jsonStr = []byte(message)
 	size := len(jsonStr)
-	//fmt.Println(message)
+	fmt.Println(message)
 	//fmt.Println("Content-Lenght", size)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Ocp-Apim-Subscription-Key", key)
