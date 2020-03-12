@@ -1,13 +1,6 @@
 IMG=actionloop/iosdk:latest
 AUTH=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
 
-.PHONE: build
-build:
-	node -v | grep v10
-	npm install
-	npm run build
-	docker build -t $(IMG) .
-
 .PHONY: start
 start:
 	docker run -ti \
@@ -21,10 +14,25 @@ start:
 stop:
 	-docker exec openwhisk stop
 
+.PHONE: build
+build:
+	node -v | grep v10
+	npm install
+	npm run build
+	docker build -t $(IMG) .
+
+push: build
+	docker push $(IMG)
+
 .PHONY: wsk
 wsk:
 	wsk property set --apihost http://localhost:3280 --auth $(AUTH)
 
+.PHONY: devel
+devel:
+	npm install
+	npm run dev
+
 .PHONY: deploy
 deploy: wsk
-	cd actions ; wsk project deploy 
+	cd actions ; wsk project deploy

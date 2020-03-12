@@ -9,8 +9,8 @@
 
 <section class="row">
   <Menu />
-  <div class="col-9">
-    <div class="mr-4 pt-5 pb-5">
+  <div class="col-9 col-md-offset-1 ">
+    <div class="mr-1 pt-1 pb-1" >
       <Router>
         <Route path="/">
           <Home />
