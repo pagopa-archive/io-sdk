@@ -1,4 +1,4 @@
-Package: io-sdk
+Package: iosdk
 Version: 0.5-pre
 Section: base
 Priority: optional
