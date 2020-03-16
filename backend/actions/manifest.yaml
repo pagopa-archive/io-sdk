@@ -1,14 +1,33 @@
 packages:
+  util:
+    version: 1.0
+    actions:
+      hello:
+        function: deploy/util/hello.js
+        runtime: nodejs:10
+      echo:
+        function: deploy/util/echo.go
+        docker: openwhisk/action-golang-v1.12
+        web: raw
+      cache:
+        function: deploy/util/cache.py
+        docker: actionloop/actionloop-python-v3.7
+
   mock:
-    
+      version: 1.0
+      actions:
+        send:
+          function: deploy/mock/send.py
+          docker: actionloop/actionloop-python-v3.7
+
   backend:
     version: 1.0
     actions:
       import:
-        web: true
-        function: src/import/import.js
+        function: deploy/backend/import.js
         runtime: nodejs:10
+        web: true
       send:
+        function: deploy/send.zip
         docker: openwhisk/action-golang-v1.12
         web: true
-        function: zip/send.zip

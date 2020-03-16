@@ -24,7 +24,7 @@ func redisDockerRun() string {
 	if err != nil {
 		return "cannot pull " + RedisImage
 	}
-	cmd := fmt.Sprintf(`docker run -d 
+	cmd := fmt.Sprintf(`docker run -d -p 6379:6379
 --rm --name redis --hostname redis %s`, RedisImage)
 	_, err = SysErr(cmd)
 	if err != nil {

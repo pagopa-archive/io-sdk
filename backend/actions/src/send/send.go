@@ -27,7 +27,7 @@ func SendMessage(subject, markdown, dest, key string) error {
 		t,
 		dest,
 	)
-	//fmt.Println("URL:>", url)
+	fmt.Println("URL:>", url)
 	var jsonStr = []byte(message)
 	size := len(jsonStr)
 	fmt.Println(message)

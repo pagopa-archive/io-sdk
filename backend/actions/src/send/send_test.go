@@ -1,10 +1,6 @@
 package main
 
-import "fmt"
-
 func ExampleSendMessage() {
-	fmt.Println("test disabled - need to store secrets in a safe way")
-	//return
 	var subject = "Welcome new user !"
 	var markdown = `# This is a markdown header\n\nto show how easily markdown can be converted to **HTML**\n\nRemember: this has to be a long text.`
 	// need this for the Example!!

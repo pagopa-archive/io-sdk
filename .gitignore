@@ -4,3 +4,4 @@ io-sdk.code-workspace
 project/
 bin/iosdk
 tmp/
+*.zip

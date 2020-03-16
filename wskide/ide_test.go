@@ -19,7 +19,7 @@ func ExampleIdeDockerRun() {
 	// 1 <nil>
 	// docker pull actionloop/ide-js:latest
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// 2 Error:
+	// 2 cannot find openwhisk
 	// docker pull actionloop/ide-js:latest
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
 	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 actionloop/ide-js:latest

@@ -36,3 +36,7 @@ devel:
 .PHONY: deploy
 deploy: wsk
 	cd actions ; wsk project deploy
+
+.PHONY: undeploy
+undeploy: wsk
+	cd actions ; wsk project undeploy
