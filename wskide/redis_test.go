@@ -8,7 +8,7 @@ func ExampleRedisRunOk() {
 	fmt.Println(redisDockerRun())
 	// Output:
 	// docker pull library/redis:5
-	// docker run -d --rm --name redis --hostname redis library/redis:5
+	// docker run -d -p 6379:6379 --rm --name redis --hostname redis library/redis:5
 }
 
 func ExampleRedisRunKo() {
@@ -21,7 +21,7 @@ func ExampleRedisRunKo() {
 	// docker pull library/redis:5
 	// 1 cannot pull library/redis:5
 	// docker pull library/redis:5
-	// docker run -d --rm --name redis --hostname redis library/redis:5
+	// docker run -d -p 6379:6379 --rm --name redis --hostname redis library/redis:5
 	// 2 cannot start redis: cannot start
 }
 

@@ -1,11 +1,10 @@
-
 .PHONY: deploy
-deploy: zip/send.zip
+deploy: deploy/send.zip
 	wsk project deploy
 
-src/send.zip: src/send/main.go src/send/const.go src/send/send.go
-	zip -j $@ $^
+.PHONY: undeploy
+undeploy:
+	wsk project undeploy
 
-zip/send.zip: src/send.zip
-	docker run -i openwhisk/action-golang-v1.11 -compile main <$< >$@  
- 
+deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
+	zip - -r -j $^ | docker run -i openwhisk/action-golang-v1.11 -compile main >$@

@@ -3,7 +3,6 @@ package wskide
 import (
 	"fmt"
 	"path/filepath"
-	"strings"
 )
 
 // IdeDeploy deploys and mounts a folder
@@ -43,16 +42,13 @@ func ideDockerRun(dir string) (err error) {
 		}
 	}
 
-	openwhiskIP := Sys("docker inspect",
-		"--format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}",
-		"openwhisk")
-	openwhiskIP = strings.TrimSpace(openwhiskIP)
-	if strings.HasPrefix(openwhiskIP, "Error:") {
-		return fmt.Errorf("%s", openwhiskIP)
+	openwhiskIP := dockerIP("openwhisk")
+	if openwhiskIP == nil {
+		return fmt.Errorf("cannot find openwhisk")
 	}
 
 	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js 
-	--add-host=openwhisk:%s %s %s`, openwhiskIP, mount, IdeJsImage)
+	--add-host=openwhisk:%s %s %s`, *openwhiskIP, mount, IdeJsImage)
 	//OpenWhiskDockerWait()
 	Sys(command)
 	return nil
