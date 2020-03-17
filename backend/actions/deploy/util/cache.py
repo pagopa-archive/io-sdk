@@ -1,4 +1,10 @@
-import redis, json, os
+import json, os
+
+try: import redis
+except:
+    import pip
+    pip.main(["install", "redis"])
+    import redis
 
 def main(args):
     red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
@@ -10,7 +16,7 @@ def main(args):
         #print{}}
         res = {}
         if red.set(k,v):
-            res["set:%s"] = True
+            res["set:%s"%arg] = True
         else:
             res["error"] = "cannot set %s to %s" % (k,v)
     if "get" in args:
