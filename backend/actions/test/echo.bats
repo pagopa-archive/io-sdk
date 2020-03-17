@@ -1,10 +1,5 @@
 #!/usr/bin/env bats
-
 load util
-
-function setup {
-    export URL=$(wsk action get util/echo --url | tail +2 | sed -e 's!/util/echo!!')
-}
 
 @test "echo put" {
     run http PUT $URL/util/echo hello=world
