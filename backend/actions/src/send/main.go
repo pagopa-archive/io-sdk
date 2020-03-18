@@ -2,16 +2,14 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"html/template"
 )
 
 // Main function for the action
 func Main(data map[string]interface{}) map[string]interface{} {
-	t := template.Must(template.New("answer").Parse(answer))
+	t := template.Must(template.New("answer").Parse(answerTpl))
 	buf := new(bytes.Buffer)
 	t.Execute(buf, data)
-	fmt.Println(data)
 
 	// MessageSubject := fmt.Sprintf("%v", data["MessageSubject"])
 	// MessageSubject = "Welcome new user!"

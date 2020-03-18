@@ -2,50 +2,53 @@ package main
 
 import (
 	"bytes"
-	"fmt"
+	"encoding/json"
+	"html/template"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"time"
 )
 
+// Entrypoint is the entrypoint to send messages
+type Entrypoint struct {
+	URL string
+	Key string
+}
+
+// Message is the message
+type Message struct {
+	Dest     string
+	Subject  string
+	Markdown string
+	DueDate  string
+}
+
 // SendMessage send message to IO
-func SendMessage(subject, markdown, dest, key string) error {
-	url := apihost + "/messages"
-	t := time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
-	message := `{
-		"time_to_live": 3600,
-		"content": {
-			"subject": "%s",
-			"markdown": "%s",
-			"due_date": "%s"
-		},
-		"fiscal_code": "%s"
-	}`
-	message = fmt.Sprintf(message,
-		subject,
-		markdown,
-		t,
-		dest,
-	)
-	fmt.Println("URL:>", url)
-	var jsonStr = []byte(message)
-	size := len(jsonStr)
-	fmt.Println(message)
+func SendMessage(entry *Entrypoint, msg *Message) (map[string]string, error) {
+	msg.DueDate = time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
+	t := template.Must(template.New("message").Parse(messageTpl))
+	buf := new(bytes.Buffer)
+	t.Execute(buf, msg)
+
 	//fmt.Println("Content-Lenght", size)
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-	req.Header.Set("Ocp-Apim-Subscription-Key", key)
+	req, err := http.NewRequest("POST", entry.URL, buf)
+	req.Header.Set("Ocp-Apim-Subscription-Key", entry.Key)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Content-Lenght", string(size))
+	req.Header.Set("Content-Length", strconv.Itoa(buf.Len()))
+	//log.Println(req)
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
-	//fmt.Println("response Status:", resp.Status)
-	//fmt.Println("response Headers:", resp.Header)
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
-	return err
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	res := make(map[string]string)
+	json.Unmarshal(body, &res)
+	return res, nil
 }

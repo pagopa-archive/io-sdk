@@ -9,16 +9,17 @@ packages:
         function: deploy/util/echo.go
         docker: openwhisk/action-golang-v1.12
         web: raw
+      echobody:
+        function: deploy/util/echobody.py
+        docker: actionloop/actionloop-python-v3.7
+        web: raw
       cache:
         function: deploy/util/cache.py
         docker: actionloop/actionloop-python-v3.7
-
-  mock:
-      version: 1.0
-      actions:
-        send:
-          function: deploy/mock/send.py
+      messages:
+          function: deploy/util/messages.py
           docker: actionloop/actionloop-python-v3.7
+          web: raw
 
   backend:
     version: 1.0
