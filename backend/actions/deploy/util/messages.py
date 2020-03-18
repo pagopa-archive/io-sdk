@@ -23,7 +23,7 @@ def main(args):
             id = str(int(time.time()*1000))
             red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
             data = json.dumps(body).encode("utf-8")
-            red.set(body["fiscal_code"], data)
+            red.set("message:%s" % body["fiscal_code"], data)
             return {"body": {"id": id} }
 
     return { "body": { "detail": "validation errors"}}

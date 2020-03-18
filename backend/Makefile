@@ -1,5 +1,14 @@
 IMG=actionloop/iosdk:latest
 
+.PHONY: deploy
+deploy:
+	$(MAKE) -C actions deploy
+
+.PHONY: devel
+devel:
+	npm install
+	npm run dev
+
 .PHONY: start
 start:
 	docker run -ti \
@@ -22,15 +31,6 @@ build:
 
 push: build
 	docker push $(IMG)
-
-.PHONY: devel
-devel:
-	npm install
-	npm run dev
-
-.PHONY: deploy
-deploy:
-	$(MAKE) -C actions deploy
 
 .PHONY: undeploy
 undeploy:

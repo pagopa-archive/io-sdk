@@ -34,6 +34,11 @@ def main(args):
             res["del:%s"%k]=True
         else:
             res["error"] = "cannot delete %s" % k
+    if "scan" in args:
+        pattern = args["scan"]
+        (_, ls) = red.scan(match=pattern)
+        ls = [ i.decode("utf-8") for i in ls]
+        res["scan"] = ls
     return res
 
 if __name__=="__main__":
