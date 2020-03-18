@@ -5,6 +5,7 @@ import "fmt"
 func ExampleMain() {
 	data := map[string]interface{}{
 		"CodFiscDest": "123456",
+		"Subject":     "Subject",
 		"Message":     "HelloWord",
 	}
 	fmt.Printf("%v\n", Main(data))

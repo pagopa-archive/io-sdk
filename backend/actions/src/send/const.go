@@ -1,10 +1,17 @@
 package main
 
-const apihost = "https://api.cd.italia.it/api/v1"
-
-const answer = `<table>
- <tr><th>CodFiscDesc</th><td>{{.CodFiscDest}}</td></td>
- <tr><th>MessageSubject</th><td>{{.MessageSubject}}</td></td>
- <tr><th>Message</th><td>{{.Message}}</td></td>
+const answerTpl = `<table>
+ <tr><th>CodFiscDesc</th><td>{{.Dest}}</td></td>
+ <tr><th>Subject</th><td>{{.Subject}}</td></td>
+ <tr><th>Body</th><td>{{.Markdown}}</td></td>
 </table>
 `
+const messageTpl = `{
+	"time_to_live": 3600,
+	"content": {
+		"subject": "{{.Subject}}",
+		"markdown": "{{.Markdown}}",
+		"due_date": "{{.DueDate}}"
+	},
+	"fiscal_code": "{{.Dest}}"
+}`
