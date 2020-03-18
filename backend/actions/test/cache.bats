@@ -2,8 +2,10 @@
 load util
 
 @test "cache cli" {
-    run python3 deploy/util/cache.py set:pippo=pluto 
-    ckline "set:pippo=pluto" 
+    run python3 deploy/util/cache.py set:pippo=pluto
+    ckline "set:pippo=pluto"
+    run python3 deploy/util/cache.py "scan:*"
+    ckline '"pippo"'
     run python3 deploy/util/cache.py get:pippo
     ckline '"pippo": "pluto"'
     run python3 deploy/util/cache.py del:pippo
