@@ -40,6 +40,8 @@ var (
 	stopCmd = kingpin.Command("stop", "Stop Development Environment")
 	// status
 	statusCmd = kingpin.Command("status", "Check Containers Status")
+	// config
+	configCmd = kingpin.Command("config", "Edit config file $HOME/.iosdk")
 )
 
 func parse(cmd string) {
@@ -71,6 +73,8 @@ func parse(cmd string) {
 	case statusCmd.FullCommand():
 		dockerStatus("openwhisk")
 		dockerStatus("ide-js")
+	case configCmd.FullCommand():
+		config()
 	default:
 		kingpin.Usage()
 	}

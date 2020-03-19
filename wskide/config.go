@@ -1,16 +1,46 @@
 package wskide
 
-//MinDockerVersion required
-const MinDockerVersion = "18.06.3-ce"
+import (
+	"bufio"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+)
 
-// BrowserURL to access
-const BrowserURL = "http://localhost:3280/"
+// config file json
+type jsonConfig struct {
+	Apikey string `json:"apikey"`
+}
 
-// IdeJsImage is the image for the ide
-const IdeJsImage = "actionloop/ide-js:latest"
+var (
+	home string = os.Getenv("HOME")
+	name string = ".iosdk"
+)
 
-// OpenwhiskStandaloneImage is the image for the standalone openwhisk
-const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"
+func config() {
+	fmt.Print("Enter apikey: ")
 
-// APIHOST to send messages
-const APIHOST = "https://api.cd.italia.it/api/v1"
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	text := scanner.Text()
+
+	res := &jsonConfig{
+		Apikey: text}
+	json, err := json.MarshalIndent(res, "", " ")
+
+	// add \n at the end of the json
+	var b uint8 = 10
+	json = append(json, b)
+
+	if err != nil {
+		return
+	}
+	configFile := fmt.Sprintf("%s/%s", home, name)
+	err = ioutil.WriteFile(configFile, json, 0644)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("Wrote apikey on", configFile, "ok")
+}
