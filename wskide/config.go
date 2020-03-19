@@ -1,59 +1,46 @@
 package wskide
 
 import (
+	"bufio"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
-
-	"github.com/mitchellh/go-homedir"
 )
 
-//MinDockerVersion required
-const MinDockerVersion = "18.06.3-ce"
-
-// BrowserURL to access
-const BrowserURL = "http://localhost:3280/"
-
-// IdeJsImage is the image for the ide
-const IdeJsImage = "actionloop/ide-js:latest"
-
-// OpenwhiskStandaloneImage is the image for the standalone openwhisk
-const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"
-
-// RedisImage is the image for redis
-const RedisImage = "library/redis:5"
-
-// IOAPIHOST to send messages
-const IOAPIHOST = "https://api.cd.italia.it/api/v1"
-
-// IoSDKConfig is the global configuration type
-type IoSDKConfig struct {
-	// WhiskApiHost is the openwhisk api host
-	WhiskAPIHost string `json:"whisk-apihost"`
-	// WhiskAPIKey is the openwhisk api key
-	WhiskAPIKey string `json:"whisk-apikey"`
-	// WhiskNamespace is the openwhisk namespace
-	WhiskNamespace string `json:"whisk-namespace"`
-	// IoAPIKey is the io api key
-	IoAPIKey string `json:"io-apikey"`
+// config file json
+type jsonConfig struct {
+	Apikey string `json:"apikey"`
 }
 
-// Config is the global configuration
-var Config *IoSDKConfig
+var (
+	home string = os.Getenv("HOME")
+	name string = ".iosdk"
+)
 
-// LoadConfig load the configuration
-func LoadConfig() error {
-	configFile, err := homedir.Expand("~/.iosdk")
+func config() {
+	fmt.Print("Enter apikey: ")
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	text := scanner.Text()
+
+	res := &jsonConfig{
+		Apikey: text}
+	json, err := json.MarshalIndent(res, "", " ")
+
+	// add \n at the end of the json
+	var b uint8 = 10
+	json = append(json, b)
+
 	if err != nil {
-		return err
+		return
 	}
-	if _, err := os.Stat(configFile); err != nil {
-		return err
-	}
-	buf, err := ioutil.ReadFile(configFile)
+	configFile := fmt.Sprintf("%s/%s", home, name)
+	err = ioutil.WriteFile(configFile, json, 0644)
 	if err != nil {
-		return err
+		fmt.Println(err)
+		return
 	}
-	json.Unmarshal(buf, &Config)
-	return nil
+	fmt.Println("Wrote apikey on", configFile, "ok")
 }
