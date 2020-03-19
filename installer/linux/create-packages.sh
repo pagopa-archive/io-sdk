@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 cd $(dirname "${BASH_SOURCE[0]}")
-ls -la
 cp ../../bin/iosdk deb/iosdk_0.5/usr/local/bin/
 
 pushd deb
