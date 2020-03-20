@@ -4,7 +4,9 @@
   import Menu from "./Menu.svelte";
   import About from "./About.svelte";
   import Devel from "./Devel.svelte";
+  import Debug from "./Debug.svelte";
   import Send from "./Send.svelte";
+  import Ship from "./Ship.svelte";
   import Import from "./Import.svelte";
   export let url = ""
 </script>
@@ -15,9 +17,11 @@
     <div class="mr-1 pt-1 pb-1" >
       <Router url="{url}">
         <Route path="/" component="{Home}"/>
-        <Route path="send" component="{Send}"/>
         <Route path="import" component="{Import}"/>
+        <Route path="ship" component="{Ship}"/>
+        <Route path="send" component="{Send}"/>
         <Route path="devel" component="{Devel}"/>
+        <Route path="debug" component="{Debug}"/>
         <Route path="about" component="{About}"/>
       </Router>
     </div>
