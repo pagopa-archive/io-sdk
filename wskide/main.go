@@ -1,6 +1,7 @@
 package wskide
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -86,6 +87,10 @@ func parse(cmd string) {
 // Main entrypoint for wskide
 func Main() {
 	cmd := kingpin.Parse()
+	if err := LoadConfig(); err != nil {
+		fmt.Println("You need to run 'iosdk config', first.")
+		os.Exit(1)
+	}
 	if *debugFlag {
 		log.SetLevel(log.DebugLevel)
 	}
