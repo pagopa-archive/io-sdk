@@ -6,6 +6,10 @@ func Start(dir string) error {
 	if err != nil {
 		return err
 	}
+	err = RedisDeploy()
+	if err != nil {
+		return err
+	}
 	err = WhiskDeploy()
 	if err != nil {
 		return err
@@ -21,5 +25,6 @@ func Start(dir string) error {
 func Stop() error {
 	IdeDestroy()
 	WhiskDestroy()
+	RedisDestroy()
 	return nil
 }
