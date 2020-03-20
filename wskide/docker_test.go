@@ -15,3 +15,15 @@ func ExampleDockerVersion() {
 	// docker version --format {{.Server.Version}}
 	//  no docker
 }
+
+func ExampleDockerIP() {
+	DryRunPush("192.168.192.168", "Error: cannot find")
+	fmt.Println(*dockerIP("dummy"))
+	fmt.Println(dockerIP("dummy"))
+	// Output:
+	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} dummy
+	// 192.168.192.168
+	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} dummy
+	// <nil>
+
+}

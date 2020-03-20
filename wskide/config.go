@@ -6,7 +6,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"github.com/mitchellh/go-homedir"
 )
+
+//MinDockerVersion required
+const MinDockerVersion = "18.06.3-ce"
 
 // config file json
 type jsonConfig struct {
@@ -43,4 +48,40 @@ func config() {
 		return
 	}
 	fmt.Println("Wrote apikey on", configFile, "ok")
+// RedisImage is the image for redis
+const RedisImage = "library/redis:5"
+
+// IOAPIHOST to send messages
+const IOAPIHOST = "https://api.cd.italia.it/api/v1"
+
+// IoSDKConfig is the global configuration type
+type IoSDKConfig struct {
+	// WhiskApiHost is the openwhisk api host
+	WhiskAPIHost string `json:"whisk-apihost"`
+	// WhiskAPIKey is the openwhisk api key
+	WhiskAPIKey string `json:"whisk-apikey"`
+	// WhiskNamespace is the openwhisk namespace
+	WhiskNamespace string `json:"whisk-namespace"`
+	// IoAPIKey is the io api key
+	IoAPIKey string `json:"io-apikey"`
+}
+
+// Config is the global configuration
+var Config *IoSDKConfig
+
+// LoadConfig load the configuration
+func LoadConfig() error {
+	configFile, err := homedir.Expand("~/.iosdk")
+	if err != nil {
+		return err
+	}
+	if _, err := os.Stat(configFile); err != nil {
+		return err
+	}
+	buf, err := ioutil.ReadFile(configFile)
+	if err != nil {
+		return err
+	}
+	json.Unmarshal(buf, &Config)
+	return nil
 }
