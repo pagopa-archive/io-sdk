@@ -39,6 +39,8 @@ jobs:
       run : |
         docker pull openwhisk/standalone:nightly
         docker pull actionloop/ide-js:latest
+        docker pull library/redis:5
+        echo "1" | bin/iosdk config
         bin/iosdk start "" --skip-docker-version
         docker exec openwhisk waitready
         docker ps
