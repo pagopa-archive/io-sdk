@@ -7,12 +7,25 @@ import (
 
 // Main function for the action
 func Main(data map[string]interface{}) map[string]interface{} {
-	t := template.Must(template.New("answer").Parse(answer))
+
+	t := template.Must(template.New("answer").Parse(answerTpl))
 	buf := new(bytes.Buffer)
 	t.Execute(buf, data)
 
-	// result
-	res := make(map[string]interface{})
-	res["body"] = buf.String()
-	return res
+	entry := Entrypoint{
+		URL: data["io-apihost"].(string),
+		Key: data["io-apikey"].(string),
+	}
+	message := Message{
+		Dest:     data["dest"].(string),
+		Subject:  data["subject"].(string),
+		Markdown: data["markdown"].(string),
+	}
+	m, err := SendMessage(&entry, &message)
+	if err != nil {
+		m = map[string]interface{}{
+			"error": err.Error(),
+		}
+	}
+	return m
 }

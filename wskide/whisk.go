@@ -8,7 +8,6 @@ import (
 func WhiskDeploy() error {
 	fmt.Println("Deploying Whisk...")
 	fmt.Println(whiskDockerRun())
-	fmt.Println("Done.")
 	return nil
 }
 
@@ -16,7 +15,6 @@ func WhiskDeploy() error {
 func WhiskDestroy() error {
 	fmt.Println("Destroying Whisk...")
 	fmt.Println(Sys("docker exec openwhisk stop"))
-	fmt.Println("Done.")
 	return nil
 }
 
@@ -26,9 +24,14 @@ func whiskDockerRun() string {
 	if err != nil {
 		return "cannot pull " + OpenwhiskStandaloneImage
 	}
+	redisIP := dockerIP("redis")
+	if redisIP == nil {
+		return "cannot locate redis"
+	}
 	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
 --rm --name openwhisk --hostname openwhisk
--v //var/run/docker.sock:/var/run/docker.sock %s`, OpenwhiskStandaloneImage)
+-e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
+-v //var/run/docker.sock:/var/run/docker.sock %s`, *redisIP, OpenwhiskStandaloneImage)
 	_, err = SysErr(cmd)
 	if err != nil {
 		return "cannot start server: " + err.Error()
