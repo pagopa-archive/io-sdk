@@ -224,3 +224,25 @@ func ShowError(err error) {
 		fmt.Printf("*** ERROR: %s ***\n", err)
 	}
 }
+
+func mkMap(key string, value interface{}) map[string]interface{} {
+	return map[string]interface{}{
+		key: value,
+	}
+}
+
+func addMap(data map[string]interface{}, key string, value interface{}) map[string]interface{} {
+	data[key] = value
+	return data
+}
+
+func mkErr(err interface{}) map[string]interface{} {
+	switch v := err.(type) {
+	case error:
+		return mkMap("error", v.Error())
+	case string:
+		return mkMap("error", v)
+	default:
+		return mkMap("error", fmt.Sprintf("%v", err))
+	}
+}
