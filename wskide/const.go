@@ -14,3 +14,9 @@ const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"
 
 // APIHOST to send messages
 const APIHOST = "https://api.cd.italia.it/api/v1"
+
+// RedisImage is the image for redis
+const RedisImage = "library/redis:5"
+
+// IOAPIHOST to send messages
+const IOAPIHOST = "https://api.cd.italia.it/api/v1"
