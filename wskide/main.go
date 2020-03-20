@@ -91,7 +91,7 @@ func parse(cmd string) {
 // Main entrypoint for wskide
 func Main() {
 	cmd := kingpin.Parse()
-	if err := LoadConfig(); err != nil {
+	if err := LoadConfig(); err != nil && cmd != configCmd.FullCommand() {
 		fmt.Println("You need to run 'iosdk config', first.")
 		os.Exit(1)
 	}
