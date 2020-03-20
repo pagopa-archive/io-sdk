@@ -3,7 +3,7 @@
  import Body from './Body.svelte'
  import Footer from './Footer.svelte'
  import Cookiebar from './Cookiebar.svelte'
-</script>
+ </script>
 
 <main>
 <div id="root">
