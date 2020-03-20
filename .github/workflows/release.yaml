@@ -18,34 +18,21 @@ jobs:
         run: |
           export GOOS=linux
           go get -v -t -d ./...
-<<<<<<< HEAD
-          mkdir -p bin/linux
-=======
           mkdir ./bin/linux
->>>>>>> 80cc8b4b550dcae145e4df01b20eba37f1c7fd5c
           go build -v -o bin/linux/iosdk_lin
 
       - name: Get dependencies and build PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
         run: |
           export GOOS=windows
           go get -v -t -d ./...
-<<<<<<< HEAD
-          mkdir -p bin/windows
-          go build
-=======
           mkdir ./bin/windows
           go build -v -o bin/windows/iosdk_win.exe
->>>>>>> 80cc8b4b550dcae145e4df01b20eba37f1c7fd5c
 
       - name: Get dependencies and build Mach-O 64-bit x86_64 executable
         run: |
           export GOOS=darwin
           go get -v -t -d ./...
-<<<<<<< HEAD
-          mkdir -p bin/mac
-=======
           mkdir ./bin/mac
->>>>>>> 80cc8b4b550dcae145e4df01b20eba37f1c7fd5c
           go build -v -o bin/mac/iosdk_mac
 
       - name: Create Release
@@ -78,11 +65,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/windows/iosdk_win.exe
-<<<<<<< HEAD
           asset_name: iosdk_win.exe
-=======
-          asset_name: iosdk_win
->>>>>>> 80cc8b4b550dcae145e4df01b20eba37f1c7fd5c
           asset_content_type: application/octet-stream
 
       - name: Upload macOS Release Asset
