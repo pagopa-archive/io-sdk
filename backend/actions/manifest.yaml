@@ -2,16 +2,9 @@ packages:
   util:
     version: 1.0
     actions:
-      hello:
-        function: deploy/util/hello.js
-        runtime: nodejs:10
       echo:
         function: deploy/util/echo.go
         docker: openwhisk/action-golang-v1.12
-        web: raw
-      echobody:
-        function: deploy/util/echobody.py
-        docker: actionloop/actionloop-python-v3.7
         web: raw
       cache:
         function: deploy/util/cache.py
@@ -20,15 +13,21 @@ packages:
           function: deploy/util/messages.py
           docker: actionloop/actionloop-python-v3.7
           web: raw
-
-  backend:
-    version: 1.0
-    actions:
+      send:
+          function: deploy/util/send.py
+          docker: actionloop/actionloop-python-v3.7
+          web: true
       import:
-        function: deploy/backend/import.js
+        function: deploy/util/import.js
         runtime: nodejs:10
         web: true
+  iosdk:
+    version: 1.0
+    actions:
       send:
         function: deploy/send.zip
         docker: openwhisk/action-golang-v1.12
         web: true
+      config:
+        function: deploy/iosdk/config.js
+        runtime: nodejs:10

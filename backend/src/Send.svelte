@@ -43,10 +43,6 @@
       <label for="codFiscDest">Codice Fiscale Destinatario</label>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="apiKeyIO" bind:value={data.ApiKeyIO} />
-      <label for="apiKeyIO">API Key IO</label>
-    </div>
-    <div class="form-group">
       <input type="text" class="form-control" id="messageSubject" bind:value={data.MessageSuject}>
       <label for="messageSubject">Soggetto del messaggio</label>
     </div>
@@ -54,6 +50,16 @@
       <textarea id="message" rows="3" bind:value={data.Message}></textarea>
       <label for="message">Markdown del messaggio</label>
     </div>
+    <div class="form-group">
+    
+    <div class="bootstrap-select-wrapper">
+      <label>Endpoint</label>
+      <select title="Scegli una opzione">
+        <option value="devel">Development (Local)</option>
+        <option value="prod">Production (IO API - richiede API Key)</option>
+      </select>
+    </div>
+  </div>
     <div class="form-group">
     <button type="button" class="btn btn-primary" on:click={submitForm}>Invia</button>
     </div>

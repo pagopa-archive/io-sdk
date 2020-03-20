@@ -25,8 +25,10 @@ type Message struct {
 }
 
 // SendMessage send message to IO
-func SendMessage(entry *Entrypoint, msg *Message) (map[string]string, error) {
-	msg.DueDate = time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
+func SendMessage(entry *Entrypoint, msg *Message) (map[string]interface{}, error) {
+	if msg.DueDate == "" {
+		msg.DueDate = time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
+	}
 	t := template.Must(template.New("message").Parse(messageTpl))
 	buf := new(bytes.Buffer)
 	t.Execute(buf, msg)
@@ -48,7 +50,7 @@ func SendMessage(entry *Entrypoint, msg *Message) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	res := make(map[string]string)
+	res := make(map[string]interface{})
 	json.Unmarshal(body, &res)
 	return res, nil
 }

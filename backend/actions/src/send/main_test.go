@@ -4,15 +4,13 @@ import "fmt"
 
 func ExampleMain() {
 	data := map[string]interface{}{
-		"CodFiscDest": "123456",
-		"Subject":     "Subject",
-		"Message":     "HelloWord",
+		"io-apihost": "http://localhost:3280/api/v1/web/guest/util/messages",
+		"io-apikey":  "1234567890",
+		"dest":       "1234567890",
+		"subject":    "Subject",
+		"markdown":   "Hello, world.",
 	}
 	fmt.Printf("%v\n", Main(data))
 	// Output:
-	// map[body:<table>
-	//  <tr><th>CodFiscDesc</th><td>123456</td></td>
-	//  <tr><th>Message</th><td>HelloWord</td></td>
-	// </table>
-	// ]
+	// map[id:639479525]
 }
