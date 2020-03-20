@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"reflect"
 
 	"github.com/mitchellh/go-homedir"
 )
@@ -52,47 +53,36 @@ func config() {
 	var ioSDKConfig IoSDKConfig
 	var scanner *bufio.Scanner
 
+	// no error.. file should not be present
 	jsonFile, _ := os.Open(configFile)
 	buf, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(buf, &ioSDKConfig)
 
-	fmt.Printf("Enter whiskapihost: (%s) ", ioSDKConfig.WhiskAPIHost)
-	scanner = bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	whiskapihost := scanner.Text()
-	if whiskapihost == "" {
-		whiskapihost = ioSDKConfig.WhiskAPIHost
+	// struct to interface
+	v := reflect.ValueOf(ioSDKConfig)
+	typeOfS := v.Type()
+
+	// response map
+	response := make(map[string]string)
+
+	// parse interface, ask/read user input and assign value to response[]
+	for i := 0; i < v.NumField(); i++ {
+		fmt.Printf("Enter %s: (%s) ", typeOfS.Field(i).Name, v.Field(i).Interface())
+		scanner = bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		response[typeOfS.Field(i).Name] = scanner.Text()
+		if response[typeOfS.Field(i).Name] == "" {
+			response[typeOfS.Field(i).Name] = v.Field(i).Interface().(string)
+		}
 	}
 
-	fmt.Printf("Enter whiskapikey: (%s) ", ioSDKConfig.WhiskAPIKey)
-	scanner = bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	whiskapikey := scanner.Text()
-	if whiskapikey == "" {
-		whiskapikey = ioSDKConfig.WhiskAPIKey
-	}
-
-	fmt.Printf("Enter whisknamespace: (%s) ", ioSDKConfig.WhiskNamespace)
-	scanner = bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	whisknamespace := scanner.Text()
-	if whisknamespace == "" {
-		whisknamespace = ioSDKConfig.WhiskNamespace
-	}
-
-	fmt.Printf("Enter ioapikey: (%s) ", ioSDKConfig.IoAPIKey)
-	scanner = bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	ioapikey := scanner.Text()
-	if ioapikey == "" {
-		ioapikey = ioSDKConfig.IoAPIKey
-	}
-
+	// the json
 	res := &IoSDKConfig{
-		WhiskAPIHost:   whiskapihost,
-		WhiskAPIKey:    whiskapikey,
-		WhiskNamespace: whisknamespace,
-		IoAPIKey:       ioapikey}
+		WhiskAPIHost:   response["WhiskAPIHost"],
+		WhiskAPIKey:    response["WhiskAPIKey"],
+		WhiskNamespace: response["WhiskNamespace"],
+		IoAPIKey:       response["IoAPIKey"]}
+
 	json, err := json.MarshalIndent(res, "", " ")
 
 	// // add \n at the end of the json
