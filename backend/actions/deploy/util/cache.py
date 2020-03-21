@@ -39,6 +39,8 @@ def main(args):
         (_, ls) = red.scan(match=pattern)
         ls = [ i.decode("utf-8") for i in ls]
         res["scan"] = ls
+    if "__ow_method" in args:
+        return { "body": json.dumps(res) }
     return res
 
 if __name__=="__main__":

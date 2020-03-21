@@ -9,6 +9,7 @@ packages:
       cache:
         function: deploy/util/cache.py
         docker: actionloop/actionloop-python-v3.7
+        web: true
       messages:
           function: deploy/util/messages.py
           docker: actionloop/actionloop-python-v3.7

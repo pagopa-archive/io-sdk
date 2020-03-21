@@ -1,14 +1,15 @@
 <script>
+  export let url = ""
   import { Router, Route } from "svelte-routing";
   import Home from "./Home.svelte";
   import Menu from "./Menu.svelte";
   import About from "./About.svelte";
   import Devel from "./Devel.svelte";
   import Debug from "./Debug.svelte";
+  import DebugData from "./DebugData.svelte";
   import Send from "./Send.svelte";
   import Ship from "./Ship.svelte";
   import Import from "./Import.svelte";
-  export let url = ""
 </script>
 
 <section class="row">
@@ -22,6 +23,7 @@
         <Route path="send" component="{Send}"/>
         <Route path="devel" component="{Devel}"/>
         <Route path="debug" component="{Debug}"/>
+        <Route path="debug/:key" let:params><DebugData key="{params.key}"/></Route>
         <Route path="about" component="{About}"/>
       </Router>
     </div>
