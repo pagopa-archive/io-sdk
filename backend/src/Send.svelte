@@ -5,10 +5,11 @@
   let result = ""
   let error = ""
 
+
   let data = {
-     "CodFiscDest": "",
-     "ApiKeyIO": "",
-     "Message": ""
+     "dest": "",
+     "subject": "",
+     "markdown": ""
   }
 
   function submitForm() {
@@ -33,7 +34,7 @@
     }
   }
 </script>
-<h2>Send Message</h2>
+<h2>TO FIX Send Message</h2>
 <br>
 
 {#if result == ""}
