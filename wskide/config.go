@@ -14,13 +14,13 @@ import (
 // IoSDKConfig is the global configuration type
 type IoSDKConfig struct {
 	// WhiskApiHost is the openwhisk api host
-	WhiskAPIHost string `json:"whisk-apihost,omitempty"`
+	WhiskAPIHost string `json:"whisk-apihost"`
 	// WhiskAPIKey is the openwhisk api key
-	WhiskAPIKey string `json:"whisk-apikey,omitempty"`
+	WhiskAPIKey string `json:"whisk-apikey"`
 	// WhiskNamespace is the openwhisk namespace
-	WhiskNamespace string `json:"whisk-namespace,omitempty"`
+	WhiskNamespace string `json:"whisk-namespace"`
 	// IoAPIKey is the io api key
-	IoAPIKey string `json:"io-apikey,omitempty"`
+	IoAPIKey string `json:"io-apikey"`
 }
 
 var (
@@ -53,6 +53,13 @@ func config() {
 	var ioSDKConfig IoSDKConfig
 	var scanner *bufio.Scanner
 
+	// fixed values.. do not ask
+	var response = map[string]string{
+		"WhiskAPIHost":   "http://localhost:3280",
+		"WhiskAPIKey":    "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP",
+		"WhiskNamespace": "guest",
+	}
+
 	// no error.. file should not be present
 	jsonFile, _ := os.Open(configFile)
 	buf, _ := ioutil.ReadAll(jsonFile)
@@ -62,17 +69,18 @@ func config() {
 	v := reflect.ValueOf(ioSDKConfig)
 	typeOfS := v.Type()
 
-	// response map
-	response := make(map[string]string)
-
 	// parse interface, ask/read user input and assign value to response[]
 	for i := 0; i < v.NumField(); i++ {
-		fmt.Printf("Enter %s: (%s) ", typeOfS.Field(i).Name, v.Field(i).Interface())
-		scanner = bufio.NewScanner(os.Stdin)
-		scanner.Scan()
-		response[typeOfS.Field(i).Name] = scanner.Text()
-		if response[typeOfS.Field(i).Name] == "" {
-			response[typeOfS.Field(i).Name] = v.Field(i).Interface().(string)
+
+		// ask for value if fields is not in response map
+		if _, ok := response[typeOfS.Field(i).Name]; ok == false {
+			fmt.Printf("Enter %s: (%s) ", typeOfS.Field(i).Name, v.Field(i).Interface())
+			scanner = bufio.NewScanner(os.Stdin)
+			scanner.Scan()
+			response[typeOfS.Field(i).Name] = scanner.Text()
+			if response[typeOfS.Field(i).Name] == "" {
+				response[typeOfS.Field(i).Name] = v.Field(i).Interface().(string)
+			}
 		}
 	}
 
