@@ -10,6 +10,10 @@ packages:
         function: deploy/util/cache.py
         docker: actionloop/actionloop-python-v3.7
         web: true
+      store:
+        function: deploy/util/store.py
+        docker: actionloop/actionloop-python-v3.7
+        web: raw
       messages:
           function: deploy/util/messages.py
           docker: actionloop/actionloop-python-v3.7
