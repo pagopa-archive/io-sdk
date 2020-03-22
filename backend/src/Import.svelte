@@ -1,10 +1,16 @@
 <script>
-  const url = "http://localhost:3280/api/v1/web/guest/backend/import";
+
   import { formData } from "./store";
   import { onMount } from "svelte";
   import ImportForm from "./ImportForm.svelte";
   import ImportData from "./ImportData.svelte";
 
+  const base = "http://localhost:3280/api/v1/web/guest/";
+  let action = "util/import"
+
+  let url
+  $: url = base + action
+  
   let state = {};
 
   async function start() {

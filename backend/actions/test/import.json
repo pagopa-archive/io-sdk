@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "amount": 0,
+      "due_date": 44197,
+      "fiscal_code": "ISPXNB32R82Y766F",
+      "invalid_after_due_date": false,
+      "markdown": "# Welcome, Giovanni Rossi\\\\nYour fiscal code is ISPXNB32R82Y766F\\\\n",
+      "notice_number": 1,
+      "subject": "Hi Giovanni"
+    },
+    {
+      "amount": 0,
+      "due_date": 44197,
+      "fiscal_code": "ISPXNB32R82Y766D",
+      "invalid_after_due_date": false,
+      "markdown": "# Welcome, Giovanni Rossi\\\\nYour fiscal code is ISPXNB32R82Y766F\\\\n",
+      "notice_number": 1,
+      "subject": "Hi Luca"
+    }
+  ]
+}
