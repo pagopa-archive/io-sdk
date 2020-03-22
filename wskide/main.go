@@ -45,6 +45,8 @@ var (
 	statusCmd = kingpin.Command("status", "Check Containers Status")
 	// config
 	configCmd = kingpin.Command("config", "Edit config file $HOME/.iosdk")
+	// prova
+	provaCmd = kingpin.Command("prova", "Prova").Hidden()
 )
 
 func parse(cmd string) {
@@ -83,6 +85,8 @@ func parse(cmd string) {
 		dockerStatus("ide-js")
 	case configCmd.FullCommand():
 		config()
+	case provaCmd.FullCommand():
+		prova()
 	default:
 		kingpin.Usage()
 	}
