@@ -1,20 +1,10 @@
 <script>
   import { Link } from "svelte-routing";
-  import { formData } from "./store";
+  import { reload } from "./store";
   import { onMount } from "svelte";
 
   const url = "http://localhost:3280/api/v1/web/guest/util/cache?scan=*";
   let state = {};
-
-  async function start1() {
-    let res = await fetch(url);
-    res = await res.json();
-    if("scan" in res) {
-        state = { "list": res["scan"]}
-    } else {
-      state = { "error": "cannot retrieve data"}
-    }
-  }
 
   async function start() {
     fetch(url).then(async (res) => {
@@ -30,6 +20,10 @@
     }) 
   }
   onMount(start);
+  reload.subscribe(() => {
+    console.log("reload!!!")
+    start()
+  })
 </script>
 
 <h1>Cache</h1>

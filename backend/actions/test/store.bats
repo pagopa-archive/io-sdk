@@ -2,7 +2,7 @@
 load util
 
 @test "store" {
-    http PUT $URL/util/store <$H/import.json
+    http POST $URL/util/store <$H/import.json
     ckline "validation errors"
     run http POST $URL/util/messages <$H/messages.json
     ckline "id"

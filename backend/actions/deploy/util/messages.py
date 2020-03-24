@@ -3,6 +3,7 @@ import time
 import os
 import json
 import pip
+import zlib
 
 try: import redis
 except:    
@@ -20,10 +21,11 @@ def main(args):
          body.get("content").get("subject") and
          body.get("content").get("markdown") and
          body.get("content").get("due_date") ):
-            id = str(int(time.time()*1000))
+            code = body["fiscal_code"]
+            id = str(zlib.crc32(code.encode("utf-8")))
             red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
             data = json.dumps(body).encode("utf-8")
-            red.set("message:%s" % body["fiscal_code"], data)
+            red.set("message:%s" % code, data)
             return {"body": {"id": id} }
 
     return { "body": { "detail": "validation errors"}}
