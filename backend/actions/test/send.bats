@@ -1,7 +1,6 @@
 #!/usr/bin/env bats
 load util
 
-
 @test "send message" {
     run http -f POST  $URL/util/send dest=SNDMSGTEST1234 subject=Hello markdown=World
     ckline '"id": "832703095"'
