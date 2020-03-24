@@ -1,5 +1,10 @@
 package wskide
 
+import (
+	"fmt"
+	"os"
+)
+
 //MinDockerVersion required
 const MinDockerVersion = "18.06.3-ce"
 
@@ -10,7 +15,7 @@ const BrowserURL = "http://localhost:3280/"
 const IdeJsImage = "actionloop/ide-js:latest"
 
 // OpenwhiskStandaloneImage is the image for the standalone openwhisk
-const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"
+const OpenwhiskStandaloneImage = "actionloop/iosdk:testing"
 
 // APIHOST to send messages
 const APIHOST = "https://api.cd.italia.it/api/v1"
@@ -20,3 +25,9 @@ const RedisImage = "library/redis:5"
 
 // IOAPIHOST to send messages
 const IOAPIHOST = "https://api.cd.italia.it/api/v1"
+
+const name string = ".iosdk"
+
+var home string = os.Getenv("HOME")
+
+var configFile = fmt.Sprintf("%s/%s", home, name)

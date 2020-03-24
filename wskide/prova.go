@@ -9,6 +9,9 @@ import (
 	"strings"
 )
 
+//Config IoSDKConfig
+var Config *IoSDKConfig
+
 func whiskURL(operation string) string {
 	if operation[:1] == "/" {
 		return fmt.Sprintf("%s/api/v1/namespaces%s",

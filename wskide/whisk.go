@@ -20,6 +20,7 @@ func WhiskDestroy() error {
 
 // return empty string if ok, otherwise the error
 func whiskDockerRun() string {
+	Config, _ := LoadConfig()
 	err := Run("docker pull " + OpenwhiskStandaloneImage)
 	if err != nil {
 		return "cannot pull " + OpenwhiskStandaloneImage
@@ -30,12 +31,13 @@ func whiskDockerRun() string {
 	}
 	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
 --rm --name openwhisk --hostname openwhisk
--e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
--v //var/run/docker.sock:/var/run/docker.sock %s`, *redisIP, OpenwhiskStandaloneImage)
+-e CONTAINER_EXTRA_ENV=__OW_REDIS=%s -e CONFIG_FORCE_whisk_users_guest=%s
+-v //var/run/docker.sock:/var/run/docker.sock %s`, *redisIP, Config.WhiskAPIKey, OpenwhiskStandaloneImage)
 	_, err = SysErr(cmd)
 	if err != nil {
 		return "cannot start server: " + err.Error()
 	}
+	err = Run("docker exec openwhisk wsk property set auth " + Config.WhiskAPIKey + " --auth " + Config.WhiskAPIKey)
 	err = Run("docker exec openwhisk waitready")
 	if err != nil {
 		return "server readyness error: " + err.Error()
