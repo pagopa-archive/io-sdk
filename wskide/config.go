@@ -8,6 +8,7 @@ import (
 	"os"
 	"reflect"
 
+	"github.com/google/uuid"
 	"github.com/mitchellh/go-homedir"
 )
 
@@ -23,55 +24,55 @@ type IoSDKConfig struct {
 	IoAPIKey string `json:"io-apikey"`
 }
 
-var (
-	home string = os.Getenv("HOME")
-	name string = ".iosdk"
-	// Config is the global configuration
-	Config *IoSDKConfig
-)
-
 // LoadConfig load the configuration
-func LoadConfig() error {
+func LoadConfig() (Config IoSDKConfig, err error) {
 	configFile, err := homedir.Expand("~/.iosdk")
 	if err != nil {
-		return err
+		return Config, err
 	}
 	if _, err := os.Stat(configFile); err != nil {
-		return err
+		return Config, err
 	}
 	buf, err := ioutil.ReadFile(configFile)
 	if err != nil {
-		return err
+		return Config, err
 	}
 	json.Unmarshal(buf, &Config)
-	return nil
+	return Config, err
 }
 
 func config() {
 
-	var configFile = fmt.Sprintf("%s/%s", home, name)
 	var ioSDKConfig IoSDKConfig
 	var scanner *bufio.Scanner
 
 	// fixed values.. do not ask
 	var response = map[string]string{
 		"WhiskAPIHost":   "http://localhost:3280",
-		"WhiskAPIKey":    "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP",
+		"WhiskAPIKey":    "",
 		"WhiskNamespace": "guest",
 	}
 
-	// no error.. file should not be present
+	// read .iosdk, no error.. file should not be present
 	jsonFile, _ := os.Open(configFile)
 	buf, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(buf, &ioSDKConfig)
 
+	// if WhiskAPIKey is "" => generate a random one
+	if ioSDKConfig.WhiskAPIKey == "" {
+		pass := randomString(64)
+		randomWhiskAPIKey := fmt.Sprintf("%s:%s", uuid.New(), pass)
+
+		response["WhiskAPIKey"] = randomWhiskAPIKey
+	} else {
+		response["WhiskAPIKey"] = ioSDKConfig.WhiskAPIKey
+	}
 	// struct to interface
 	v := reflect.ValueOf(ioSDKConfig)
 	typeOfS := v.Type()
 
 	// parse interface, ask/read user input and assign value to response[]
 	for i := 0; i < v.NumField(); i++ {
-
 		// ask for value if fields is not in response map
 		if _, ok := response[typeOfS.Field(i).Name]; ok == false {
 			fmt.Printf("Enter %s: (%s) ", typeOfS.Field(i).Name, v.Field(i).Interface())
@@ -90,16 +91,7 @@ func config() {
 		WhiskAPIKey:    response["WhiskAPIKey"],
 		WhiskNamespace: response["WhiskNamespace"],
 		IoAPIKey:       response["IoAPIKey"]}
-
 	json, err := json.MarshalIndent(res, "", " ")
-
-	// // add \n at the end of the json
-	// var b uint8 = 10
-	// json = append(json, b)
-
-	// if err != nil {
-	// 	return
-	// }
 
 	err = ioutil.WriteFile(configFile, json, 0644)
 	if err != nil {
