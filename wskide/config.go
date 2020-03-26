@@ -62,11 +62,11 @@ func config() {
 	if ioSDKConfig.WhiskAPIKey == "" {
 		pass := randomString(64)
 		randomWhiskAPIKey := fmt.Sprintf("%s:%s", uuid.New(), pass)
-
 		response["WhiskAPIKey"] = randomWhiskAPIKey
 	} else {
 		response["WhiskAPIKey"] = ioSDKConfig.WhiskAPIKey
 	}
+
 	// struct to interface
 	v := reflect.ValueOf(ioSDKConfig)
 	typeOfS := v.Type()
