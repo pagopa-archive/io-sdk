@@ -27,6 +27,7 @@ func IdeDestroy() error {
 // ideDockerRun starts the ide
 // it also mounts the project folder if the directory is not empty
 func ideDockerRun(dir string) (err error) {
+	Config, _ := LoadConfig()
 
 	err = Run("docker pull " + IdeJsImage)
 	if err != nil {
@@ -47,10 +48,16 @@ func ideDockerRun(dir string) (err error) {
 		return fmt.Errorf("cannot find openwhisk")
 	}
 
-	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js 
-	--add-host=openwhisk:%s %s %s`, *openwhiskIP, mount, IdeJsImage)
+	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js  -e CONFIG_FORCE_whisk_users_guest=%s
+	--add-host=openwhisk:%s %s %s`, Config.WhiskAPIKey, *openwhiskIP, mount, IdeJsImage)
 	//OpenWhiskDockerWait()
 	Sys(command)
+
+	err = Run("docker exec ide-js wsk property set apihost http://openwhisk:3280 --apihost http://openwhisk:3280 auth " + Config.WhiskAPIKey + " --auth " + Config.WhiskAPIKey)
+	if err != nil {
+		fmt.Println("cannot update properties: " + err.Error())
+	}
+
 	return nil
 }
 

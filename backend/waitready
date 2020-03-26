@@ -1,8 +1,0 @@
-until wsk action list 2>/dev/null >/dev/null
-do sleep 5 ; echo server still not ready - retrying
-done
-wsk action update checkReady <(echo 'function main(){return {"ready":true}}') --kind nodejs:10
-until wsk action invoke checkReady -r 2>/dev/null | grep 'ready'
-do sleep 1 ; echo server initializing... 
-done
-wsk action delete checkReady >/dev/null
