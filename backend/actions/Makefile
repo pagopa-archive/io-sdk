@@ -3,6 +3,7 @@ AUTH=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12C
 .PHONY: deploy
 deploy: setup deploy/send.zip
 	wsk project deploy
+	wsk package update iosdk -P $(HOME)/.iosdk
 
 .PHONY: undeploy
 undeploy: setup

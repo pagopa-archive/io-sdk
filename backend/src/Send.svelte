@@ -109,7 +109,6 @@
       <label class="active" for="message">Markdown del messaggio</label>
     </div>
     <div class="form-group">
-
       <div class="bootstrap-select-wrapper">
         <label>Endpoint</label>
         <select bind:value={action} title="Scegli una opzione">

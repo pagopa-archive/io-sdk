@@ -2,13 +2,22 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"html/template"
+	"log"
 )
+
+func body(m map[string]interface{}) map[string]interface{} {
+	buf, _ := json.Marshal(&m)
+	return map[string]interface{}{
+		"body": string(buf),
+	}
+}
 
 func mkMap(k, v string) map[string]interface{} {
 	m := make(map[string]interface{})
 	m[k] = v
-	return m
+	return body(m)
 }
 
 // Main function for the action
@@ -17,6 +26,8 @@ func Main(data map[string]interface{}) map[string]interface{} {
 	t := template.Must(template.New("answer").Parse(answerTpl))
 	buf := new(bytes.Buffer)
 	t.Execute(buf, data)
+
+	log.Printf("args: %v\n", data)
 
 	url, ok := data["io-messages"]
 	if !ok {
@@ -34,9 +45,9 @@ func Main(data map[string]interface{}) map[string]interface{} {
 
 	message := Message{}
 
-	s, ok := data["dest"].(string)
+	s, ok := data["fiscal_code"].(string)
 	if !ok {
-		return mkMap("error", "no parameter 'dest'")
+		return mkMap("error", "no parameter 'fiscal_code'")
 	}
 	message.Dest = s
 
@@ -52,9 +63,11 @@ func Main(data map[string]interface{}) map[string]interface{} {
 	}
 	message.Markdown = s
 
+	log.Printf("message: %v\n", message)
+
 	m, err := SendMessage(&entry, &message)
 	if err != nil {
 		return mkMap("error", err.Error())
 	}
-	return m
+	return body(m)
 }

@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func ExampleMain() {
 	data := make(map[string]interface{})
@@ -9,30 +12,32 @@ func ExampleMain() {
 	fmt.Printf("%v\n", Main(data))
 	data["io-apikey"] = "1234567890"
 	fmt.Printf("%v\n", Main(data))
-	data["dest"] = "Subject"
+	data["fiscal_code"] = "ABCDEF12A12A012A"
 	fmt.Printf("%v\n", Main(data))
-	data["subject"] = "1234567890"
+	data["subject"] = "Welcome to IO, New User"
 	fmt.Printf("%v\n", Main(data))
-	data["markdown"] = "Hello, world."
+	data["markdown"] = "This is a long text"
 	fmt.Printf("%v\n", Main(data))
 	// Output:
-	// map[error:no parameter 'io-messages']
-	// map[error:no parameter 'io-apikey']
-	// map[error:no parameter 'dest']
-	// map[error:no parameter 'subject']
-	// map[error:no parameter 'markdown']
-	// map[id:879953894]
+	// map[body:{"error":"no parameter 'io-messages'"}]
+	// map[body:{"error":"no parameter 'io-apikey'"}]
+	// map[body:{"error":"no parameter 'fiscal_code'"}]
+	// map[body:{"error":"no parameter 'subject'"}]
+	// map[body:{"error":"no parameter 'markdown'"}]
+	// map[body:{"id":"2715563104"}]
 }
 
-func _ExampleMain() {
+func _ExampleMain2() {
 	data := map[string]interface{}{
 		"io-messages": "https://api.cd.italia.it/api/v1/messages",
 		"io-apikey":   "483b7b1f3a974b45b5c44a43538c9255",
-		"dest":        "ISPXNB32R82Y766D",
-		"subject":     "Welcome, new user",
-		"markdown":    `# This is a markdown header\nto show how easily markdown can be converted to **HTML**\n\nRemember: this has to be a long text.`,
+		"fiscal_code": "ISPXNB32R82Y766D",
+		"subject":     "Welcome aboard, Luca",
+		"markdown":    `This is a long text. I need at least 80 characters to make the IO API happy, in order to send a test message.`,
 	}
-	fmt.Printf("%v\n", Main(data))
+	res := Main(data)
+	//fmt.Println(res)
+	fmt.Println(strings.Index(res["body"].(string), "id"))
 	// Output:
-	// -
+	// 2
 }
