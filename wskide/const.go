@@ -12,10 +12,10 @@ const MinDockerVersion = "18.06.3-ce"
 const BrowserURL = "http://localhost:3280/"
 
 // IdeJsImage is the image for the ide
-const IdeJsImage = "actionloop/ide-js:latest"
+const IdeJsImage = "actionloop/ide-js:config"
 
 // OpenwhiskStandaloneImage is the image for the standalone openwhisk
-const OpenwhiskStandaloneImage = "actionloop/iosdk:testing"
+const OpenwhiskStandaloneImage = "actionloop/iosdk:config"
 
 // APIHOST to send messages
 const APIHOST = "https://api.cd.italia.it/api/v1"
