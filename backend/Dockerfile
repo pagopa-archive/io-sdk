@@ -1,5 +1,5 @@
-FROM actionloop/standalone:latest
-ADD public/app /app/public/
+FROM actionloop/standalone:config
+ADD public /app/public/
 ADD actions/manifest.yaml /app/actions/manifest.yaml
 ADD actions/deploy  /app/actions/deploy
 RUN sed -i -e 's!"/!"/app/!g' /app/public/index.html

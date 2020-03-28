@@ -1,4 +1,4 @@
-IMG=actionloop/iosdk:latest
+IMG=actionloop/iosdk:config
 
 .PHONY: deploy
 deploy:
