@@ -11,6 +11,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
+	github.com/google/uuid v1.1.1
 	github.com/hokaccha/go-prettyjson v0.0.0-20190818114111-108c894c2c0e // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4
