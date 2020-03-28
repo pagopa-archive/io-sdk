@@ -1,6 +1,7 @@
 <script>
-  export let url = "";
-  import { Router, Route } from "svelte-routing";
+  export let url = "/app/index.html";
+  import { onMount } from "svelte";
+  import { Router, Route, navigate } from "svelte-routing";
   import Home from "./Home.svelte";
   import Menu from "./Menu.svelte";
   import About from "./About.svelte";
@@ -10,6 +11,8 @@
   import Send from "./Send.svelte";
   import Ship from "./Ship.svelte";
   import Import from "./Import.svelte";
+
+  onMount(()=>navigate("/"))
 </script>
 
 <section class="row">
