@@ -23,14 +23,18 @@ stop:
 	-docker exec openwhisk stop
 
 .PHONE: build
-build:
+build: public/build/bundle.js
+	docker build -t $(IMG) .
+
+.PHONY: push
+push: build
+	docker push $(IMG)
+
+public/build/bundle.js: $(wildcard src/*.svelte)
 	node -v | grep v10
 	npm install
 	npm run build
-	docker build -t $(IMG) .
 
-push: build
-	docker push $(IMG)
 
 .PHONY: undeploy
 undeploy:
