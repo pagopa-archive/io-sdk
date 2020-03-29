@@ -17,4 +17,4 @@ exports.start = start;
 function stop() {
 }
 exports.stop = stop;
-//# sourceMappingURL=ide-plugin-backend.js.map
+//# sourceMappingURL=iosdk-backend.js.map
