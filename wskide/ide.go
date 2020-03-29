@@ -50,7 +50,7 @@ func ideDockerRun(dir string) (err error) {
 	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js 
 	--add-host=openwhisk:%s %s %s %s`, *openwhiskIP, mount, *extraArgIde, IdeJsImage)
 	//OpenWhiskDockerWait()
-	Sys(command)ios
+	Sys(command)
 	return nil
 }
 
