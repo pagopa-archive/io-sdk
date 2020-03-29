@@ -1,6 +1,6 @@
 .PHONY: iosdk
 iosdk: 
-	go build -o bin/iosdk
+	env GO111MODULE=on go build -o bin/iosdk
 
 .PHONY: test
 test:

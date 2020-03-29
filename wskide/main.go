@@ -5,6 +5,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/getlantern/systray"
+	"github.com/pagopa/io-sdk/wskide/icon"
 	"github.com/pkg/browser"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -72,7 +74,9 @@ func parse(cmd string) {
 			time.Sleep(2 * time.Second)
 			browser.OpenURL(BrowserURL)
 		}
-	// Stop
+		systray.Run(onReady, onExit)
+
+		// Stop
 	case stopCmd.FullCommand():
 		Stop()
 	// Init
@@ -92,8 +96,31 @@ func parse(cmd string) {
 	}
 }
 
+func onReady() {
+	systray.SetTemplateIcon(icon.Data, icon.Data)
+	systray.SetTooltip("IO SDK")
+	//systray.SetTitle("IO SDK")
+	mQuitOrig := systray.AddMenuItem("Quit", "Quit the whole app")
+	go func() {
+		<-mQuitOrig.ClickedCh
+		fmt.Println("Requesting quit")
+		Stop()
+		systray.Quit()
+		fmt.Println("Finished quitting")
+	}()
+
+	// Sets the icon of a menu item. Only available on Mac.
+	mQuitOrig.SetIcon(icon.Data)
+}
+
+func onExit() {
+	// clean up here
+	os.Exit(1)
+}
+
 // Main entrypoint for wskide
 func Main() {
+
 	cmd := kingpin.Parse()
 	if _, err := LoadConfig(); err != nil && cmd != configCmd.FullCommand() {
 		fmt.Println("You need to run 'iosdk config', first.")
