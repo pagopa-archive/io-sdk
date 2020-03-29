@@ -22,6 +22,9 @@ var (
 
 	// hidden global flags
 	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
+	extraArgIde       = kingpin.Flag("extra-arg-ide", "Extra Arg for IDE").Hidden().Default("").String()
+	extraArgWhisk     = kingpin.Flag("extra-arg-whisk", "Extra Arg for IDE").Hidden().Default("").String()
+	extraArgRedis     = kingpin.Flag("extra-arg-redis", "Extra Arg for Redis").Hidden().Default("").String()
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()

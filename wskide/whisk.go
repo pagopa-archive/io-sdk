@@ -31,7 +31,7 @@ func whiskDockerRun() string {
 	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
 --rm --name openwhisk --hostname openwhisk
 -e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
--v //var/run/docker.sock:/var/run/docker.sock %s`, *redisIP, OpenwhiskStandaloneImage)
+-v //var/run/docker.sock:/var/run/docker.sock %s %s`, *redisIP, *extraArgWhisk, OpenwhiskStandaloneImage)
 	_, err = SysErr(cmd)
 	if err != nil {
 		return "cannot start server: " + err.Error()

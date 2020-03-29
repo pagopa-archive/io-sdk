@@ -4,6 +4,7 @@ function main(args) {
        "whisk-apihost": args["whisk-apihost"],
        "whisk-apikey": args["whisk-apikey"],
        "whisk-namespace": args["whisk-namespace"],
-       "apihost": process.env["__OW_API_HOST"]
+       "apihost": process.env["__OW_API_HOST"],
+       "redis": process.env["__OW_REDIS"]
     }
 }
