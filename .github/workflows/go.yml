@@ -30,7 +30,9 @@ jobs:
         #fi
 
     - name: Build
-      run: go build -o bin/iosdk
+      run: |
+        apt-get install libgtk-3-dev libappindicator3-dev libwebkit2gtk-4.0-dev
+        env GO111MODULE=on go build -o bin/iosdk
 
     # - name: Go test
     # run: cd wskide && go test -v
