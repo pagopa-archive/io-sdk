@@ -15,7 +15,7 @@ const MinDockerVersion = "18.06.3-ce"
 const BrowserURL = "http://localhost:3280/"
 
 // IdeJsImage is the image for the ide
-const IdeJsImage = "actionloop/ide-js:latest"
+const IdeJsImage = "actionloop/ide-js:ide-plugin"
 
 // OpenwhiskStandaloneImage is the image for the standalone openwhisk
 const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"

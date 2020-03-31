@@ -9,11 +9,7 @@
         "moduleResolution": "node",
         "target": "es6",
         "lib": [
-            "es6",
-            
-            
-            "webworker"
-            
+           "dom" 
         ],
         "sourceMap": true,
         "rootDir": "src",

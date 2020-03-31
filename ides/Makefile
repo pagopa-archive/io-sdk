@@ -1,4 +1,4 @@
-IMG=actionloop/ide-js:latest
+IMG=actionloop/ide-js:ide-plugin
 
 .PHONY: start
 start:

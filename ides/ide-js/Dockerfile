@@ -140,10 +140,10 @@ RUN chmod g+rw /home && \
     mkdir -p /home/project && \
     mkdir -p /usr/local/go && \
     mkdir -p /usr/local/go-packages && \
-    chown -R theia:theia /usr/local/go && \
-    chown -R theia:theia /usr/local/go-packages && \
-    chown -R theia:theia /home/theia && \
-    chown -R theia:theia /home/project;
+    #find /usr/local/go -uid 0 -exec chown theia:theia {} \; && \
+    #find /usr/local/go-packages -uid 0 -exec chown theia:theia {} \; && \
+    find /home/theia -uid 0 -exec chown theia:theia {} \; && \
+    find /home/project -uid 0 -exec chown theia:theia {} \;
 
 #Theia
 ##Needed for node-gyp, nsfw build
