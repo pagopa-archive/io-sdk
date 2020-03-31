@@ -11,8 +11,8 @@
   import Send from "./Send.svelte";
   import Ship from "./Ship.svelte";
   import Import from "./Import.svelte";
-
-  onMount(()=>navigate("/"))
+  
+  onMount(()=> navigate("/"))
 </script>
 
 <section class="row">

@@ -5,7 +5,8 @@
   import ImportData from "./ImportData.svelte";
 
   const base = "http://localhost:3280/api/v1/web/guest/";
-  let action = "util/import";
+  //let action = "util/import";
+  let action = "iosdk/import";
 
   let url;
   $: url = base + action;

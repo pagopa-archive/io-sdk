@@ -1,36 +1,47 @@
 <script>
+  let uploadUrl = "http://localhost:3280/api/v1/web/guest/util/upload";
+
   import { formData } from "./store";
   export let form = {};
   export let url;
 
-  function importer() {
-    // gather data from form
-    let data = {};
-    for (const field of form) {
-      if (field.value) data[field.name] = field.value;
-    }
-    //console.log(data)
-    // perform import
-    fetch(url, {
+  async function parseForm() {
+    let submit = await fetch(uploadUrl, {
       method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(
-      async function(res) {
-        let data = await res.json()
-        formData.set(data);
-      },
-      function(err) {
-        error = err.message;
-        formData.set({ error: err.message });
-      }
-    );
+      body: new FormData(document["_theForm_"])
+    })
+    let data = await submit.json()
+    return data
   }
+
+  async function importer() {
+    // gather data from form
+    let data = await parseForm()
+    // perform import
+    if(data)
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(
+        async function(res) {
+          let data = await res.json();
+          formData.set(data);
+        },
+        function(err) {
+          error = err.message;
+          formData.set({ error: err.message });
+        }
+      );
+    else error = "cannot parse form";
+  }
+
+
 </script>
 
-<div>
+<form name="_theForm_" action={uploadUrl} method="post" enctype="multipart/form-data">
   {#each form as field}
     {#if field.type == 'message'}
       <div class="callout">
@@ -43,21 +54,37 @@
           type="text"
           class="form-control"
           id={field.name}
+          name={field.name}
           bind:value={field.value} />
-        <label for={field.name}>{field.description}</label>
+        <label class="active" for={field.name}>{field.description}</label>
       </div>
     {:else if field.type == 'password'}
       <div class="form-group">
+        <label class="active" for={field.name}>{field.description}</label>
         <input
           type="password"
           class="form-control"
           id={field.name}
+          name={field.name}
           bind:value={field.value} />
-        <label for={field.name}>{field.description}</label>
+      </div>
+    {:else if field.type == 'upload'}
+      <div class="form-group">
+        <input
+          type="file"
+          class="form-control"
+          id={field.name}
+          name={field.name}
+          bind:files={field.value} />
+        <label class="active" for={field.name}>{field.description}</label>
       </div>
     {:else if field.type == 'textarea'}
       <div class="form-group">
-        <textarea id={field.name} rows="3" bind:value={field.value} />
+        <textarea 
+        id={field.name}
+        name={field.name}
+        rows="3" 
+        bind:value={field.value} />
         <label for={field.name}>{field.description}</label>
       </div>
       <br />
@@ -74,4 +101,4 @@
       Import
     </button>
   </div>
-</div>
+</form>

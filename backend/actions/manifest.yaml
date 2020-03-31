@@ -22,6 +22,10 @@ packages:
           function: deploy/util/send.py
           docker: actionloop/actionloop-python-v3.7
           web: true
+      upload:
+          function: deploy/util/upload.py
+          docker: actionloop/actionloop-python-v3.7
+          web: raw
       import:
         function: deploy/util/import.js
         runtime: nodejs:10
@@ -36,3 +40,7 @@ packages:
       config:
         function: deploy/iosdk/config.js
         runtime: nodejs:10
+      import:
+        function: deploy/util/import.js
+        runtime: nodejs:10
+        web: true

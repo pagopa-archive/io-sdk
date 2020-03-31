@@ -9,6 +9,10 @@ deploy: setup deploy/send.zip
 undeploy: setup
 	wsk project undeploy
 
+.PHONY: test
+test: deploy
+	bats test
+
 .PHONY:
 setup:
 	wsk property set --apihost http://localhost:3280 --auth $(AUTH)

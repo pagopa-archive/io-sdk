@@ -73,7 +73,7 @@
 <div class="form-group">
   <button class="btn btn-primary" type="button" id="button-3" on:click={() => search("*")}>Show All</button>
   <button class="btn btn-primary" type="button" id="button-3" on:click={() => search("message:*")}>Imported Messages</button>
-  <button class="btn btn-primary" type="button" id="button-3" on:click={() => search("send:*")}>Sent Messages</button>
+  <button class="btn btn-primary" type="button" id="button-3" on:click={() => search("sent:*")}>Sent Messages</button>
   <button class="btn btn-primary" type="button" id="button-3" on:click={start}>Search</button>
 </div>
 <div>

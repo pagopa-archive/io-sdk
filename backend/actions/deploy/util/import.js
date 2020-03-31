@@ -31,7 +31,12 @@ const sampleForm = [
         "description": "Password",
         "type": "password",
         "required": true
-    }
+    },
+    {
+        "type": "message",
+        "name": "note",
+        "description": "Replace this example deploying a custom importer.",
+    },
 ]
 
 const sampleData = [
