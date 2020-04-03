@@ -3,6 +3,7 @@ package wskide
 import (
 	"errors"
 	"fmt"
+	"regexp"
 )
 
 func ExampleLogIf() {
@@ -148,4 +149,30 @@ func ExampleRun() {
 	// <nil>
 	// <nil>
 	// wrong
+}
+
+func ExampleRandomString() {
+	re := regexp.MustCompile(`[a-zA-Z0-9]`)
+	rnd := RandomString(32)
+	fmt.Printf("%s\n", re.ReplaceAll([]byte(rnd), []byte("*")))
+	// Output:
+	// ********************************
+}
+
+func ExampleInput() {
+	DryRunPush("hello", "world")
+	fmt.Println(Input("how are you", "fine"))
+	fmt.Println(Input("", ""))
+	// Output:
+	// hello
+	// world
+}
+
+func ExampleSelect() {
+	DryRunPush("hello", "world")
+	fmt.Println(Select("how are you", "fine"))
+	fmt.Println(Select("", ""))
+	// Output:
+	// hello
+	// world
 }

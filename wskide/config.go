@@ -2,29 +2,15 @@ package wskide
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
 
+	"github.com/google/uuid"
 	"github.com/mitchellh/go-homedir"
+	log "github.com/sirupsen/logrus"
 )
-
-//MinDockerVersion required
-const MinDockerVersion = "18.06.3-ce"
-
-// BrowserURL to access
-const BrowserURL = "http://localhost:3280/"
-
-// IdeJsImage is the image for the ide
-const IdeJsImage = "actionloop/ide-js:latest"
-
-// OpenwhiskStandaloneImage is the image for the standalone openwhisk
-const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"
-
-// RedisImage is the image for redis
-const RedisImage = "library/redis:5"
-
-// IOAPIHOST to send messages
-const IOAPIHOST = "https://api.cd.italia.it/api/v1"
 
 // IoSDKConfig is the global configuration type
 type IoSDKConfig struct {
@@ -36,13 +22,17 @@ type IoSDKConfig struct {
 	WhiskNamespace string `json:"whisk-namespace"`
 	// IoAPIKey is the io api key
 	IoAPIKey string `json:"io-apikey"`
+	// IoMessages is the io api key
+	IoMessages string `json:"io-messages"`
+	// AppDir is the application directory
+	AppDir string `json:"app-dir"`
 }
 
 // Config is the global configuration
 var Config *IoSDKConfig
 
-// LoadConfig load the configuration
-func LoadConfig() error {
+// ConfigLoad loads the configuration
+func ConfigLoad() error {
 	configFile, err := homedir.Expand("~/.iosdk")
 	if err != nil {
 		return err
@@ -56,4 +46,72 @@ func LoadConfig() error {
 	}
 	json.Unmarshal(buf, &Config)
 	return nil
+}
+
+// ConfigSave save configuration file
+func ConfigSave() error {
+	if Config == nil {
+		return errors.New("empty configuration")
+	}
+	configFile, err := homedir.Expand("~/.iosdk")
+	if err != nil {
+		return err
+	}
+	// saving
+	json, err := json.MarshalIndent(Config, "", " ")
+	err = ioutil.WriteFile(configFile, json, 0644)
+	if err != nil {
+		return err
+	}
+	log.Println("Wrote", configFile)
+	return nil
+}
+
+// configureDefaults sets defaults in configuration
+func configureDefaults() {
+	if Config.IoMessages == "" {
+		Config.IoMessages = "https://api.cd.italia.it/api/v1/messages"
+	}
+	if Config.WhiskAPIHost == "" {
+		Config.WhiskAPIHost = "http://localhost:3280"
+	}
+	if Config.WhiskNamespace == "" {
+		Config.WhiskNamespace = "guest"
+	}
+
+	// generate random key if not there
+	if Config.WhiskAPIKey == "" {
+		key := *initWhiskKeyFlag
+		if key == "" {
+			Config.WhiskAPIKey = fmt.Sprintf("%s:%s", uuid.New(), RandomString(64))
+		} else {
+			Config.WhiskAPIKey = key
+		}
+	}
+}
+
+func configureAsk() error {
+	// ask or override api key
+	key := *initIOKeyFlag
+	if key == "" {
+		key = Input("IO Api Key", Config.IoAPIKey)
+	}
+	if key == "" {
+		return errors.New("You need to provide an api key")
+	}
+	Config.IoAPIKey = key
+	return nil
+}
+
+// Configure asking values or setting defaults
+func Configure(dir string) error {
+	if err := ConfigLoad(); err != nil {
+		return err
+	}
+	Config.AppDir = dir
+	configureDefaults()
+	if err := configureAsk(); err != nil {
+		return err
+	}
+	return ConfigSave()
 }

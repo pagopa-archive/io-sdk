@@ -3,12 +3,15 @@ package wskide
 import (
 	"errors"
 	"fmt"
+	"math/rand"
 	"os"
 	"os/exec"
 	"regexp"
 	"strings"
+	"time"
 
 	log "github.com/sirupsen/logrus"
+	"github.com/tcnksm/go-input"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -245,4 +248,67 @@ func mkErr(err interface{}) map[string]interface{} {
 	default:
 		return mkMap("error", fmt.Sprintf("%v", err))
 	}
+}
+
+// RandomString generate random string of given lengtth
+func RandomString(length int) string {
+
+	const charset = "abcdefghijklmnopqrstuvwxyz" +
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" +
+		"1234567890"
+
+	var seededRand *rand.Rand = rand.New(
+		rand.NewSource(time.Now().UnixNano()))
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+// Input asks for an input,
+// uses predef as the default
+// if you use the empty string it will ask for a value
+// if the user press ^c it returns the empty string
+func Input(query string, predef string) string {
+	if *DryRunFlag {
+		return DryRunPop()
+	}
+	inputUI := &input.UI{
+		Writer: os.Stdout,
+		Reader: os.Stdin,
+	}
+	input, err := inputUI.Ask(query, &input.Options{
+		Default:  predef,
+		Required: true,
+		Loop:     true,
+	})
+	if err != nil {
+		return ""
+	}
+	return input
+}
+
+// Select asks for an input,
+// uses predef as the options, comma separated
+// if the user press ^c it returns the empty string
+func Select(query string, options string) string {
+	if *DryRunFlag {
+		return DryRunPop()
+	}
+	inputUI := &input.UI{
+		Writer: os.Stdout,
+		Reader: os.Stdin,
+	}
+	sel := strings.Split(options, ",")
+	input, err := inputUI.Select(query, sel, &input.Options{
+		Default:  sel[0],
+		Required: true,
+		Loop:     true,
+	})
+	if err != nil {
+		return ""
+	}
+	return input
 }
