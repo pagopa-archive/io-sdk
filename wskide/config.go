@@ -105,9 +105,12 @@ func configureAsk() error {
 
 // Configure asking values or setting defaults
 func Configure(dir string) error {
-	if err := ConfigLoad(); err != nil {
-		return err
+	err := ConfigLoad()
+	if err != nil {
+		// initialized
+		Config = &IoSDKConfig{}
 	}
+	// ignore errors
 	Config.AppDir = dir
 	configureDefaults()
 	if err := configureAsk(); err != nil {

@@ -99,8 +99,10 @@ func parse(cmd string) {
 	case initCmd.FullCommand():
 		dir, err := filepath.Abs(*initDirArg)
 		if err == nil {
+			log.Debug("init dir ", dir)
 			err := Init(dir, *initRepoArg, os.Stderr)
 			if err == nil {
+				log.Debug("configuring")
 				err = Configure(dir)
 			}
 		}
@@ -118,10 +120,13 @@ func parse(cmd string) {
 // Main entrypoint for wskide
 func Main() {
 	cmd := kingpin.Parse()
-	if err := ConfigLoad(); err != nil {
-		log.Info(err)
-		fmt.Println("You need to run 'iosdk init ', first.")
-		os.Exit(1)
+	fmt.Println(cmd)
+	if cmd != initCmd.FullCommand() {
+		if err := ConfigLoad(); err != nil {
+			log.Info(err)
+			fmt.Println("You need to run 'iosdk init ', first.")
+			os.Exit(1)
+		}
 	}
 	if *debugFlag {
 		log.SetLevel(log.DebugLevel)

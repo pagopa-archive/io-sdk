@@ -1,46 +1,31 @@
 package wskide
 
-/*
+import (
+	"fmt"
+	"os"
+)
 
-	- Input()
-	- ConfigLoad()
-	- ConfigSave()
-
-	- InitRepo()
-
-	iosdk start
-
-		ConfigLoad()
-		if empty: please run init and exit
-		start ide using home
-
-	iosdk init <directory>
-			ConfigLoad()
-			err, dir = InitRepo(dir)
-			Config.AppDir = dir
-			Configure()
-			ConfigSave()
-
-			if directory not empty:
-			then use it
-			else: ask for repository to use
-				clone it
-			fi
-
-
-*/
-
-func ExampleLoadConfig() {
-	// Empty load config
-	//_ := ConfigLoad()
-	// should ask for missing values
-	//fmt.Println(cfg, err)
+func ExampleConfigLoad() {
+	run("rm -Rvf /tmp/iosdk-test ; mkdir /tmp/iosdk-test")
+	os.Setenv("HOME", "/tmp/iosdk-test")
+	fmt.Println(ConfigLoad())
+	DryRunPush("123456")
+	Configure("/tmp/iosdk-test/javascript")
+	fmt.Println(ConfigLoad())
+	fmt.Print(run("ls -a /tmp/iosdk-test/.io*"))
+	fmt.Println(Config.IoAPIKey)
+	fmt.Println(len(Config.WhiskAPIKey))
 	// Output:
-	// -
+	// stat /tmp/iosdk-test/.iosdk: no such file or directory
+	// <nil>
+	// /tmp/iosdk-test/.iosdk
+	// 123456
+	// 101
+
 }
 
 func ExampleConfigure() {
-	Configure()
+	//Configure()
 	// Output:
 	// -
 }

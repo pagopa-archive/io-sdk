@@ -16,6 +16,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4
 	github.com/sirupsen/logrus v1.4.2
+	github.com/spf13/cobra v0.0.7
 	github.com/tcnksm/go-input v0.0.0-20180404061846-548a7d7a8ee8
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/src-d/go-git.v4 v4.13.1

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"regexp"
 	"strings"
 	"testing"
@@ -57,6 +58,14 @@ func grep(search string, data ...interface{}) {
 	}
 }
 
+func run(cli string) string {
+	res, err := exec.Command("sh", "-c", cli).CombinedOutput()
+	if err != nil {
+		return err.Error()
+	}
+	return string(res)
+}
+
 type recovering func()
 
 func capture(fn recovering) {
@@ -96,4 +105,8 @@ func TestMain(m *testing.M) {
 	})
 	log.SetLevel(log.DebugLevel)
 	os.Exit(m.Run())
+}
+
+func Example() {
+	parse("init")
 }
