@@ -1,4 +1,12 @@
-IMG=actionloop/ide-js:latest
+IMG=actionloop/ide-js:config
+
+.PHONY: push
+push: ide-js 
+	docker push $(IMG)
+
+.PHONY: ide-js
+ide-js:
+	docker build -t $(IMG) ide-js
 
 .PHONY: start
 start:
@@ -13,13 +21,6 @@ start:
 stop:
 	-docker kill ide-js
 
-.PHONY: ide-js
-ide-js:
-	docker build -t $(IMG) ide-js
-
-.PHONY: push
-push: ide-js 
-	docker push $(IMG)
 
 
 

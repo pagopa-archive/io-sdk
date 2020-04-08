@@ -107,6 +107,14 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
+func first(arg interface{}, err error) interface{} {
+	return arg
+}
+
+func last(arg interface{}, err error) error {
+	return err
+}
+
 func Example() {
 	parse("init")
 }

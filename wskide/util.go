@@ -224,7 +224,7 @@ func SysSh(cmd string) string {
 // ShowError prints an error if not nil
 func ShowError(err error) {
 	if err != nil {
-		fmt.Printf("*** ERROR: %s ***\n", err)
+		fmt.Println(err.Error())
 	}
 }
 

@@ -1,5 +1,13 @@
 IMG=actionloop/iosdk:latest
 
+.PHONY: push
+push: build
+	docker push $(IMG)
+
+.PHONE: build
+build: public/build/bundle.js
+	docker build -t $(IMG) .
+
 .PHONY: deploy
 deploy:
 	$(MAKE) -C actions deploy
@@ -22,13 +30,8 @@ start:
 stop:
 	-docker exec openwhisk stop
 
-.PHONE: build
-build: public/build/bundle.js
-	docker build -t $(IMG) .
 
-.PHONY: push
-push: build
-	docker push $(IMG)
+
 
 public/build/bundle.js: $(wildcard src/*.svelte)
 	node -v | grep v10

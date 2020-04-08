@@ -7,7 +7,7 @@ import (
 func ExampleStart() {
 	//*DryRunFlag = true
 	DryRunPush(MinDockerVersion, "", "123", "", "1.2.3.4", "", "", "", "172.17.0.2")
-	fmt.Println(Start(""))
+	fmt.Println(Start())
 	// Output:
 	// docker version --format {{.Server.Version}}
 	// Deploying Redis...

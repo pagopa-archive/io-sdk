@@ -3,7 +3,6 @@ package wskide
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/pkg/browser"
@@ -36,11 +35,10 @@ var (
 	inputArgCmd     = inputCmd.Arg("input arg", "input arg").Default("").String()
 	inputSelectFlag = inputCmd.Flag("select", "select").Bool()
 	// start, stop, init and status
-	startCmd    = kingpin.Command("start", "Start Development Enviroment")
-	startDirArg = startCmd.Arg("dir", "Project dir").Required().String()
+	startCmd = kingpin.Command("start", "Start Development Enviroment")
 	// init
 	initCmd          = kingpin.Command("init", "Initialise SDK Repository")
-	initDirArg       = initCmd.Arg("directory", "work directory").Required().String()
+	initDirArg       = initCmd.Arg("directory", "work directory").Default("").String()
 	initRepoArg      = initCmd.Arg("repo", "Repository").Default("").String()
 	initWhiskKeyFlag = initCmd.Flag("whisk-apikey", "Whisk API Key").Default("").String()
 	initIOKeyFlag    = initCmd.Flag("io-apikey", "IO API Key").Default("").String()
@@ -86,7 +84,7 @@ func parse(cmd string) {
 	switch cmd {
 	// Start
 	case startCmd.FullCommand():
-		err := Start(*startDirArg)
+		err := Start()
 		ShowError(err)
 		if err == nil {
 			time.Sleep(2 * time.Second)
@@ -97,14 +95,9 @@ func parse(cmd string) {
 		Stop()
 	// Init
 	case initCmd.FullCommand():
-		dir, err := filepath.Abs(*initDirArg)
+		dir, err := Init(*initDirArg, *initRepoArg, os.Stderr)
 		if err == nil {
-			log.Debug("init dir ", dir)
-			err := Init(dir, *initRepoArg, os.Stderr)
-			if err == nil {
-				log.Debug("configuring")
-				err = Configure(dir)
-			}
+			err = Configure(dir)
 		}
 		ShowError(err)
 	// Status
@@ -120,14 +113,6 @@ func parse(cmd string) {
 // Main entrypoint for wskide
 func Main() {
 	cmd := kingpin.Parse()
-	fmt.Println(cmd)
-	if cmd != initCmd.FullCommand() {
-		if err := ConfigLoad(); err != nil {
-			log.Info(err)
-			fmt.Println("You need to run 'iosdk init ', first.")
-			os.Exit(1)
-		}
-	}
 	if *debugFlag {
 		log.SetLevel(log.DebugLevel)
 	}

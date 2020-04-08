@@ -1,8 +1,14 @@
 package wskide
 
+import "fmt"
+
 // Start openwhisk-ide
-func Start(dir string) error {
-	err := Preflight(dir)
+func Start() error {
+	if err := ConfigLoad(); err != nil {
+		fmt.Println("You need to run 'iosdk init ', first.")
+		return err
+	}
+	err := Preflight(Config.AppDir)
 	if err != nil {
 		return err
 	}
@@ -14,7 +20,7 @@ func Start(dir string) error {
 	if err != nil {
 		return err
 	}
-	err = IdeDeploy(dir)
+	err = IdeDeploy(Config.AppDir)
 	if err != nil {
 		return err
 	}

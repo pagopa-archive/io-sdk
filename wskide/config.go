@@ -9,7 +9,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/mitchellh/go-homedir"
-	log "github.com/sirupsen/logrus"
 )
 
 // IoSDKConfig is the global configuration type
@@ -63,7 +62,7 @@ func ConfigSave() error {
 	if err != nil {
 		return err
 	}
-	log.Println("Wrote", configFile)
+	fmt.Println("Wrote", configFile)
 	return nil
 }
 

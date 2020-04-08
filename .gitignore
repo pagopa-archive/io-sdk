@@ -7,3 +7,4 @@ bin/iosdk
 tmp/
 *.zip
 *.bak
+go.sum

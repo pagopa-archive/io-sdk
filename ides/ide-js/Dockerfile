@@ -103,7 +103,7 @@ RUN curl -sS https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar
     go get -u -v github.com/golang/lint/golint && \
     go get -u -v github.com/cweill/gotests/... && \
     go get -u -v github.com/alecthomas/gometalinter && \
-    go get -u -v honnef.co/go/tools/... && \
+    # go get -u -v honnef.co/go/tools/... && \
     go get -u -v github.com/sourcegraph/go-langserver && \
     go get -u -v github.com/derekparker/delve/cmd/dlv && \
     go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
@@ -140,10 +140,10 @@ RUN chmod g+rw /home && \
     mkdir -p /home/project && \
     mkdir -p /usr/local/go && \
     mkdir -p /usr/local/go-packages && \
-    chown -R theia:theia /usr/local/go && \
-    chown -R theia:theia /usr/local/go-packages && \
-    chown -R theia:theia /home/theia && \
-    chown -R theia:theia /home/project;
+    #find /usr/local/go -uid 0 -exec chown theia:theia {} \; && \
+    #find /usr/local/go-packages -uid 0 -exec chown theia:theia {} \; && \
+    find /home/theia -uid 0 -exec chown theia:theia {} \; && \
+    find /home/project -uid 0 -exec chown theia:theia {} \;
 
 #Theia
 ##Needed for node-gyp, nsfw build
@@ -175,7 +175,9 @@ ENV LANG=C.UTF-8
 
 
 # iosdk
-#ADD ide-plugin /home/theia/plugins/ide-plugin
-#RUN cd /home/theia/plugins/ide-plugin && npm install && npm run build
+USER theia
+ADD ide-plugin /home/theia/plugins/ide-plugin
+RUN sudo find /home/theia -uid 0 -exec chown theia:theia {} \;
+RUN cd /home/theia/plugins/ide-plugin && npm install && npm run build
 
 ENTRYPOINT [ "yarn", "theia", "start", "/home/project", "--hostname=0.0.0.0" ]

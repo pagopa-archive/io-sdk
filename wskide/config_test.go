@@ -17,15 +17,9 @@ func ExampleConfigLoad() {
 	fmt.Println(len(Config.WhiskAPIKey))
 	// Output:
 	// stat /tmp/iosdk-test/.iosdk: no such file or directory
+	// Wrote /tmp/iosdk-test/.iosdk
 	// <nil>
 	// /tmp/iosdk-test/.iosdk
 	// 123456
 	// 101
-
-}
-
-func ExampleConfigure() {
-	//Configure()
-	// Output:
-	// -
 }

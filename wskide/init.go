@@ -1,23 +1,42 @@
 package wskide
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing/protocol/packp/sideband"
 )
 
 // Init io-sdk
-func Init(dir, repo string, log sideband.Progress) error {
+func Init(dir, repo string, log sideband.Progress) (string, error) {
 
-	err := preflightInHomePath(dir)
-	if err != nil {
-		return err
+	appDir := "importer"
+	if ConfigLoad() == nil {
+		appDir = Config.AppDir
 	}
 
-	if _, err := os.Stat(dir); os.IsExist(err) {
-		return nil
+	var err error
+	if dir == "" {
+		dir = Input("Work Directory (can already exists)", appDir)
+	}
+	if dir == "" {
+		return "", errors.New("Directory not specified")
+	}
+	dir, err = filepath.Abs(dir)
+	if err != nil {
+		return "", err
+	}
+	err = preflightInHomePath(dir)
+	if err != nil {
+		return "", err
+	}
+
+	if _, err := os.Stat(dir); !os.IsNotExist(err) {
+		fmt.Println("Using existing work directory.")
+		return dir, nil
 	}
 
 	if repo == "" {
@@ -28,7 +47,7 @@ func Init(dir, repo string, log sideband.Progress) error {
 		fmt.Println("The github template requires a github repo (user/path).")
 		opt := Select("Which template:", "javascript,java,python,github")
 		if opt == "" {
-			return fmt.Errorf("aborted template selection")
+			return "", fmt.Errorf("aborted template selection")
 		}
 		if opt == "github" {
 			repo = Input("GitHub user/path", "")
@@ -44,8 +63,8 @@ func Init(dir, repo string, log sideband.Progress) error {
 		Progress: log,
 	})
 	if err != nil {
-		return err
+		return "", err
 	}
 	fmt.Println("Done.")
-	return err
+	return dir, err
 }
