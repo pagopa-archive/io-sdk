@@ -2,7 +2,6 @@ package wskide
 
 import (
 	"fmt"
-	"os"
 )
 
 func ExampleEnsureDockerVersion() {
@@ -25,12 +24,12 @@ func ExampleEnsureDockerVersion() {
 
 func ExampleInHomePath() {
 	// *DryRunFlag = false
-	os.Setenv("HOME", "/tmp")
-	fmt.Println(preflightInHomePath("/tmp/openwhisk-ide"))
+	fmt.Println(preflightInHomePath("/tmp/iosdk-test/openwhisk-ide"))
 	fmt.Println(preflightInHomePath("/var/run"))
 	fmt.Println(preflightInHomePath(""))
 	// Output:
 	// <nil>
-	// work directory /var/run should be under your home directory; this is required to be accessible by Docker
+	// work directory /var/run should be below your home directory /tmp/iosdk-test;
+	// this is required to be accessible by Docker
 	// <nil>
 }

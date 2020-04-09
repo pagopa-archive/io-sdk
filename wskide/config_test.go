@@ -2,12 +2,10 @@ package wskide
 
 import (
 	"fmt"
-	"os"
 )
 
 func ExampleConfigLoad() {
 	run("rm -Rvf /tmp/iosdk-test ; mkdir /tmp/iosdk-test")
-	os.Setenv("HOME", "/tmp/iosdk-test")
 	fmt.Println(ConfigLoad())
 	DryRunPush("123456")
 	Configure("/tmp/iosdk-test/javascript")

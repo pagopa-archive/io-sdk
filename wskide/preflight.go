@@ -39,7 +39,7 @@ func preflightInHomePath(dir string) error {
 		return err
 	}
 	if !strings.HasPrefix(dir, homePath) {
-		return fmt.Errorf("work directory %s should be under your home directory; this is required to be accessible by Docker", dir)
+		return fmt.Errorf("work directory %s should be below your home directory %s;\nthis is required to be accessible by Docker", dir, homePath)
 	}
 	return nil
 }

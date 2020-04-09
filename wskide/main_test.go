@@ -104,6 +104,8 @@ func TestMain(m *testing.M) {
 		DisableTimestamp: true,
 	})
 	log.SetLevel(log.DebugLevel)
+	run("rm -Rvf /tmp/iosdk-test ; mkdir /tmp/iosdk-test")
+	os.Setenv("HOME", "/tmp/iosdk-test")
 	os.Exit(m.Run())
 }
 
