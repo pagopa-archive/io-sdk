@@ -4,7 +4,7 @@ all: iosdk
 	$(MAKE) -C backend
 	$(MAKE) -C ides
 
-iosdk:
+iosdk: main.go $(shell ls wskide/*.go)
 	go build -o iosdk
 
 deploy:

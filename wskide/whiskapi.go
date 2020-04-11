@@ -12,11 +12,11 @@ import (
 func whiskURL(operation string) string {
 	if operation[:1] == "/" {
 		return fmt.Sprintf("%s/api/v1/namespaces%s",
-			Config.WhiskAPIHost,
+			Config.WhiskAPIHostLocal,
 			operation)
 	}
 	return fmt.Sprintf("%s/api/v1/namespaces/%s/%s",
-		Config.WhiskAPIHost,
+		Config.WhiskAPIHostLocal,
 		Config.WhiskNamespace,
 		operation)
 }
@@ -43,12 +43,7 @@ func whiskPost(action string,
 }
 
 func whiskPut(action string,
-	args p) (*http.Request, error) {
-	data, err := json.Marshal(args)
-
-	if err != nil {
-		return nil, err
-	}
+	data []byte) (*http.Request, error) {
 	req, err := http.NewRequest("PUT", whiskURL(action),
 		bytes.NewBuffer(data))
 	if err != nil {
@@ -89,36 +84,50 @@ func whiskInvoke(action string, args map[string]interface{},
 	return whiskCall(req)
 }
 
-func whiskPackageUpdate(action string, args p) map[string]interface{} {
+func whiskPackageUpdate(pkg string, data []byte) map[string]interface{} {
 	invoke := fmt.Sprintf("packages/%s?overwrite=true",
-		action)
-	// action, blocking, result)
-	req, err := whiskPut(invoke, args)
+		pkg)
+	req, err := whiskPut(invoke, data)
 	if err != nil {
 		return mkErr(err)
 	}
 	return whiskCall(req)
 }
 
-type kv struct {
+type whiskKeyValue struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 }
 
-type p struct {
-	Name       string `json:"name"`
-	Namespace  string `json:"namespace"`
-	Parameters []kv   `json:"parameters"`
+type whiskWrap struct {
+	Name       string          `json:"name"`
+	Namespace  string          `json:"namespace"`
+	Parameters []whiskKeyValue `json:"parameters"`
 }
 
-func prova() {
-	jsonConfig := p{
-		Name:      "iosdk",
-		Namespace: "guest",
-		Parameters: []kv{
-			kv{Key: "a", Value: "1"},
-			kv{Key: "apikey", Value: Config.WhiskAPIKey},
-		},
+func whiskConfigKeyValues(m map[string]string) []whiskKeyValue {
+	res := make([]whiskKeyValue, 0)
+	for k, v := range m {
+		kw := whiskKeyValue{
+			Key:   k,
+			Value: v,
+		}
+		res = append(res, kw)
 	}
-	fmt.Println(whiskPackageUpdate("iosdk", jsonConfig))
+	return res
+}
+
+// WhiskUpdatePackageParameters update a package with a given map of parameters
+func WhiskUpdatePackageParameters(pkg string, m map[string]string) map[string]interface{} {
+	wrap := whiskWrap{
+		Name:       pkg,
+		Namespace:  Config.WhiskNamespace,
+		Parameters: whiskConfigKeyValues(m),
+	}
+
+	buf, err := json.Marshal(wrap)
+	if err != nil {
+		return mkErr(err)
+	}
+	return whiskPackageUpdate(pkg, buf)
 }

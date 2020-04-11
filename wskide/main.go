@@ -16,9 +16,7 @@ var (
 	// TestModeFlag enable behaviours useful for testing
 
 	// global flags
-	debugFlag = kingpin.Flag("debug", "Enable Debug log").Hidden().Default("false").Bool()
-	traceFlag = kingpin.Flag("trace", "Enable Trace log").Hidden().Default("false").Bool()
-	testFlag  = kingpin.Flag("test", "Enable Test Mode").Hidden().Default("false").Bool()
+	verboseFlag = kingpin.Flag("v", "Verbose Output").Default("false").Bool()
 
 	// hidden global flags
 	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
@@ -42,6 +40,7 @@ var (
 	initRepoArg      = initCmd.Arg("repo", "Repository").Default("").String()
 	initWhiskKeyFlag = initCmd.Flag("whisk-apikey", "Whisk API Key").Default("").String()
 	initIOKeyFlag    = initCmd.Flag("io-apikey", "IO API Key").Default("").String()
+	initWskPropsFlag = initCmd.Flag("wskprops", "Write .wskprops").Default("false").Bool()
 
 	// stop
 	stopCmd = kingpin.Command("stop", "Stop Development Environment")
@@ -87,6 +86,7 @@ func parse(cmd string) {
 		err := Start()
 		ShowError(err)
 		if err == nil {
+			PropagateConfig()
 			time.Sleep(2 * time.Second)
 			browser.OpenURL(BrowserURL)
 		}
@@ -113,10 +113,7 @@ func parse(cmd string) {
 // Main entrypoint for wskide
 func Main() {
 	cmd := kingpin.Parse()
-	if *debugFlag {
-		log.SetLevel(log.DebugLevel)
-	}
-	if *traceFlag {
+	if *verboseFlag {
 		log.SetLevel(log.TraceLevel)
 	}
 	parse(cmd)

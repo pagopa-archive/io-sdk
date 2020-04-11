@@ -47,7 +47,8 @@ func ideDockerRun(dir string) (err error) {
 		return fmt.Errorf("cannot find openwhisk")
 	}
 
-	command := fmt.Sprintf(`docker run -d -p 3000:3000 --rm --name ide-js 
+	command := fmt.Sprintf(`docker run -d -p 3000:3000
+	--rm --name ide-js
 	--add-host=openwhisk:%s %s %s`, *openwhiskIP, mount, IdeJsImage)
 	//OpenWhiskDockerWait()
 	Sys(command)

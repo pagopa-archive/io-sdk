@@ -1,4 +1,4 @@
-IMG=actionloop/ide-js:config
+IMG=actionloop/io-theia:latest
 
 .PHONY: push
 push: ide-js 
@@ -20,7 +20,6 @@ start:
 .PHONY: stop
 stop:
 	-docker kill ide-js
-
 
 
 

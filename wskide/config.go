@@ -14,7 +14,9 @@ import (
 // IoSDKConfig is the global configuration type
 type IoSDKConfig struct {
 	// WhiskApiHost is the openwhisk api host
-	WhiskAPIHost string `json:"whisk-apihost"`
+	WhiskAPIHostLocal string `json:"whisk-apihost-local"`
+	// WhiskApiHostDocker is the api host within docker
+	WhiskAPIHostDocker string `json:"whisk-apihost-docker"`
 	// WhiskAPIKey is the openwhisk api key
 	WhiskAPIKey string `json:"whisk-apikey"`
 	// WhiskNamespace is the openwhisk namespace
@@ -27,12 +29,27 @@ type IoSDKConfig struct {
 	AppDir string `json:"app-dir"`
 }
 
+// ConfigMap returns a map of the configuration
+func ConfigMap() map[string]string {
+	return map[string]string{
+		"whisk-apihost-local":  Config.WhiskAPIHostLocal,
+		"whisk-apihost-docker": Config.WhiskAPIHostDocker,
+		"whisk-apikey":         Config.WhiskAPIKey,
+		"whisk-namespace":      Config.WhiskNamespace,
+		"io-apikey":            Config.IoAPIKey,
+		"io-messages":          Config.IoMessages,
+		"app-dir":              Config.AppDir,
+	}
+}
+
 // Config is the global configuration
 var Config *IoSDKConfig
+var ConfigFile string
 
 // ConfigLoad loads the configuration
 func ConfigLoad() error {
-	configFile, err := homedir.Expand("~/.iosdk")
+	var err error
+	ConfigFile, err = homedir.Expand("~/.iosdk")
 	if err != nil {
 		return err
 	}
@@ -63,6 +80,20 @@ func ConfigSave() error {
 		return err
 	}
 	fmt.Println("Wrote", configFile)
+
+	if *initWskPropsFlag {
+		wskFile, err := homedir.Expand("~/.wskprops")
+		if err != nil {
+			return err
+		}
+		data := fmt.Sprintf("APIHOST=%s\nAUTH=%s\n", Config.WhiskAPIHostLocal, Config.WhiskAPIKey)
+		err = ioutil.WriteFile(wskFile, []byte(data), 0644)
+		if err != nil {
+			return err
+		}
+		fmt.Println("Wrote", wskFile)
+	}
+
 	return nil
 }
 
@@ -71,9 +102,13 @@ func configureDefaults() {
 	if Config.IoMessages == "" {
 		Config.IoMessages = "https://api.cd.italia.it/api/v1/messages"
 	}
-	if Config.WhiskAPIHost == "" {
-		Config.WhiskAPIHost = "http://localhost:3280"
+	if Config.WhiskAPIHostLocal == "" {
+		Config.WhiskAPIHostLocal = "http://localhost:3280"
 	}
+	if Config.WhiskAPIHostDocker == "" {
+		Config.WhiskAPIHostDocker = "http://openwhisk:3280"
+	}
+
 	if Config.WhiskNamespace == "" {
 		Config.WhiskNamespace = "guest"
 	}
@@ -116,4 +151,18 @@ func Configure(dir string) error {
 		return err
 	}
 	return ConfigSave()
+}
+
+// PropagateConfig propagate configurations to started services
+func PropagateConfig() {
+
+	fmt.Println("Configuring Whisk")
+	WhiskUpdatePackageParameters("iosdk", ConfigMap())
+
+	fmt.Println("Configuring IDE")
+	cmd := fmt.Sprintf("docker exec ide-js wsk property set --apihost %s --auth %s", Config.WhiskAPIHostDocker, Config.WhiskAPIKey)
+	err := Run(cmd)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

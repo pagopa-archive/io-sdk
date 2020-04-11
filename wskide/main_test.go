@@ -47,6 +47,10 @@ func fdump(filenames ...string) {
 	}
 }
 
+func sdump(args ...interface{}) string {
+	return sp.Sdump(args...)
+}
+
 func grep(search string, data ...interface{}) {
 	re := regexp.MustCompile(search)
 	lines := strings.Split(sp.Sdump(data...), "\n")
@@ -93,10 +97,11 @@ func traceOff() {
 	log.SetLevel(log.DebugLevel)
 }
 
+var TestWhiskAPIKey = "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP"
+
 func TestMain(m *testing.M) {
 	flag.Parse()
 	*DryRunFlag = true
-	*testFlag = true
 	//log.SetOutput(os.Stderr)
 	log.SetOutput(ioutil.Discard)
 	log.SetFormatter(&log.TextFormatter{
@@ -104,6 +109,10 @@ func TestMain(m *testing.M) {
 		DisableTimestamp: true,
 	})
 	log.SetLevel(log.DebugLevel)
+	// Saving the whisk api key if it exists
+	if ConfigLoad() == nil {
+		TestWhiskAPIKey = Config.WhiskAPIKey
+	}
 	run("rm -Rvf /tmp/iosdk-test ; mkdir /tmp/iosdk-test")
 	os.Setenv("HOME", "/tmp/iosdk-test")
 	os.Exit(m.Run())
