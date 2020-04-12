@@ -1,4 +1,4 @@
-package wskide
+package main
 
 import (
 	"fmt"

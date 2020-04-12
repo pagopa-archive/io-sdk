@@ -1,4 +1,4 @@
-IMG=actionloop/iosdk:latest
+IMG=iosdk/iosdk-openwhisk:$(shell cat ../.version)
 
 .PHONY: push
 push: build

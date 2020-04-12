@@ -16,9 +16,13 @@ To use IO-SDK you need to install Docker Desktop in Windows or Mac, or just Dock
 
 You also need an API Key for IO.
 
-Download and install one of the releases `io-sdk`. If you have `go`, you can build the bleeding edge (master) with `go get github/pagopa/io-sdk`.
+Download and install one of the releases `iosdk`.
 
-Initialize the environment with `io-sdk init`.
+If you have `go`, you can build the bleeding edge (master) with `go get github/pagopa/io-sdk/iosdk`.
+
+Master is supposed to be stable as development should happen in branches.
+
+Initialize the environment with `iosdk init`.
 
 It will ask for:
 
@@ -26,9 +30,10 @@ It will ask for:
 - a template to use, either one of the available templates to import Excel, SQL or REST data, or any third-parties templates that will (eventually) be available
 - the IO Api Key
 
-Once configured you can start the sdk with `io-sdk start`. It will then open the user interface at `http://localhost:3280`.
+Once configured you can start the sdk with `iosdk start`. 
+It will then open the user interface at `http://localhost:3280`.
 
-Other commands are `io-sdk status` to check the status or `io-sdk stop` to stop the sdk.
+Other commands are `iosdk status` to check the status or `iosdk stop` to stop the sdk.
 
 How the SDK works is going to be discussed in some (upcopming) YouTube videos.
 

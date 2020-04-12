@@ -1,5 +1,8 @@
+iosdk/iosdk
+.DS_Store
 .version
 node_modules/
 __pycache__/
+old/
 *.zip
 *.bak
