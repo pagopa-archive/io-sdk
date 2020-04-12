@@ -16,7 +16,7 @@ var (
 	// TestModeFlag enable behaviours useful for testing
 
 	// global flags
-	verboseFlag = kingpin.Flag("v", "Verbose Output").Default("false").Bool()
+	verboseFlag = kingpin.Flag("verbose", "Verbose Output").Short('v').Default("false").Bool()
 
 	// hidden global flags
 	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
@@ -35,7 +35,7 @@ var (
 	// start, stop, init and status
 	startCmd = kingpin.Command("start", "Start Development Enviroment")
 	// init
-	initCmd          = kingpin.Command("init", "Initialise SDK Repository")
+	initCmd          = kingpin.Command("init", "Initialise SDK Repository and related informations")
 	initDirArg       = initCmd.Arg("directory", "work directory").Default("").String()
 	initRepoArg      = initCmd.Arg("repo", "Repository").Default("").String()
 	initWhiskKeyFlag = initCmd.Flag("whisk-apikey", "Whisk API Key").Default("").String()
@@ -105,14 +105,15 @@ func parse(cmd string) {
 		dockerStatus("openwhisk")
 		dockerStatus("redis")
 		dockerStatus("ide-js")
-	default:
-		kingpin.Usage()
 	}
 }
 
 // Main entrypoint for wskide
-func Main() {
+func Main(version string) {
+	kingpin.UsageTemplate(kingpin.CompactUsageTemplate).Version(version).Author(Author)
+	kingpin.CommandLine.Help = Description
 	cmd := kingpin.Parse()
+	fmt.Println(cmd)
 	if *verboseFlag {
 		log.SetLevel(log.TraceLevel)
 	}

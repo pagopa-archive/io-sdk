@@ -5,6 +5,12 @@ import (
 	"os"
 )
 
+// Author is the main author
+const Author = "Michele Sciabarra"
+
+// Description is the descript
+const Description = "io-sdk is an SDK to develop IO App connectorsm, check http://github.com/pagopa/io-sdk "
+
 //MinDockerVersion required
 const MinDockerVersion = "18.06.3-ce"
 

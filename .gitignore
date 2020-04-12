@@ -1,10 +1,5 @@
+.version
 node_modules/
 __pycache__/
-bin/wskide
-io-sdk.code-workspace
-project/
-bin/iosdk
-tmp/
 *.zip
 *.bak
-go.sum
