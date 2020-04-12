@@ -5,13 +5,19 @@ import (
 	"strings"
 )
 
-func ExamplePackageUpdate() {
+// Manual test
+// To run this test you need to init wit
+// iosdk stop
+// iosdk init --whisk-apikey=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
+// iosdk start
+// then remove the "_"
+func _ExamplePackageUpdate() {
 	run("rm -Rvf /tmp/iosdk-test ; mkdir /tmp/iosdk-test")
 	ConfigLoad()
 	DryRunPush("123456")
 	Configure("/tmp/iosdk-test/javascript")
 	ConfigLoad()
-	Config.WhiskAPIKey = TestWhiskAPIKey
+	Config.WhiskAPIKey = DefaultWhiskAPIKey
 	m := ConfigMap()
 	kv := whiskConfigKeyValues(m)
 	grep("Key:", kv)

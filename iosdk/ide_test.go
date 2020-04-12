@@ -13,16 +13,16 @@ func ExampleIdeDockerRun() {
 	fmt.Println(2, ideDockerRun("/tmp"))
 	fmt.Println(3, ideDockerRun(""))
 	// Output:
-	// docker pull actionloop/ide-js:latest
+	// docker pull iosdk/iosdk-ide:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 -v /tmp:/home/project actionloop/ide-js:latest
+	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 -v /tmp:/home/project iosdk/iosdk-ide:test
 	// 1 <nil>
-	// docker pull actionloop/ide-js:latest
+	// docker pull iosdk/iosdk-ide:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
 	// 2 cannot find openwhisk
-	// docker pull actionloop/ide-js:latest
+	// docker pull iosdk/iosdk-ide:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 actionloop/ide-js:latest
+	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 iosdk/iosdk-ide:test
 	// 3 <nil>
 }
 

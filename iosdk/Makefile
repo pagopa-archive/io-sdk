@@ -3,4 +3,5 @@ iosdk: ../.version $(shell ls *.go)
 
 .PHONY: test
 test:
-	go test -v
+	go test -v | tee difftest.out
+	python3 difftest.py difftest.out

@@ -20,9 +20,10 @@ func WhiskDestroy() error {
 
 // return empty string if ok, otherwise the error
 func whiskDockerRun() string {
-	err := Run("docker pull " + OpenwhiskStandaloneImage)
+	image := WhiskImage + ":" + Version
+	err := Run("docker pull " + image)
 	if err != nil {
-		return "cannot pull " + OpenwhiskStandaloneImage
+		return "cannot pull " + image
 	}
 	redisIP := dockerIP("redis")
 	if redisIP == nil {
@@ -33,7 +34,7 @@ func whiskDockerRun() string {
 -e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
 -e CONFIG_FORCE_whisk_users_guest=%s
 -v //var/run/docker.sock:/var/run/docker.sock %s`,
-		*redisIP, Config.WhiskAPIKey, OpenwhiskStandaloneImage)
+		*redisIP, Config.WhiskAPIKey, image)
 	_, err = SysErr(cmd)
 	if err != nil {
 		return "cannot start server: " + err.Error()

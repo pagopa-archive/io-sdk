@@ -28,7 +28,9 @@ func IdeDestroy() error {
 // it also mounts the project folder if the directory is not empty
 func ideDockerRun(dir string) (err error) {
 
-	err = Run("docker pull " + IdeJsImage)
+	image := IdeImage + ":" + Version
+
+	err = Run("docker pull " + image)
 	if err != nil {
 		return err
 	}
@@ -49,8 +51,7 @@ func ideDockerRun(dir string) (err error) {
 
 	command := fmt.Sprintf(`docker run -d -p 3000:3000
 	--rm --name ide-js
-	--add-host=openwhisk:%s %s %s`, *openwhiskIP, mount, IdeJsImage)
-	//OpenWhiskDockerWait()
+	--add-host=openwhisk:%s %s %s`, *openwhiskIP, mount, image)
 	Sys(command)
 	return nil
 }

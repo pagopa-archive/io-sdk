@@ -44,16 +44,15 @@ func ConfigMap() map[string]string {
 
 // Config is the global configuration
 var Config *IoSDKConfig
-var ConfigFile string
 
 // ConfigLoad loads the configuration
 func ConfigLoad() error {
-	var err error
-	ConfigFile, err = homedir.Expand("~/.iosdk")
+	configFile, err := homedir.Expand("~/.iosdk")
 	if err != nil {
 		return err
 	}
-	if _, err := os.Stat(configFile); err != nil {
+	_, err = os.Stat(configFile)
+	if err != nil {
 		return err
 	}
 	buf, err := ioutil.ReadFile(configFile)
@@ -113,7 +112,7 @@ func configureDefaults() {
 		Config.WhiskNamespace = "guest"
 	}
 
-	// generate random key if not there
+	// generate random key if not there, using the default api key if required
 	if Config.WhiskAPIKey == "" {
 		key := *initWhiskKeyFlag
 		if key == "" {

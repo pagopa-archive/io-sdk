@@ -1,15 +1,10 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
-
 // Author is the main author
 const Author = "Michele Sciabarra"
 
 // Description is the descript
-const Description = "io-sdk is an SDK to develop IO App connectorsm, check http://github.com/pagopa/io-sdk "
+const Description = "iosdk is an SDK to develop connectors for the IO App, check http://github.com/pagopa/io-sdk for more infos"
 
 //MinDockerVersion required
 const MinDockerVersion = "18.06.3-ce"
@@ -17,23 +12,20 @@ const MinDockerVersion = "18.06.3-ce"
 // BrowserURL to access
 const BrowserURL = "http://localhost:3280/"
 
-// IdeJsImage is the image for the ide
-const IdeJsImage = "actionloop/ide-js:latest"
+// DockerHubUser is the Docker Hub User to use
+const DockerHubUser = "iosdk"
 
-// OpenwhiskStandaloneImage is the image for the standalone openwhisk
-const OpenwhiskStandaloneImage = "actionloop/iosdk:latest"
+// IdeImage is the image for the ide
+const IdeImage = DockerHubUser + "/iosdk-ide"
 
-// APIHOST to send messages
-const APIHOST = "https://api.cd.italia.it/api/v1"
+// WhiskImage is the openwhisk image
+const WhiskImage = DockerHubUser + "/iosdk-openwhisk"
 
 // RedisImage is the image for redis
 const RedisImage = "library/redis:5"
 
-// IOAPIHOST to send messages
-const IOAPIHOST = "https://api.cd.italia.it/api/v1"
+// IoAPIHost is the host to send messages
+const IoAPIHost = "https://api.cd.italia.it/api/v1"
 
-const name string = ".iosdk"
-
-var home string = os.Getenv("HOME")
-
-var configFile = fmt.Sprintf("%s/%s", home, name)
+// DefaultWhiskAPIKey is the default whisk api key
+const DefaultWhiskAPIKey = "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP"

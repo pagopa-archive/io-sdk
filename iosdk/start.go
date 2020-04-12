@@ -12,6 +12,10 @@ func Start() error {
 	if err != nil {
 		return err
 	}
+	if *useDefaultAPIKey {
+		Config.WhiskAPIKey = DefaultWhiskAPIKey
+		fmt.Println("WARNING: using default OpenWhisk key")
+	}
 	err = RedisDeploy()
 	if err != nil {
 		return err

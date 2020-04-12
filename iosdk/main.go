@@ -20,6 +20,7 @@ var (
 
 	// hidden global flags
 	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
+	useDefaultAPIKey  = kingpin.Flag("use-default-api-key", "Use Default Whisk Api Key").Hidden().Default("false").Bool()
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()
