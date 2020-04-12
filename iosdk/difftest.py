@@ -22,7 +22,7 @@ if len(sys.argv) == 2:
     for i in fails:
         print(n, lines[i], end='')
         n += 1
-    sys.exit(1)
+    sys.exit(len(fails))
 
 n = int(sys.argv[2])
 k = fails[n]+2
