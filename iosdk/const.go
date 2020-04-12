@@ -16,7 +16,7 @@ const BrowserURL = "http://localhost:3280/"
 const DockerHubUser = "iosdk"
 
 // IdeImage is the image for the ide
-const IdeImage = DockerHubUser + "/iosdk-ide"
+const IdeImage = DockerHubUser + "/iosdk-theia"
 
 // WhiskImage is the openwhisk image
 const WhiskImage = DockerHubUser + "/iosdk-openwhisk"
