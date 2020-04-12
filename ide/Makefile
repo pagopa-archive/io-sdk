@@ -1,4 +1,4 @@
-IMG=iosdk/iosdk-theia:$(shell cat ../.version)
+IMG=iosdk/iosdk-theia:$(shell ../version.sh)
 
 .PHONY: push
 push: iosdk-theia 

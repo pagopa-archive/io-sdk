@@ -6,3 +6,4 @@ __pycache__/
 old/
 *.zip
 *.bak
+difftest.out*
