@@ -8,3 +8,4 @@ snapshot:
 	-rm iosdk/iosdk
 	git commit -a
 	git tag $(shell date +snap-%Y-%m%d-%H%M)
+	$(MAKE)
