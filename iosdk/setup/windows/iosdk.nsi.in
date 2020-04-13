@@ -1,0 +1,96 @@
+!include LogicLib.nsh
+; The name of the installer
+Name "iosdk"
+
+; The file to write
+OutFile "iosdk-setup.exe"
+
+; Request application privileges for Windows Vista
+RequestExecutionLevel admin
+
+; Build Unicode installer
+Unicode True
+
+; The default installation directory
+InstallDir $PROGRAMFILES64\IOSDK
+
+; Registry key to check for directory (so if you install again, it will 
+; overwrite the old one automatically)
+InstallDirRegKey HKLM "Software\io-sdk" "Install_Dir"
+
+;--------------------------------
+
+; Pages
+
+;Page components
+Page directory
+Page instfiles
+
+UninstPage uninstConfirm
+UninstPage instfiles
+
+;--------------------------------
+
+; The stuff to install
+Section "io-sdk (required)"
+
+  SectionIn RO
+  
+  ; Set output path to the installation directory.
+  SetOutPath $INSTDIR
+  
+  ; Put file there
+  File "iosdk.exe"
+  File "wsk.exe"
+  
+  ; Write the installation path into the registry
+  WriteRegStr HKLM SOFTWARE\iosdk "Install_Dir" "$INSTDIR"
+  
+  ; Write the uninstall keys for Windows
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\iosdk" "DisplayName" "iosdk"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\iosdk" "UninstallString" '"$INSTDIR\uninstall.exe"'
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\iosdk" "NoModify" 1
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\iosdk" "NoRepair" 1
+  WriteUninstaller "$INSTDIR\uninstall.exe"
+
+; Check if the path entry already exists and write result to $0
+nsExec::Exec 'echo %PATH% | find "$INSTDIR"'
+Pop $0   ; gets result code
+
+${If} $0 = 0
+    nsExec::Exec 'SETX PATH %PATH%;$INSTDIR'
+${EndIf}
+
+SectionEnd
+
+; Optional section (can be disabled by the user)
+Section "Start Menu Shortcuts"
+
+  CreateDirectory "$SMPROGRAMS\IOSDK"
+  CreateShortcut "$SMPROGRAMS\iosdk\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
+  ;CreateShortcut "$SMPROGRAMS\iosdk\io-sdk.lnk" "$INSTDIR\iosdk_win.exe" "" "$INSTDIR\io-sdk.nsi" 0
+  
+SectionEnd
+
+;--------------------------------
+
+; Uninstaller
+
+Section "Uninstall"
+  
+  ; Remove registry keys
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\iosdk"
+  DeleteRegKey HKLM SOFTWARE\iosdk
+
+  ; Remove files and uninstaller
+  Delete $INSTDIR\iosdk.nsi
+  Delete $INSTDIR\uninstall.exe
+
+  ; Remove shortcuts, if any
+  Delete "$SMPROGRAMS\iosdk\*.*"
+
+  ; Remove directories used
+  RMDir "$SMPROGRAMS\iosdk"
+  RMDir "$INSTDIR"
+
+SectionEnd

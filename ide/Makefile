@@ -1,4 +1,5 @@
-IMG=iosdk/iosdk-theia:$(shell ../version.sh)
+IOSDK_VER?=$(shell git rev-parse --abbrev-ref HEAD)
+IMG=iosdk/iosdk-openwhisk:$(IOSDK_VER)
 
 .PHONY: push
 push: iosdk-theia 

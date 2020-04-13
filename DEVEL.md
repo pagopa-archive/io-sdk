@@ -53,3 +53,10 @@ Source code is under `actions/src`
 
 You can now deploy actions after changes with `make deploy`
 
+## Releases
+
+You can build "branch" images and binaries just typing "make" at the top level. When you build a branch image it is built and pushed to docker hub tagged with the branch name. You can then use those images with `go get github.com/pagopa/io-sdk/iosdk#branch`.
+
+You can build "release" images with `make release`. Those images will be tagged with the current tag of the HEAD, or a snapshot tag (in format `%Y.%m%d.%H%M-snapshot` if the head does not have an actual tag). This will also build installers for each platform.
+
+
