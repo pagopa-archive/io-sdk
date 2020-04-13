@@ -7,7 +7,9 @@ linux:
 	$(MAKE) IOSDK_VER=$(IOSDK_VER) -C linux
 
 mac:
-	$(MAKE) IOSDK_VER=$(IOSDK_VER) -C mac
+	if which pkgbuild ;\
+	then $(MAKE) IOSDK_VER=$(IOSDK_VER) -C mac ;\
+	else echo "Not a Mac, skipping" ; fi
 
 windows:
 	$(MAKE) IOSDK_VER=$(IOSDK_VER) -C windows

@@ -1,14 +1,13 @@
-.PHONY: all
+.PHONY: build release snapshot
 build:
 	$(MAKE) -C admin
 	$(MAKE) -C ide
 	$(MAKE) -C iosdk
 
-setup:
-	$(MAKE) -C iosdk/setup
+release:
+	test -n "$(VER)"
+	$(MAKE) IOSDK_VER=$(VER)
+	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup
 
 snapshot:
-	-rm iosdk/iosdk
-	git commit -a
-	git tag $(shell date +%Y.%m%d.%H%M-snapshot)
-	$(MAKE)
+	make VER=$(shell date +%Y.%m%d.%H%M-snapshot) release
