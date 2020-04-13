@@ -13,16 +13,16 @@ func ExampleIdeDockerRun() {
 	fmt.Println(2, ideDockerRun("/tmp"))
 	fmt.Println(3, ideDockerRun(""))
 	// Output:
-	// docker pull iosdk/iosdk-ide:test
-	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 -v /tmp:/home/project iosdk/iosdk-ide:test
+	// docker pull iosdk/iosdk-theia:test
+	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 -v /tmp:/home/project iosdk/iosdk-theia:test
 	// 1 <nil>
-	// docker pull iosdk/iosdk-ide:test
-	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
+	// docker pull iosdk/iosdk-theia:test
+	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
 	// 2 cannot find openwhisk
-	// docker pull iosdk/iosdk-ide:test
-	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} openwhisk
-	// docker run -d -p 3000:3000 --rm --name ide-js --add-host=openwhisk:172.17.0.2 iosdk/iosdk-ide:test
+	// docker pull iosdk/iosdk-theia:test
+	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 iosdk/iosdk-theia:test
 	// 3 <nil>
 }
 
@@ -32,6 +32,6 @@ func ExampleIdeDockerRm() {
 	IdeDestroy()
 	// Output:
 	// Destroying IDE...
-	// docker kill ide-js
+	// docker kill iosdk-theia
 	// 172.17.0.3
 }

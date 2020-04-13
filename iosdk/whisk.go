@@ -7,14 +7,15 @@ import (
 // WhiskDeploy deploys openwhisk standalone
 func WhiskDeploy() error {
 	fmt.Println("Deploying Whisk...")
-	fmt.Println(whiskDockerRun())
+	whiskDockerRun()
 	return nil
 }
 
 // WhiskDestroy destroys openwhisk standalone
 func WhiskDestroy() error {
 	fmt.Println("Destroying Whisk...")
-	fmt.Println(Sys("docker exec openwhisk stop"))
+	Sys("docker exec iosdk-openwhisk stop")
+	fmt.Println()
 	return nil
 }
 
@@ -25,12 +26,12 @@ func whiskDockerRun() string {
 	if err != nil {
 		return "cannot pull " + image
 	}
-	redisIP := dockerIP("redis")
+	redisIP := dockerIP("iosdk-redis")
 	if redisIP == nil {
 		return "cannot locate redis"
 	}
 	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
---rm --name openwhisk --hostname openwhisk
+--rm --name iosdk-openwhisk --hostname openwhisk
 -e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
 -e CONFIG_FORCE_whisk_users_guest=%s
 -v //var/run/docker.sock:/var/run/docker.sock %s`,
@@ -39,7 +40,7 @@ func whiskDockerRun() string {
 	if err != nil {
 		return "cannot start server: " + err.Error()
 	}
-	err = Run("docker exec openwhisk waitready")
+	err = Run("docker exec iosdk-openwhisk waitready")
 	if err != nil {
 		return "server readyness error: " + err.Error()
 	}

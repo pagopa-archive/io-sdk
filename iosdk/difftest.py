@@ -33,7 +33,7 @@ while not lines[k].startswith("want:"):
     got.append(lines[k])
     k += 1
 k += 1
-while not lines[k].startswith("=== RUN"):
+while not (lines[k].startswith("FAIL") or lines[k].startswith("=== RUN")):
     #print(lines[k])
     want.append(lines[k])
     k += 1

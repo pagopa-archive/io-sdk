@@ -103,9 +103,9 @@ func parse(cmd string) {
 		ShowError(err)
 	// Status
 	case statusCmd.FullCommand():
-		dockerStatus("openwhisk")
-		dockerStatus("redis")
-		dockerStatus("ide-js")
+		dockerStatus("iosdk-openwhisk")
+		dockerStatus("iosdk-redis")
+		dockerStatus("iosdk-theia")
 	}
 }
 

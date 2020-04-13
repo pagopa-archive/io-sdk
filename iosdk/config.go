@@ -159,7 +159,7 @@ func PropagateConfig() {
 	WhiskUpdatePackageParameters("iosdk", ConfigMap())
 
 	fmt.Println("Configuring IDE")
-	cmd := fmt.Sprintf("docker exec ide-js wsk property set --apihost %s --auth %s", Config.WhiskAPIHostDocker, Config.WhiskAPIKey)
+	cmd := fmt.Sprintf("docker exec iosdk-theia wsk property set --apihost %s --auth %s", Config.WhiskAPIHostDocker, Config.WhiskAPIKey)
 	err := Run(cmd)
 	if err != nil {
 		fmt.Println(err)
