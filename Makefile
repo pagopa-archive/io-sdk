@@ -25,3 +25,6 @@ release:
 
 snapshot:
 	make VER=$(shell date +%Y.%m%d.%H%M-snapshot) release
+
+tag-snapshot:
+	git tag $(shell date +%Y.%m%d.%H%M-snapshot)
