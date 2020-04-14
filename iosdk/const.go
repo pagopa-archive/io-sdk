@@ -13,7 +13,7 @@ const MinDockerVersion = "18.06.3-ce"
 const BrowserURL = "http://localhost:3280/"
 
 // DockerHubUser is the Docker Hub User to use
-const DockerHubUser = "pagopa"
+const DockerHubUser = "iosdk"
 
 // IdeImage is the image for the ide
 const IdeImage = DockerHubUser + "/iosdk-theia"

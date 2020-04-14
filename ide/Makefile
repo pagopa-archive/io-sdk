@@ -1,5 +1,5 @@
 IOSDK_VER?=$(shell git rev-parse --abbrev-ref HEAD)
-IMG=pagopa/iosdk-theia:$(IOSDK_VER)
+IMG=iosdk/iosdk-theia:$(IOSDK_VER)
 
 .PHONY: build
 build:

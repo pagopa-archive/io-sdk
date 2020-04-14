@@ -1,7 +1,7 @@
 .PHONY: branch build test release snapshot all
 branch: 
 	$(MAKE) build 
-	$(MAKE) test 
+	#$(MAKE) test 
 	$(MAKE) push
 
 build:
@@ -10,8 +10,8 @@ build:
 	$(MAKE) -C iosdk
 
 push:
-	$(MAKE) -C admin
-	$(MAKE) -C iosdk
+	$(MAKE) -C admin push
+	$(MAKE) -C iosdk push
 
 test:
 	bash test.sh
