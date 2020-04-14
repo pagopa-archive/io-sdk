@@ -11,7 +11,7 @@ build:
 
 push:
 	$(MAKE) -C admin push
-	$(MAKE) -C iosdk push
+	$(MAKE) -C ide push
 
 test:
 	bash test.sh
@@ -19,7 +19,7 @@ test:
 release:
 	test -n "$(VER)"
 	$(MAKE) IOSDK_VER=$(VER) build
-	$(MAKE) test
+	#$(MAKE) test
 	$(MAKE) IOSDK_VER=$(VER) push
 	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup
 

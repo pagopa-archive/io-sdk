@@ -7,6 +7,9 @@ linux:
 	$(MAKE) IOSDK_VER=$(IOSDK_VER) -C linux
 
 mac:
+	# need fpm installed
+	# with sudo 
+	which fpm
 	if which pkgbuild ;\
 	then $(MAKE) IOSDK_VER=$(IOSDK_VER) -C mac ;\
 	else echo "Not a Mac, skipping" ; fi

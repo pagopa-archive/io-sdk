@@ -6,7 +6,9 @@ IOSDK_VER?=0.0-unknown
 all: prereq pkg
 
 prereq:
-	sudo gem install fpm
+	# you need fpm installed with
+	# sudo gem install fpm
+	which fpm
 
 pkg: bin/iosdk bin/wsk
 	fpm -s dir -t osxpkg -n iosdk -v $(IOSDK_VER) ./bin=/usr
