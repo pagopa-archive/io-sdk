@@ -27,14 +27,10 @@ func IdeDestroy() error {
 // ideDockerRun starts the ide
 // it also mounts the project folder if the directory is not empty
 func ideDockerRun(dir string) (err error) {
-
 	image := IdeImage + ":" + Version
-
-	err = Run("docker pull " + image)
-	if err != nil {
+	if err = dockerPull(image); err != nil {
 		return err
 	}
-
 	mount := ""
 	if dir != "" {
 		dir, err = filepath.Abs(dir)

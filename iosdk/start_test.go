@@ -40,14 +40,14 @@ func ExampleStart() {
 	// docker run -d -p 6379:6379 --rm --name iosdk-redis --hostname redis library/redis:5
 	//
 	// Deploying Whisk...
-	// docker pull iosdk/iosdk-openwhisk:test
+	// docker pull pagopa/iosdk-openwhisk:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-redis
-	// docker run -d -p 3280:3280 --rm --name iosdk-openwhisk --hostname openwhisk -e CONTAINER_EXTRA_ENV=__OW_REDIS=1.2.3.4 -e CONFIG_FORCE_whisk_users_guest=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP -v //var/run/docker.sock:/var/run/docker.sock iosdk/iosdk-openwhisk:test
+	// docker run -d -p 3280:3280 --rm --name iosdk-openwhisk --hostname openwhisk -e CONTAINER_EXTRA_ENV=__OW_REDIS=1.2.3.4 -e CONFIG_FORCE_whisk_users_guest=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP -v //var/run/docker.sock:/var/run/docker.sock pagopa/iosdk-openwhisk:test
 	// docker exec iosdk-openwhisk waitready
 	// Deploying IDE...
-	// docker pull iosdk/iosdk-theia:test
+	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
-	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 -v /tmp/iosdk-test/javascript:/home/project iosdk/iosdk-theia:test
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 -v /tmp/iosdk-test/javascript:/home/project pagopa/iosdk-theia:test
 	// <nil>
 }
 

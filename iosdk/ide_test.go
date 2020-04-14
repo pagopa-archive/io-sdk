@@ -13,16 +13,16 @@ func ExampleIdeDockerRun() {
 	fmt.Println(2, ideDockerRun("/tmp"))
 	fmt.Println(3, ideDockerRun(""))
 	// Output:
-	// docker pull iosdk/iosdk-theia:test
+	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
-	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 -v /tmp:/home/project iosdk/iosdk-theia:test
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 -v /tmp:/home/project pagopa/iosdk-theia:test
 	// 1 <nil>
-	// docker pull iosdk/iosdk-theia:test
+	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
 	// 2 cannot find openwhisk
-	// docker pull iosdk/iosdk-theia:test
+	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
-	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 iosdk/iosdk-theia:test
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 pagopa/iosdk-theia:test
 	// 3 <nil>
 }
 

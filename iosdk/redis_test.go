@@ -13,7 +13,7 @@ func ExampleRedisRunOk() {
 
 func ExampleRedisRunKo() {
 	//*DryRunFlag = false
-	DryRunPush("cannot pull")
+	DryRunPush("cannot pull library/redis:5")
 	fmt.Println(1, redisDockerRun())
 	DryRunPush("", "!cannot start")
 	fmt.Println(2, redisDockerRun())

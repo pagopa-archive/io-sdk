@@ -20,13 +20,12 @@ func RedisDestroy() error {
 
 // return empty string if ok, otherwise the error
 func redisDockerRun() string {
-	err := Run("docker pull " + RedisImage)
-	if err != nil {
-		return "cannot pull " + RedisImage
+	if err := dockerPull(RedisImage); err != nil {
+		return err.Error()
 	}
 	cmd := fmt.Sprintf(`docker run -d -p 6379:6379
 --rm --name iosdk-redis --hostname redis %s`, RedisImage)
-	_, err = SysErr(cmd)
+	_, err := SysErr(cmd)
 	if err != nil {
 		return "cannot start redis: " + err.Error()
 	}

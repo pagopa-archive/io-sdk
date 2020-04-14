@@ -28,3 +28,15 @@ func dockerIP(container string) *string {
 	}
 	return &ip
 }
+
+func dockerPull(image string) error {
+	if *doNotPullImages {
+		fmt.Println("skipping pull")
+		return nil
+	}
+	err := Run("docker pull " + image)
+	if err != nil {
+		return err
+	}
+	return nil
+}

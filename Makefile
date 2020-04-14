@@ -1,12 +1,26 @@
-.PHONY: build release snapshot
+.PHONY: branch build test release snapshot all
+branch: 
+	$(MAKE) build 
+	$(MAKE) test 
+	$(MAKE) push
+
 build:
 	$(MAKE) -C admin
 	$(MAKE) -C ide
 	$(MAKE) -C iosdk
 
+push:
+	$(MAKE) -C admin
+	$(MAKE) -C iosdk
+
+test:
+	bash test.sh
+
 release:
 	test -n "$(VER)"
-	$(MAKE) IOSDK_VER=$(VER)
+	$(MAKE) IOSDK_VER=$(VER) build
+	$(MAKE) test
+	$(MAKE) IOSDK_VER=$(VER) push
 	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup
 
 snapshot:
