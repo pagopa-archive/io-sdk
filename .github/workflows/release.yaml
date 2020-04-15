@@ -2,80 +2,81 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 name: Create Release And Upload Assets
 
 jobs:
   build:
     name: Create Release And Upload Assets
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@master
+    
+    - name: Checkout code
+      uses: actions/checkout@master
+    
+    - name: Branch name
+      id: branch_name
+      run: |
+        echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+        echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+        echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
 
-      - name: Get dependencies and build ELF 64-bit LSB executable, x86-64
-        run: |
-          export GOOS=linux
-          go get -v -t -d ./...
-          mkdir -p ./bin/linux
-          go build -v -o bin/linux/iosdk_lin
+    - name: Get dependencies
+      env:
+        SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
+        SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
+        VER: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+      run: |
+        echo $VER
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+        export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+        nvm install v10
+        nvm use v10
+        make release_mac VER=$VER
 
-      - name: Get dependencies and build PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
-        run: |
-          export GOOS=windows
-          go get -v -t -d ./...
-          mkdir -p ./bin/windows
-          go build -v -o bin/windows/iosdk_win.exe
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: true
 
-      - name: Get dependencies and build Mach-O 64-bit x86_64 executable
-        run: |
-          export GOOS=darwin
-          go get -v -t -d ./...
-          mkdir -p ./bin/mac
-          go build -v -o bin/mac/iosdk_mac
+      # - name: Upload Linux Release Asset
+      #   id: upload-release-asset-linux
+      #   uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./bin/linux/iosdk_lin
+      #     asset_name: iosdk_lin
+      #     asset_content_type: application/octet-stream
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: true
+      # - name: Upload Windows Release Asset
+      #   id: upload-release-asset-windows
+      #   uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./bin/windows/iosdk_win.exe
+      #     asset_name: iosdk_win.exe
+      #     asset_content_type: application/octet-stream
 
-      - name: Upload Linux Release Asset
-        id: upload-release-asset-linux
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/linux/iosdk_lin
-          asset_name: iosdk_lin
-          asset_content_type: application/octet-stream
-
-      - name: Upload Windows Release Asset
-        id: upload-release-asset-windows
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/windows/iosdk_win.exe
-          asset_name: iosdk_win.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload macOS Release Asset
-        id: upload-release-asset-macos
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/mac/iosdk_mac
-          asset_name: iosdk_mac
-          asset_content_type: application/octet-stream
+      # - name: Upload macOS Release Asset
+      #   id: upload-release-asset-macos
+      #   uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./bin/mac/iosdk_mac
+      #     asset_name: iosdk_mac
+      #     asset_content_type: application/octet-stream
 

@@ -7,8 +7,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: ['1.12', '1.13']
+        #go: ['1.12', '1.13']
         #os: [ubuntu-latest, windows-latest, macOS-latest]
+        go: ['1.13']
         os: [ubuntu-latest]
     steps:
 
@@ -23,23 +24,17 @@ jobs:
 
     - name: Get dependencies
       run: |
-        go get -v -t -d ./...
-        #if [ -f Gopkg.toml ]; then
-        #    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        #    dep ensure
-        #fi
+        curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+        sudo apt install nodejs
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+        export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+        nvm install v10
 
     - name: Build
-      run: go build -o bin/iosdk
-
-    # - name: Go test
-    # run: cd wskide && go test -v
-
-    - name: Test iosdk
-      run : |
-        docker pull openwhisk/standalone:nightly
-        docker pull actionloop/ide-js:latest
-        docker pull library/redis:5
-        echo "1" | bin/iosdk config
-        bin/iosdk start "" --skip-docker-version
-        docker exec -t ide-js sh /home/project/test.sh
+      run: |
+        export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+        nvm use v10
+        docker login -u iosdk -p 79be109a-101a-47cc-8d28-2adeb1d60a6e
+        make
