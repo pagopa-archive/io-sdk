@@ -7,9 +7,6 @@ linux:
 	$(MAKE) IOSDK_VER=$(IOSDK_VER) -C linux
 
 mac:
-	# need fpm installed
-	# with sudo 
-	which fpm
 	if which pkgbuild ;\
 	then $(MAKE) IOSDK_VER=$(IOSDK_VER) -C mac ;\
 	else echo "Not a Mac, skipping" ; fi
@@ -20,6 +17,7 @@ windows:
 clean:
 	-rm version linux/*.rpm linux/*.deb mac/*.pkg mac/*.zip windows/*.zip windows/*.exe
 	-rm -Rvf linux/bin mac/bin
+	-rm -Rvf mac/target mac/application
 
 builder-fpm-nsis:
 	docker build -t iosdk/builder-fpm-nsis .

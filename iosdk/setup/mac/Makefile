@@ -1,26 +1,22 @@
-WSK=https://github.com/apache/openwhisk-cli/releases/download/1.0.0/OpenWhisk_CLI-1.0.0-mac-amd64.zip
 IOSDK_VER?=0.0-unknown
+WSK_URL=https://github.com/apache/openwhisk-cli/releases/download/1.0.0/OpenWhisk_CLI-1.0.0-mac-amd64.zip
 
-.PHONY: all prereq pkg
+BIN=application/bin
+WSK=$(BIN)/wsk
+SDK=$(BIN)/iosdk
 
-all: prereq pkg
+.PHONY: pkg
+pkg: $(SDK) $(WSK)
+	bash build-macos-x64.sh IO-SDK $(IOSDK_VER)
 
-prereq:
-	# you need fpm installed with
-	# sudo gem install fpm
-	which fpm
-
-pkg: bin/iosdk bin/wsk
-	fpm -s dir -t osxpkg -n iosdk -v $(IOSDK_VER) ./bin=/usr
-
-bin/iosdk:
-	mkdir -p bin
+$(SDK):
+	mkdir -p $(BIN)
 	GOOS=darwin GOARCH=amd64 go build \
-	-o bin/iosdk -ldflags "-X main.Version=$(IOSDK_VER)" ../.. 
+	-o $(SDK) -ldflags "-X main.Version=$(IOSDK_VER)" ../.. 
 
-bin/wsk:
-	mkdir -p bin
-	curl -sL $(WSK) >wsk.zip
-	unzip wsk.zip wsk -d bin
+$(WSK):
+	mkdir -p $(BIN)
+	curl -sL $(WSK_URL) >wsk.zip
+	unzip wsk.zip wsk -d $(BIN)
 
 
