@@ -30,7 +30,7 @@ func dockerIP(container string) *string {
 }
 
 func dockerPull(image string) error {
-	if *doNotPullImages {
+	if *skipPullImages {
 		fmt.Println("skipping pull")
 		return nil
 	}

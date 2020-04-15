@@ -173,11 +173,9 @@ ENV PATH=$PATH:$GOPATH/bin
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-
 # iosdk
 USER theia
 ADD ide-plugin /home/theia/plugins/ide-plugin
 RUN sudo find /home/theia -uid 0 -exec chown theia:theia {} \;
 RUN cd /home/theia/plugins/ide-plugin && npm install && npm run build
-
 ENTRYPOINT [ "yarn", "theia", "start", "/home/project", "--hostname=0.0.0.0" ]

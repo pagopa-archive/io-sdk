@@ -1,13 +1,17 @@
 IOSDK_VER?=$(shell git rev-parse --abbrev-ref HEAD)
-IMG=iosdk/iosdk-openwhisk:$(IOSDK_VER)
+IMG=pagopa/iosdk-openwhisk:$(IOSDK_VER)
 
 .PHONE: build
 build: public/build/bundle.js
 	docker build -t $(IMG) .
 
 .PHONY: push
-push: build
+push:
 	docker push $(IMG)
+
+.PHONY: clean
+clean:
+	-docker rmi -f $(IMG)
 
 .PHONY: deploy
 deploy:

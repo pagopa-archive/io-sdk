@@ -1,13 +1,18 @@
 IOSDK_VER?=$(shell git rev-parse --abbrev-ref HEAD)
-IMG=iosdk/iosdk-theia:$(IOSDK_VER)
+IMG=pagopa/iosdk-theia:$(IOSDK_VER)
 
 .PHONY: build
 build:
 	docker build -t $(IMG) .
 
 .PHONY: push
-push: build 
+push: 
 	docker push $(IMG)
+
+
+.PHONY: clean
+clean:
+	-docker rmi -f $(IMG)
 
 .PHONY: start
 start:

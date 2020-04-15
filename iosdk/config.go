@@ -152,16 +152,19 @@ func Configure(dir string) error {
 	return ConfigSave()
 }
 
-// PropagateConfig propagate configurations to started services
-func PropagateConfig() {
-
-	fmt.Println("Configuring Whisk")
-	WhiskUpdatePackageParameters("iosdk", ConfigMap())
-
-	fmt.Println("Configuring IDE")
+func configureIde() {
 	cmd := fmt.Sprintf("docker exec iosdk-theia wsk property set --apihost %s --auth %s", Config.WhiskAPIHostDocker, Config.WhiskAPIKey)
 	err := Run(cmd)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+// PropagateConfig propagate configurations to started services
+func PropagateConfig() {
+
+	fmt.Println("Configuring Whisk")
+	WhiskUpdatePackageParameters("iosdk", ConfigMap())
+	fmt.Println("Configuring IDE")
+	configureIde()
 }
