@@ -35,7 +35,7 @@ jobs:
         nvm install v10
         nvm use v10
         docker login -u iosdk -p 79be109a-101a-47cc-8d28-2adeb1d60a6e
-        make release_mac $VER
+        make release_mac VER=$VER
 
     - name: Create Release
       id: create_release
