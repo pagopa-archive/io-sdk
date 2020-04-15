@@ -9,7 +9,16 @@ release:
 	$(MAKE) IOSDK_VER=$(VER) build
 	$(MAKE) test
 	$(MAKE) IOSDK_VER=$(VER) push
-	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup
+	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/linux
+	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/windows
+
+release_mac:
+	test -n "$(VER)"
+	$(MAKE) IOSDK_VER=$(VER) build
+	$(MAKE) test
+	$(MAKE) IOSDK_VER=$(VER) push
+	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/mac
+
 
 clean:
 	$(MAKE) -C admin clean
