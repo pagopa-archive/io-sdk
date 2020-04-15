@@ -1,0 +1,8 @@
+Package: iosdk
+Version: 0.5-pre
+Section: base
+Priority: optional
+Architecture: i386
+Maintainer: Pierluigi Di Lorenzo <pierluigi@sciabarra.com>
+Description: io-sdk
+ io-sdk for pagopa 
