@@ -15,7 +15,7 @@ popd
 
 pushd rpm
 alien -rg --bump 0 ../deb/iosdk_${VERSION}.deb
-sed -i '/%dir/d' iosdk-${VER}/iosdk-${VERSION}-1.spec
+sed -i '/%dir/d' iosdk-${VERSION}/iosdk-${VERSION}-1.spec
 cd iosdk-${VERSION}
 rpmbuild --buildroot $PWD -bb iosdk-${VERSION}-1.spec
 popd
