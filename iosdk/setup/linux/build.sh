@@ -14,5 +14,9 @@ dpkg-deb --build iosdk_${VERSION}
 popd
 
 pushd rpm
-alien -r ../deb/iosdk_${VERSION}.deb
+alien -rg --bump 0 ../deb/iosdk_${VERSION}.deb
+sed -i '/%dir/d' iosdk-${VER}/iosdk-${VERSION}-1.spec
+cd iosdk-${VERSION}
+rpmbuild --buildroot $PWD -bb iosdk-${VERSION}-1.spec
 popd
+

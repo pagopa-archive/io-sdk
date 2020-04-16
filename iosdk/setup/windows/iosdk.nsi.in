@@ -58,7 +58,7 @@ nsExec::Exec 'echo %PATH% | find "$INSTDIR"'
 Pop $0   ; gets result code
 
 ${If} $0 = 0
-    nsExec::Exec 'SETX PATH %PATH%;$INSTDIR'
+    nsExec::Exec 'SETX PATH "$INSTDIR;%PATH%"'
 ${EndIf}
 
 SectionEnd
