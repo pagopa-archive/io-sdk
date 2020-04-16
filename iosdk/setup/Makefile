@@ -20,5 +20,5 @@ clean:
 	-rm -Rvf mac/target mac/application
 
 builder-fpm-nsis:
-	docker build -t iosdk/builder-fpm-nsis .
-	docker push iosdk/builder-fpm-nsis
+	docker build -t pagopa/builder-fpm-nsis .
+	docker push pagopa/builder-fpm-nsis

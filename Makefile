@@ -1,3 +1,5 @@
+VER?=$(shell git tag --points-at HEAD | head -1)
+
 .PHONY: branch build test release snapshot all
 branch: 
 	$(MAKE) build 
@@ -39,7 +41,4 @@ test:
 	bash test.sh
 
 snapshot:
-	make VER=$(shell date +%Y.%m%d.%H%M-snapshot) release
-
-tag-snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)

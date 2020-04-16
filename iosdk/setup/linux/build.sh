@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 cd $(dirname "${BASH_SOURCE[0]}")
-VERSION=$(git describe --tag)
+VERSION=${1:?version}
 mkdir -p deb/iosdk_${VERSION}/usr/local/bin/
 mkdir -p deb/iosdk_${VERSION}/DEBIAN/
 mkdir -p rpm
 sed -e "/Version/cVersion: ${VERSION}" control > deb/iosdk_${VERSION}/DEBIAN/control
 
-cp ../../iosdk deb/iosdk_${VERSION}/usr/local/bin/
+cp bin/* deb/iosdk_${VERSION}/usr/local/bin/
 
 pushd deb
 dpkg-deb --build iosdk_${VERSION}
