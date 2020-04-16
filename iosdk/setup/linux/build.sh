@@ -2,6 +2,7 @@
 set -e
 cd $(dirname "${BASH_SOURCE[0]}")
 VERSION=${1:?version}
+VERSION=${VERSION/-/}
 mkdir -p deb/iosdk_${VERSION}/usr/local/bin/
 mkdir -p deb/iosdk_${VERSION}/DEBIAN/
 mkdir -p rpm

@@ -15,8 +15,8 @@ windows:
 	$(MAKE) IOSDK_VER=$(IOSDK_VER) -C windows
 
 clean:
-	-rm version linux/*.rpm linux/*.deb mac/*.pkg mac/*.zip windows/*.zip windows/*.exe
-	-rm -Rvf linux/bin mac/bin
+	-rm -Rvf linux/deb linux/rpm 
+	-rm windows/*.zip windows/*.exe
 	-rm -Rvf mac/target mac/application
 
 builder-fpm-nsis:
