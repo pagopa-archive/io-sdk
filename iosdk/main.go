@@ -19,9 +19,10 @@ var (
 	verboseFlag = kingpin.Flag("verbose", "Verbose Output").Short('v').Default("false").Bool()
 
 	// hidden global flags
-	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
 	useDefaultAPIKey  = kingpin.Flag("use-default-api-key", "Use Default Whisk Api Key").Hidden().Default("false").Bool()
+	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
 	skipPullImages    = kingpin.Flag("skip-pull-images", "skip pull images").Hidden().Default("false").Bool()
+	skipOpenBrowser   = kingpin.Flag("skip-open-browser", "skip pull images").Hidden().Default("false").Bool()
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()
@@ -89,8 +90,10 @@ func parse(cmd string) {
 		ShowError(err)
 		if err == nil {
 			PropagateConfig()
-			time.Sleep(2 * time.Second)
-			browser.OpenURL(BrowserURL)
+			if !*skipOpenBrowser {
+				time.Sleep(2 * time.Second)
+				browser.OpenURL(BrowserURL)
+			}
 		}
 	// Stop
 	case stopCmd.FullCommand():
