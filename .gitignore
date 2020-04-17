@@ -1,4 +1,5 @@
 iosdk/iosdk
+images/openwhisk/
 .DS_Store
 .version
 node_modules/
