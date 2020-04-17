@@ -35,7 +35,7 @@ push:
 	$(MAKE) -C ide push
 
 test:
-	bash test.sh
+	bash -x test.sh
 
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)
