@@ -7,3 +7,4 @@ old/
 *.zip
 *.bak
 difftest.out*
+tmp/
