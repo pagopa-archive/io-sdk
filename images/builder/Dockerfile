@@ -5,4 +5,3 @@ RUN apt-get update &&\
     gem install --no-document fpm &&\
     curl -sL ${NSIS} >/tmp/nsis.exe &&\
     wine /tmp/nsis.exe /S
-RUN apt-get install alien

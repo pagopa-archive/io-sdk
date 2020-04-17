@@ -15,7 +15,9 @@ Install
 - a recent version of GNU MAKE
 - [OpenWhisk Cli v1.0.0](https://github.com/apache/openwhisk-cli/releases)
 
-and be sure it is available on the path. If you don't know how to do this, well, I doubt you can help...
+and be sure it is available on the path. If you don't know how to install all of this, well, I doubt you can develop IO-SDK
+
+## Get the code
 
 ````
 git clone https://github.com/pagopa/io-sdk
@@ -60,3 +62,17 @@ You can build "branch" images and binaries just typing "make" at the top level. 
 Finally you build "snapshot" images and installers. Those images will be tagged with a  snapshot tag from date and time (in format `%Y.%m%d.%H%M-snapshot`) . This will also build installers for each platform.
 
 You can build "release" images and installers with `make VER=X.Y.Z-T release`. 
+
+## Base images
+
+The server, the ide and the installer all uses some base images, that are pretty stable and change rarely.
+
+If you really need to change them, you need to get a password to write in some public repository (`pagopa` on DockerHub currently)
+
+`cd images ; make`
+
+They are tagged with the date you built them. If you change the tag you will also have to change the tag in `admin/Dockerfile` and `ide/Dockerfile`
+
+The process is manual because it is infrequent and needs awareness of what you are doing.
+
+

@@ -9,7 +9,6 @@ build:
 push: 
 	docker push $(IMG)
 
-
 .PHONY: clean
 clean:
 	-docker rmi -f $(IMG)
