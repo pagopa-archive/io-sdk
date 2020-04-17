@@ -26,8 +26,9 @@ jobs:
         source $HOME/.nvm/nvm.sh
         nvm install v10
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v2
+    # uncomment this if you need to debug
+    #- name: Setup tmate session
+    #  uses: mxschmitt/action-tmate@v2
 
     - name: Build
       run: |
