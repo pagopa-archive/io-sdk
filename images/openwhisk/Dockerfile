@@ -1,1 +1,0 @@
-FROM actionloop/standalone:latest
