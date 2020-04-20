@@ -3,7 +3,7 @@ IOSDK_VER?=0.0-unknown
 HERE:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 .PHONY: all
 all: bin/iosdk bin/wsk
-	docker run -ti --rm -v $(HERE):/mnt pagopa/builder-fpm-nsis bash /mnt/build.sh $(IOSDK_VER)
+	docker run --rm -v $(HERE):/mnt pagopa/builder-fpm-nsis bash /mnt/build.sh $(IOSDK_VER)
 
 bin/iosdk:
 	mkdir -p bin

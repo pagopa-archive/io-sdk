@@ -2,81 +2,167 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-    - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    - '*' # Push events to matching *, i.e. 1.0, 20.15.10
 
-name: Create Release And Upload Assets
+name: Create Release and Upload Assets
 
 jobs:
-  build:
-    name: Create Release And Upload Assets
+  build_mac:
+    name: Mac Release
     runs-on: macOS-latest
     steps:
-    
-    - name: Checkout code
-      uses: actions/checkout@master
-    
-    - name: Branch name
-      id: branch_name
-      run: |
-        echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
-        echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-        echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: '1.13'
+        id: go
 
-    - name: Get dependencies
-      env:
-        SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
-        SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
-        VER: ${{ steps.branch_name.outputs.SOURCE_TAG }}
-      run: |
-        echo $VER
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-        export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-        nvm install v10
-        nvm use v10
-        make release_mac VER=$VER
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: true
+      - name: Get dependencies
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+          source $HOME/.nvm/nvm.sh
+          nvm install v10
 
-      # - name: Upload Linux Release Asset
-      #   id: upload-release-asset-linux
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./bin/linux/iosdk_lin
-      #     asset_name: iosdk_lin
-      #     asset_content_type: application/octet-stream
+      - name: Build
+        run: |
+          source $HOME/.nvm/nvm.sh
+          nvm use v10
+          docker login -u iosdk -p 79be109a-101a-47cc-8d28-2adeb1d60a6e
+          make release_mac
 
-      # - name: Upload Windows Release Asset
-      #   id: upload-release-asset-windows
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./bin/windows/iosdk_win.exe
-      #     asset_name: iosdk_win.exe
-      #     asset_content_type: application/octet-stream
+      - name: Create Artifacts File
+        id: mac_artifact
+        run: |
+          sudo ln -s iosdk/setup/mac/target/pkg/*.pkg iosdk.pkg
+          MACPATH=$(ls iosdk/setup/mac/target/pkg/*.pkg)
+          MACNAME=$(basename iosdk/setup/mac/target/pkg/*.pkg)
+          echo MACPATH=${MACPATH} > mac_variables.sh
+          echo MACNAME=${MACNAME} >> mac_variables.sh
 
-      # - name: Upload macOS Release Asset
-      #   id: upload-release-asset-macos
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./bin/mac/iosdk_mac
-      #     asset_name: iosdk_mac
-      #     asset_content_type: application/octet-stream
+      - name: Upload Release pkg file as Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: mac_artifact
+          path: iosdk.pkg
 
+      - name: Upload Release mac variables as Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: variables
+          path: mac_variables.sh
+
+  build:
+    name: Windows and Linux Release
+    runs-on: ubuntu-latest
+    needs: build_mac
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: '1.13'
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Get dependencies
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+          source $HOME/.nvm/nvm.sh
+          nvm install v10
+
+      - name: Build
+        id: build
+        run: |
+          source $HOME/.nvm/nvm.sh
+          nvm use v10
+          docker login -u iosdk -p 79be109a-101a-47cc-8d28-2adeb1d60a6e
+          sudo apt-get install -y alien
+          make release
+          DEBPATH=$(ls iosdk/setup/linux/deb/iosdk_*.deb)
+          DEBNAME=$(basename iosdk/setup/linux/deb/iosdk_*.deb)
+          RPMPATH=$(ls iosdk/setup/linux/rpm/iosdk-*.rpm)
+          RPMNAME=$(basename iosdk/setup/linux/rpm/iosdk-*.rpm)
+          WINPATH=$(ls iosdk/setup/windows/iosdk_*.exe)
+          WINNAME=$(basename iosdk/setup/windows/iosdk_*.exe)
+          echo ::set-output name=deb_path::${DEBPATH}
+          echo ::set-output name=deb_name::${DEBNAME}
+          echo ::set-output name=rpm_path::${RPMPATH}
+          echo ::set-output name=rpm_name::${RPMNAME}
+          echo ::set-output name=win_path::${WINPATH}
+          echo ::set-output name=win_name::${WINNAME}
+
+      - name: Download mac pkg Artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: mac_artifact
+
+      - name: Download mac variables Artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: variables
+
+      - name: Set mac variables
+        id: mac_variables
+        run: |
+          source variables/mac_variables.sh
+          echo ::set-output name=mac_path::${MACPATH}
+          echo ::set-output name=mac_name::${MACNAME}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload .deb
+        id: upload-release-deb-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ${{ steps.build.outputs.deb_path }}
+          asset_name: ${{ steps.build.outputs.deb_name }}
+          asset_content_type: application/x-debian-package
+
+      - name: Upload .rpm
+        id: upload-release-rpm-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ${{ steps.build.outputs.rpm_path }}
+          asset_name: ${{ steps.build.outputs.rpm_name }}
+          asset_content_type: application/x-redhat-package-manager
+
+      - name: Upload .exe
+        id: upload-release-win-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ${{ steps.build.outputs.win_path }}
+          asset_name: ${{ steps.build.outputs.win_name }}
+          asset_content_type: application/octet-stream
+
+      - name: Upload .pkg
+        id: upload-release-mac-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: mac_artifact/iosdk.pkg
+          asset_name: ${{ steps.mac_variables.outputs.mac_name }}
+          asset_content_type: application/x-newton-compatible-pkg

@@ -4,7 +4,7 @@ HERE:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 .PHONY: all
 all: iosdk.exe wsk.exe
-	docker run -ti -v $(HERE):/mnt -e VER=$(IOSDK_VER) iosdk/builder-fpm-nsis bash /mnt/build.sh
+	docker run -v $(HERE):/mnt -e VER=$(IOSDK_VER) pagopa/builder-fpm-nsis bash /mnt/build.sh
 
 iosdk.exe:
 	GOOS=windows GOARCH=amd64 go build \

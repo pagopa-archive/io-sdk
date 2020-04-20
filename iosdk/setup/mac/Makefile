@@ -19,4 +19,3 @@ $(WSK):
 	curl -sL $(WSK_URL) >wsk.zip
 	unzip wsk.zip wsk -d $(BIN)
 
-

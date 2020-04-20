@@ -1,9 +1,9 @@
-name: Test Build
+name: Build
 on: [push]
 jobs:
 
   build:
-    name: Test Build
+    name: Build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
