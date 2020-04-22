@@ -18,7 +18,6 @@ release_mac:
 	test -n "$(VER)"
 	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/mac
 
-
 clean:
 	$(MAKE) -C admin clean
 	$(MAKE) -C ide clean

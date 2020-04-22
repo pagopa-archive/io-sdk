@@ -3,6 +3,7 @@ IMG=pagopa/iosdk-openwhisk:$(IOSDK_VER)
 
 .PHONE: build
 build: public/build/bundle.js
+	$(MAKE) -C actions
 	docker build -t $(IMG) .
 
 .PHONY: push
@@ -11,6 +12,7 @@ push:
 
 .PHONY: clean
 clean:
+	-$(MAKE) -C actions clean
 	-docker rmi -f $(IMG)
 
 .PHONY: deploy

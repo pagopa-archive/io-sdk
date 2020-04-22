@@ -1,4 +1,4 @@
-VER=2020.04.17
+VER=2020.04.22
 REPO=https://github.com/sciabarracom/openwhisk
 BRANCH=debugger
 WHISK=pagopa/openwhisk-standalone:$(VER)
