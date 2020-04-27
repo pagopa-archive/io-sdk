@@ -39,8 +39,8 @@ func Init(dir, repo string, log sideband.Progress) (string, error) {
 		fmt.Println("Using existing work directory.")
 		return dir, nil
 	}
-	if os.IsExist(err) {
-		return "", fmt.Errorf("Found a file in %s", dir)
+	if !os.IsNotExist(err) {
+		panic("existing path that is not a directory")
 	}
 
 	if repo == "" {
