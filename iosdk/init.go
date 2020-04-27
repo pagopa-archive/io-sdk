@@ -34,9 +34,13 @@ func Init(dir, repo string, log sideband.Progress) (string, error) {
 		return "", err
 	}
 
-	if _, err := os.Stat(dir); !os.IsNotExist(err) {
+	stat, err := os.Stat(dir)
+	if err == nil && stat.IsDir() {
 		fmt.Println("Using existing work directory.")
 		return dir, nil
+	}
+	if os.IsExist(err) {
+		return "", fmt.Errorf("Found a file in %s", dir)
 	}
 
 	if repo == "" {
