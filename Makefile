@@ -38,3 +38,4 @@ test:
 
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)
+	git push pagopa master --tags
