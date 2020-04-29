@@ -9,7 +9,7 @@ branch:
 release:
 	test -n "$(VER)"
 	$(MAKE) IOSDK_VER=$(VER) build
-	$(MAKE) test
+	#$(MAKE) test
 	$(MAKE) IOSDK_VER=$(VER) push
 	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/linux
 	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/windows

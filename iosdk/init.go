@@ -33,7 +33,7 @@ func Init(dir, repo string, log sideband.Progress) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	stat, err := os.Stat(dir)
+	fi, err := os.Stat(dir)
 	if err == nil {
 		switch mode := fi.Mode(); {
 		case mode.IsDir():
