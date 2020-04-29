@@ -312,3 +312,14 @@ func Select(query string, options string) string {
 	}
 	return input
 }
+
+func IsDir(dir string) {
+	stat, err := os.Stat(dir)
+	if err == nil && stat.IsDir() {
+		fmt.Println("Using existing work directory.")
+		return dir, nil
+	}
+	if !os.IsNotExist(err) {
+		panic("existing path that is not a directory")
+	}
+}

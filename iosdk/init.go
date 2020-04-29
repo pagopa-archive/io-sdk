@@ -33,15 +33,17 @@ func Init(dir, repo string, log sideband.Progress) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
 	stat, err := os.Stat(dir)
-	if err == nil && stat.IsDir() {
-		fmt.Println("Using existing work directory.")
-		return dir, nil
+	if err == nil {
+		switch mode := fi.Mode(); {
+		case mode.IsDir():
+			// do directory stuff
+			return dir, nil
+		case mode.IsRegular():
+			panic("existing path that is not a directory")
+		}
 	}
-	if !os.IsNotExist(err) {
-		panic("existing path that is not a directory")
-	}
+	// error, file does not exist
 
 	if repo == "" {
 		fmt.Println("Select one of the available templates for importers, or provide your own.")
