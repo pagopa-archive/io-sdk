@@ -1,4 +1,4 @@
-IOSDK_VER?=0.0-unknown
+IOSDK_VER?=master
 WSK=https://github.com/apache/openwhisk-cli/releases/download/1.0.0/OpenWhisk_CLI-1.0.0-windows-amd64.zip
 HERE:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
