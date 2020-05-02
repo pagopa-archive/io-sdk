@@ -7,6 +7,7 @@ require (
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/coreos/go-semver v0.3.0
 	github.com/davecgh/go-spew v1.1.1
+	github.com/dixonwille/wmenu/v5 v5.0.0
 	github.com/google/uuid v1.1.1
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4

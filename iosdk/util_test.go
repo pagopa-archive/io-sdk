@@ -176,3 +176,20 @@ func ExampleSelect() {
 	// hello
 	// world
 }
+
+func ExampleSelectTemplate() {
+	tmpls := map[string]string{
+		"js":   "javascript",
+		"java": "java",
+		"py":   "python",
+		"gh":   "github",
+	}
+	fmt.Println(SelectTemplate(tmpls))
+	// Output:
+	// 1) *javascript
+	// 2) java
+	// 3) python
+	// 4) github
+	// Please select the template:
+	//  EOF
+}

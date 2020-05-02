@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -10,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dixonwille/wmenu/v5"
 	log "github.com/sirupsen/logrus"
 	"github.com/tcnksm/go-input"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -311,4 +313,42 @@ func Select(query string, options string) string {
 		return ""
 	}
 	return input
+}
+
+// SelectTemplate asks for template selection and build the corresponding github URI
+func SelectTemplate(tmpls map[string]string) (string, error) {
+	const baseURL = "https://github.com/"
+	const defaultProj = "pagopa/io-sdk"
+	var resURI = ""
+
+	// Define header
+	menu := wmenu.NewMenu("Please select the template:")
+
+	// Define the default FQDN {githubURL}/{pagopaNAME}/{templateNAME}
+	menu.Action(func(opts []wmenu.Opt) error {
+		resURI = fmt.Sprintf("%s/%v-%v", baseURL, defaultProj, opts[0].Value)
+		return nil
+	})
+
+	// Enumerate the input options. Only GH has a custom action, asking for <user>/<project>
+	menu.Option(tmpls["js"], tmpls["js"], true, nil)
+	menu.Option(tmpls["java"], tmpls["java"], false, nil)
+	menu.Option(tmpls["py"], tmpls["py"], false, nil)
+	menu.Option(tmpls["gh"], tmpls["gh"], false, func(o wmenu.Opt) error {
+		fmt.Println("Enter the github user/path:")
+		input := bufio.NewReader(os.Stdin)
+		customProj, err := input.ReadString('\n')
+
+		resURI = fmt.Sprintf("%v/%v", baseURL, customProj)
+		return err
+	})
+
+	// Launch the menu
+	err := menu.Run()
+
+	if err != nil {
+		return "", err
+	}
+
+	return resURI, nil
 }
