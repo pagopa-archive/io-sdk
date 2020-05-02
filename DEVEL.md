@@ -14,6 +14,7 @@ Install
 - Nodejs v10.x  
 - a recent version of GNU MAKE
 - [OpenWhisk Cli v1.0.0](https://github.com/apache/openwhisk-cli/releases)
+- [Docker](https://www.docker.com/get-started)
 
 and be sure it is available on the path. If you don't know how to install all of this, well, I doubt you can develop IO-SDK
 
