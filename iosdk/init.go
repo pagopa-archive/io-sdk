@@ -51,17 +51,20 @@ func Init(dir, repo string, log sideband.Progress) (string, error) {
 		fmt.Println("The java template is for SQL import.")
 		fmt.Println("The python template is for REST import.")
 		fmt.Println("The github template requires a github repo (user/path).")
-		opt := Select("Which template:", "javascript,java,python,github")
-		if opt == "" {
-			return "", fmt.Errorf("aborted template selection")
+
+		tmpls := map[string]string{
+			"js":   "javascript",
+			"java": "java",
+			"py":   "python",
+			"gh":   "github",
 		}
-		if opt == "github" {
-			repo = Input("GitHub user/path", "")
-		} else {
-			repo = fmt.Sprintf("pagopa/io-sdk-%s", opt)
+
+		repo, err = SelectTemplate(tmpls)
+
+		if err != nil {
+			fmt.Println(err)
 		}
 	}
-	repo = fmt.Sprintf("https://github.com/%s", repo)
 
 	fmt.Printf("Preparing work directory %s for %s\n", dir, repo)
 	_, err = git.PlainClone(dir, false, &git.CloneOptions{
