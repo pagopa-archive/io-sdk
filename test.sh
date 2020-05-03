@@ -6,7 +6,7 @@ iosdk/iosdk stop
 sudo rm -Rvf $HOME/tmp-iosdk-test
 docker pull library/redis:5
 echo "****** INIT"
-iosdk/iosdk init $HOME/tmp-iosdk-test pagopa/io-sdk-javascript --io-apikey=123456890 --wskprops
+iosdk/iosdk init $HOME/tmp-iosdk-test https://github.com/pagopa/io-sdk-javascript --io-apikey=123456890 --wskprops
 echo "****** START"
 iosdk/iosdk -v start --skip-pull-images --skip-docker-version --skip-open-browser
 echo "****** BUILD"
