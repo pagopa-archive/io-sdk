@@ -327,7 +327,7 @@ func SelectTemplate(tmpls map[string]string) (string, error) {
 
 	// Define the default FQDN {githubURL}/{pagopaNAME}/{templateNAME}
 	menu.Action(func(opts []wmenu.Opt) error {
-		resURI = fmt.Sprintf("%s/%v-%v", baseURL, defaultProj, opts[0].Text)
+		resURI = fmt.Sprintf("%s%v-%v", baseURL, defaultProj, opts[0].Text)
 		return nil
 	})
 
@@ -347,7 +347,7 @@ func SelectTemplate(tmpls map[string]string) (string, error) {
 			customProj = strings.Replace(customProj, "\n", "", -1)
 		}
 
-		resURI = fmt.Sprintf("%v/%v", baseURL, customProj)
+		resURI = fmt.Sprintf("%v%v", baseURL, customProj)
 		return err
 	})
 
