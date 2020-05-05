@@ -11,7 +11,7 @@ import (
 	"time"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/tcnksm/go-input"
+	"github.com/pagopa/go-input"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
