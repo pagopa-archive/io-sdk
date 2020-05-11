@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 
+	"github.com/alecthomas/units"
 	"github.com/coreos/go-semver/semver"
 	"github.com/mitchellh/go-homedir"
 )
@@ -46,7 +49,11 @@ func preflightInHomePath(dir string) error {
 
 // Preflight perform preflight checks
 func Preflight(dir string) error {
-	err := preflightEnsureDockerVersion()
+	err := preflightDockerMemory()
+	if err != nil {
+		return err
+	}
+	err = preflightEnsureDockerVersion()
 	if err != nil {
 		return err
 	}
@@ -55,4 +62,23 @@ func Preflight(dir string) error {
 		return err
 	}
 	return nil
+}
+
+// preflightDockerMemory checks docker memory
+func preflightDockerMemory() error {
+	out, err := exec.Command("docker", "info").Output()
+	if err != nil {
+		return fmt.Errorf("Docker is not installed")
+	}
+	var search = regexp.MustCompile(`Total Memory: (.*)`)
+	result := search.FindString(string(out))
+	mem := strings.Split(result, ":")
+	memory := strings.TrimSpace(mem[1])
+	n, err := units.ParseStrictBytes(memory)
+	fmt.Println(n)
+	if n <= 4000000000 {
+		return fmt.Errorf("IOSDK needs 4GB memory allocatable on docker")
+	}
+	return nil
+
 }

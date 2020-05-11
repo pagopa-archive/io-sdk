@@ -33,3 +33,12 @@ func ExampleInHomePath() {
 	// this is required to be accessible by Docker
 	// <nil>
 }
+
+func ExamplePreflightDockerMemory() {
+	*DryRunFlag = true
+	DryRunPush("12487617413", "3000000000")
+	fmt.Println(preflightDockerMemory())
+	fmt.Println(preflightDockerMemory())
+	// Output:
+	// 12487617413
+}

@@ -10,3 +10,4 @@ test:
 
 clean:
 	-rm iosdk
+	-rm setup/windows/iosdk.exe
