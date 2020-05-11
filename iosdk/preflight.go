@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -10,6 +9,7 @@ import (
 	"github.com/alecthomas/units"
 	"github.com/coreos/go-semver/semver"
 	"github.com/mitchellh/go-homedir"
+	log "github.com/sirupsen/logrus"
 )
 
 func preflightEnsureDockerVersion() error {
@@ -66,19 +66,21 @@ func Preflight(dir string) error {
 
 // preflightDockerMemory checks docker memory
 func preflightDockerMemory() error {
-	out, err := exec.Command("docker", "info").Output()
+	out, err := SysErr("docker", "info")
 	if err != nil {
-		return fmt.Errorf("Docker is not installed")
+		return fmt.Errorf("Docker is not running")
 	}
 	var search = regexp.MustCompile(`Total Memory: (.*)`)
 	result := search.FindString(string(out))
 	mem := strings.Split(result, ":")
 	memory := strings.TrimSpace(mem[1])
 	n, err := units.ParseStrictBytes(memory)
-	fmt.Println(n)
-	if n <= 4000000000 {
+	log.Debug("mem:", n)
+	//fmt.Println(n)
+	if n <= int64(MinDockerMem) {
 		return fmt.Errorf("IOSDK needs 4GB memory allocatable on docker")
 	}
+
 	return nil
 
 }

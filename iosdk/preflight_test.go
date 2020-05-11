@@ -36,9 +36,13 @@ func ExampleInHomePath() {
 
 func ExamplePreflightDockerMemory() {
 	*DryRunFlag = true
-	DryRunPush("12487617413", "3000000000")
+	*verboseFlag = true
+	DryRunPush("\nTotal Memory: 11GiB\n", "\nTotal Memory: 3GiB\n")
 	fmt.Println(preflightDockerMemory())
 	fmt.Println(preflightDockerMemory())
 	// Output:
-	// 12487617413
+	// docker info
+	// <nil>
+	// docker info
+	// IOSDK needs 4GB memory allocatable on docker
 }
