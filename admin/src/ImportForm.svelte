@@ -48,6 +48,7 @@
         <div class="callout-title">{field.name}</div>
         <p>{field.description}</p>
       </div>
+      <br>
     {:else if field.type == 'string'}
       <div class="form-group">
         <input

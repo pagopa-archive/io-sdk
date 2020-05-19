@@ -10,7 +10,7 @@ var entry = []Entrypoint{
 		Key: "123456",
 	},
 	Entrypoint{
-		URL: "https://api.cd.italia.it/api/v1/messages",
+		URL: "https://api.io.italia.it/api/v1/messages",
 		Key: "483b7b1f3a974b45b5c44a43538c9255",
 	},
 }

@@ -25,7 +25,7 @@ const WhiskImage = DockerHubUser + "/iosdk-openwhisk"
 const RedisImage = "library/redis:5"
 
 // IoAPIHost is the host to send messages
-const IoAPIHost = "https://api.cd.italia.it/api/v1"
+const IoAPIHost = "https://api.io.italia.it/api/v1"
 
 // DefaultWhiskAPIKey is the default whisk api key
 const DefaultWhiskAPIKey = "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP"
