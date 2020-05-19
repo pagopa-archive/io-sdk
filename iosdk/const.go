@@ -29,3 +29,6 @@ const IoAPIHost = "https://api.io.italia.it/api/v1"
 
 // DefaultWhiskAPIKey is the default whisk api key
 const DefaultWhiskAPIKey = "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP"
+
+// MinDockerMem is the minimum amount of memory required by docker
+const MinDockerMem = 4 * 1024 * 1024 * 1024
