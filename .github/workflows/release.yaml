@@ -75,10 +75,12 @@ jobs:
 
       - name: Build
         id: build
+        env:
+          DOCKER_HUB_ACCESS_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         run: |
           source $HOME/.nvm/nvm.sh
           nvm use v10
-          docker login -u iosdk -p 79be109a-101a-47cc-8d28-2adeb1d60a6e
+          docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
           sudo apt-get install -y alien
           make release
           DEBPATH=$(ls iosdk/setup/linux/deb/iosdk_*.deb)
