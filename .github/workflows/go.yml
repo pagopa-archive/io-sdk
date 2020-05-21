@@ -33,9 +33,6 @@ jobs:
         cd bats
         sudo ./install.sh /usr/local
 
-    # uncomment this if you need to debug
-    #- name: Setup tmate session
-    #  uses: mxschmitt/action-tmate@v2
 
     - name: Build
       shell: bash
@@ -46,3 +43,7 @@ jobs:
         nvm use v10
         docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
         make
+
+    # uncomment this if you need to debug
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v2
