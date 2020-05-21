@@ -66,12 +66,15 @@ func Preflight(dir string) error {
 
 // preflightDockerMemory checks docker memory
 func preflightDockerMemory() error {
-	out, err := SysErr("docker", "info")
+	out, err := SysErr("@docker info")
 	if err != nil {
 		return fmt.Errorf("Docker is not running")
 	}
 	var search = regexp.MustCompile(`Total Memory: (.*)`)
 	result := search.FindString(string(out))
+	if result == "" {
+		return fmt.Errorf("Docker is not running")
+	}
 	mem := strings.Split(result, ":")
 	memory := strings.TrimSpace(mem[1])
 	n, err := units.ParseStrictBytes(memory)

@@ -46,3 +46,10 @@ func ExamplePreflightDockerMemory() {
 	// docker info
 	// IOSDK needs 4GB memory allocatable on docker
 }
+
+func ExampleDockerRunning() {
+	out, err := SysErr("docker info")
+	fmt.Println(out, err)
+	// Output:
+
+}
