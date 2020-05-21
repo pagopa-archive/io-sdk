@@ -13,12 +13,11 @@ func ExampleConfigLoad() {
 	fmt.Print(run("ls -a /tmp/iosdk-test/.io*"))
 	fmt.Println(Config.IoAPIKey)
 	fmt.Println(len(Config.WhiskAPIKey))
-	configureIde()
 	// Output:
-	// stat /tmp/iosdk-test/.iosdk: no such file or directory
-	// Wrote /tmp/iosdk-test/.iosdk
+	// stat /tmp/iosdk-test/.iosdk.v2: no such file or directory
+	// Wrote /tmp/iosdk-test/.iosdk.v2
 	// <nil>
-	// /tmp/iosdk-test/.iosdk
+	// /tmp/iosdk-test/.iosdk.v2
 	// 123456
 	// 101
 }

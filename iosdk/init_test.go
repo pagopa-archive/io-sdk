@@ -26,7 +26,6 @@ func ExampleInit2() {
 	// Done.
 	// 1 /tmp/iosdk-test/javascript <nil>
 	// 2 Directory not specified
-	// Using existing work directory.
 	// 3 <nil> /tmp/iosdk-test/javascript
 }
 
@@ -54,7 +53,6 @@ func ExampleInit() {
 	// Done.
 	// 1 <nil>
 	// demo
-	// Using existing work directory.
 	// 2 <nil>
 	// Preparing work directory /tmp/iosdk-test/clone for https://github.com/pagopa/io-sdk-javascript
 	// Done.

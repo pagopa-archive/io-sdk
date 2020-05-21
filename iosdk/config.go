@@ -47,7 +47,7 @@ var Config *IoSDKConfig
 
 // ConfigLoad loads the configuration
 func ConfigLoad() error {
-	configFile, err := homedir.Expand("~/.iosdk")
+	configFile, err := homedir.Expand(ConfigFile)
 	if err != nil {
 		return err
 	}
@@ -68,7 +68,7 @@ func ConfigSave() error {
 	if Config == nil {
 		return errors.New("empty configuration")
 	}
-	configFile, err := homedir.Expand("~/.iosdk")
+	configFile, err := homedir.Expand(ConfigFile)
 	if err != nil {
 		return err
 	}

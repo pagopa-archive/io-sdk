@@ -101,8 +101,9 @@ func TestMain(m *testing.M) {
 	flag.Parse()
 	*DryRunFlag = true
 	*useDefaultAPIKey = true
-	log.SetOutput(os.Stderr)
-	//log.SetOutput(ioutil.Discard)
+	log.SetOutput(ioutil.Discard)
+	//decomment this if you to see error log in tests
+	//log.SetOutput(os.Stderr)
 	log.SetFormatter(&log.TextFormatter{
 		DisableColors:    true,
 		DisableTimestamp: true,

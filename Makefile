@@ -3,7 +3,7 @@ VER?=$(shell git tag --points-at HEAD | head -1)
 .PHONY: branch build test release snapshot all
 branch: 
 	$(MAKE) build 
-	$(MAKE) test 
+	$(MAKE) test
 	$(MAKE) push
 
 release:
@@ -34,7 +34,12 @@ push:
 	$(MAKE) -C ide push
 
 test:
+	# test cli
+	make -C iosdk test
+	# test execution
 	bash test.sh
+	# test actions
+	make -C admin/actions test
 
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)

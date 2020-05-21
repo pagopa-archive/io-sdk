@@ -1,5 +1,8 @@
 package main
 
+// ConfigFile is the config file, change number if you need the project to be re-initialized
+const ConfigFile = "~/.iosdk.v2"
+
 // Author is the main author
 const Author = "Michele Sciabarra"
 
