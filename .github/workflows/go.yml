@@ -29,6 +29,9 @@ jobs:
         curl -o- "$NVM_INSTALL" | bash
         source $HOME/.nvm/nvm.sh
         nvm install v10
+        git clone https://github.com/sstephenson/bats.git
+        cd bats
+        sudo ./install.sh /usr/local
 
     # uncomment this if you need to debug
     #- name: Setup tmate session
