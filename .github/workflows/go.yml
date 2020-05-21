@@ -25,7 +25,7 @@ jobs:
         WSK_INSTALL: https://github.com/apache/openwhisk-cli/releases/download/1.0.0/OpenWhisk_CLI-1.0.0-linux-amd64.tgz
         NVM_INSTALL: https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh 
       run: |
-        curl -sL $WSK_INSTALL | tar xzvf - -C /usr/bin wsk
+        curl -sL $WSK_INSTALL | sudo tar xzvf - -C /usr/bin wsk
         curl -o- "$NVM_INSTALL" | bash
         source $HOME/.nvm/nvm.sh
         nvm install v10
