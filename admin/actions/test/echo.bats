@@ -3,7 +3,8 @@ load util
 
 @test "echo put" {
     run http PUT $URL/util/echo hello=world
-    run filter gawk '!/x-/ { gsub("[0-9]+", "X") ; print }' 
+    run filter grep -v 'x-'
+    run filter sed -e 's/[0-9]\{1,5\}/X/g'
     ckdiff <<EOF
 {
   "__ow_body": "{\"hello\": \"world\"}",

@@ -46,5 +46,5 @@ jobs:
         make
 
     # uncomment this if you need to debug..
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v2
+    #- name: Setup tmate session
+    #  uses: mxschmitt/action-tmate@v2
