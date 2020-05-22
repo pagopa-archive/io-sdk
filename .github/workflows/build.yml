@@ -44,6 +44,6 @@ jobs:
         docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
         make
 
-    # uncomment this if you need to debug...
+    # uncomment this if you need to debug
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v2
