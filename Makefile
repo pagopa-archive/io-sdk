@@ -39,7 +39,7 @@ test:
 	# test execution
 	bash test.sh
 	# test actions
-	make -C admin/actions test
+	#make -C admin/actions test
 
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)
