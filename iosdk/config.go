@@ -81,18 +81,23 @@ func ConfigSave() error {
 	fmt.Println("Wrote", configFile)
 
 	if *initWskPropsFlag {
-		wskFile, err := homedir.Expand("~/.wskprops")
-		if err != nil {
-			return err
-		}
-		data := fmt.Sprintf("APIHOST=%s\nAUTH=%s\n", Config.WhiskAPIHostLocal, Config.WhiskAPIKey)
-		err = ioutil.WriteFile(wskFile, []byte(data), 0644)
-		if err != nil {
-			return err
-		}
-		fmt.Println("Wrote", wskFile)
+		return WskPropsSave()
 	}
+	return nil
+}
 
+// WskPropsSave save wskprops
+func WskPropsSave() error {
+	wskFile, err := homedir.Expand("~/.wskprops")
+	if err != nil {
+		return err
+	}
+	data := fmt.Sprintf("APIHOST=%s\nAUTH=%s\n", Config.WhiskAPIHostLocal, Config.WhiskAPIKey)
+	err = ioutil.WriteFile(wskFile, []byte(data), 0644)
+	if err != nil {
+		return err
+	}
+	fmt.Println("Wrote", wskFile)
 	return nil
 }
 

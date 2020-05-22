@@ -26,6 +26,7 @@ var (
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()
+	wskProps        = debugCmd.Command("wskprops", "Create WskProps file").Hidden()
 	ideDeployCmd    = debugCmd.Command("ide-deploy", "Create IDE deployment").Hidden()
 	ideDestroyCmd   = debugCmd.Command("ide-destroy", "Destroy IDE deployment").Hidden()
 	whiskDeployCmd  = debugCmd.Command("whisk-deploy", "Create Whisk deployment").Hidden()
@@ -53,6 +54,9 @@ var (
 
 func parseDebug(cmd string) bool {
 	switch cmd {
+	case wskProps.FullCommand():
+		ConfigLoad()
+		WskPropsSave()
 	case ideDeployCmd.FullCommand():
 		IdeDeploy("")
 	case ideDestroyCmd.FullCommand():
