@@ -1,0 +1,2 @@
+.classpath postgresql postgresql.jar
+.open -u postgres -p postgrespassword postgresql://localhost:5432/postgres

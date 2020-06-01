@@ -1,0 +1,12 @@
+
+create table messages(
+    id SERIAL PRIMARY KEY, 
+    destinatario VARCHAR (50) not null,
+    scadenza date, 
+    titolo VARCHAR (200) not null,
+    testo VARCHAR (2000) not null
+);
+
+insert into messages (destinatario, scadenza, titolo, testo) values('ISPXNB32R82Y766F', '2001-01-01', 'Hi Giovanni', '# Welcome, Giovanni Rossi\nThis is a test message.\n.This message was sent using the IO-SDK.\nYour fiscal code is ISPXNB32R82Y766F\nWe hope you are enjoing using IO.\n');
+
+insert into messages (destinatario, scadenza, titolo, testo) values('ISPXNB32R82Y766D', '2002-02-02', 'Hi Luca', '# Welcome, Luca Rossi\nThis is a test message.\n.This message was sent using the IO-SDK.\nYour fiscal code is ISPXNB32R82Y766D\nWe hope you are enjoing using IO.\n');
