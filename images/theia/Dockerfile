@@ -109,7 +109,7 @@ ENV PATH $PATH:${GOPATH}/bin
 #    go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
 
 #Java
-RUN apt-get update && apt-get -y install openjdk-8-jdk maven gradle
+#RUN apt-get update && apt-get -y install openjdk-8-jdk maven gradle
 
 #Python 2-3
 RUN apt-get update \
