@@ -11,7 +11,7 @@ load util
   "__ow_headers": {
     "accept": "application/json, */*",
     "accept-encoding": "gzip, deflate",
-    "content-type": "application/json",
+    "content-type": "application/json;q=X.X",
     "host": "X.X.X.X:X",
     "user-agent": "HTTPie/X.X.X",
   },
