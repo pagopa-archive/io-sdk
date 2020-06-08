@@ -5,7 +5,8 @@ load util
     run http PUT $URL/util/echo hello=world
     run filter grep -v 'x-'
     run filter grep -v 'accept'
-    run filter sed -e 's/[0-9]\{1,5\}/X/g' -e 's/ //g'
+    run filter sed -e 's/[0-9]\{1,5\}/X/g' 
+    run filter sed -e 's/ //g'
     ckdiff <<EOF
 {
 "__ow_body":"{\"hello\":\"world\"}",
