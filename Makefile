@@ -1,7 +1,7 @@
 VER?=$(shell git tag --points-at HEAD | head -1)
 
 .PHONY: branch build test release release_mac snapshot all clean
-branch: clean 
+branch:
 	$(MAKE) build 
 	$(MAKE) test
 	$(MAKE) push
@@ -39,7 +39,7 @@ test:
 	# test execution
 	bash test.sh
 	# test actions
-	make -C admin/actions test
+	#make -C admin/actions test
 
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)

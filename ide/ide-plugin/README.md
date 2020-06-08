@@ -1,2 +1,2 @@
-# iosdk
-iosdk Plugin example for Theia.
+# ide-plugin
+ide-plugin Plugin example for Theia.
