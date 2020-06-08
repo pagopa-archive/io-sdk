@@ -1,7 +1,7 @@
 VER?=$(shell git tag --points-at HEAD | head -1)
 
-.PHONY: branch build test release snapshot all
-branch: 
+.PHONY: branch build test release release_mac snapshot all clean
+branch: clean 
 	$(MAKE) build 
 	$(MAKE) test
 	$(MAKE) push
@@ -19,9 +19,9 @@ release_mac:
 	$(MAKE) IOSDK_VER=$(VER) -C iosdk/setup/mac
 
 clean:
-	$(MAKE) -C admin clean
-	$(MAKE) -C ide clean
-	$(MAKE) -C iosdk clean
+	-$(MAKE) -C admin clean
+	-$(MAKE) -C ide clean
+	-$(MAKE) -C iosdk clean
 	
 build:
 	$(MAKE) -C admin
