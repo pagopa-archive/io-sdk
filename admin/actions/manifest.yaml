@@ -7,19 +7,19 @@ packages:
         docker: openwhisk/action-golang-v1.12
         web: raw
       cache:
-        function: deploy/util/cache.py
+        function: deploy/cache.zip
         docker: actionloop/actionloop-python-v3.7
         web: true
       store:
-        function: deploy/util/store.py
+        function: deploy/store.zip
         docker: actionloop/actionloop-python-v3.7
         web: raw
       messages:
-          function: deploy/util/messages.py
+          function: deploy/messages.zip
           docker: actionloop/actionloop-python-v3.7
           web: raw
       send:
-          function: deploy/util/send.py
+          function: deploy/sendpy.zip
           docker: actionloop/actionloop-python-v3.7
           web: true
       upload:

@@ -4,11 +4,7 @@ import os
 import json
 import pip
 import zlib
-
-try: import redis
-except:    
-    pip.main(["install", "redis"])
-    import redis
+import redis
 
 def main(args):
     body = args["__ow_body"]

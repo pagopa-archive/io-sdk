@@ -4,11 +4,7 @@ import os
 import json
 import pip
 import zlib
-
-try: import redis
-except:    
-    pip.main(["install", "redis"])
-    import redis
+import redis
 
 def main(args):
     dest = args.get("fiscal_code")

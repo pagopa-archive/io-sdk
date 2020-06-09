@@ -1,3 +1,5 @@
 node_modules/
 public/app/build/
 .DS_Store
+__main__.py
+virtualenv/

@@ -3,11 +3,7 @@ import time
 import os
 import json
 import pip
-
-try: import redis
-except:    
-    pip.main(["install", "redis"])
-    import redis
+import redis
 
 def main(args):
     red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
