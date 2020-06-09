@@ -37,4 +37,3 @@ Other commands are `iosdk status` to check the status or `iosdk stop` to stop th
 
 How the SDK works is going to be discussed in some (upcoming) YouTube videos.
 
-Triggering debug.
