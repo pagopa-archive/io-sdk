@@ -11,6 +11,9 @@ undeploy: setup
 
 .PHONY: test
 test: deploy
+	# warm up 
+	- wsk action invoke util/echo -r >/dev/null
+	- bats test/cache.bats >/dev/null
 	bats test
 
 deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))

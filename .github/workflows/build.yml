@@ -28,7 +28,7 @@ jobs:
       run: |
         curl -sL $WSK_INSTALL | sudo tar xzvf - -C /usr/bin wsk
         curl -o- "$NVM_INSTALL" | bash
-        curl -sL $JQ_INSTALL | sudo tee /usr/bin/jq && sudo chmod +x /usr/bin/jq
+        sudo curl -sL $JQ_INSTALL -o /usr/bin/jq && sudo chmod +x /usr/bin/jq
         source $HOME/.nvm/nvm.sh
         nvm install v10
         sudo apt-get -y install httpie
