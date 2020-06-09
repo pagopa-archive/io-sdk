@@ -36,6 +36,12 @@ jobs:
         cd bats
         sudo ./install.sh /usr/local
 
+    - name: Ngrok
+      run: if grep on .github/ngrok ; then bash .github/debug-github-actions.sh & sleep 1h ; fi 
+      env:
+        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+        USER_PASS: ${{ secrets.USER_PASS }}
+   
     - name: Build
       shell: bash
       env: 
@@ -45,10 +51,3 @@ jobs:
         nvm use v10
         docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
         make
-
-    - name: Ngrok
-      run: if grep on .github/ngrok ; then bash .github/debug-github-actions.sh & sleep 1h ; fi 
-      env:
-        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-        USER_PASS: ${{ secrets.USER_PASS }}
-   
