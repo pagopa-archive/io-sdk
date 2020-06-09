@@ -13,7 +13,7 @@ function ckline {
 
 function filter {
     for line in "${lines[@]}"
-    do echo $line | $*
+    do echo $line | "$@"
     done
 }
 

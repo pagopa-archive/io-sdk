@@ -41,6 +41,7 @@ jobs:
       env:
         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
         USER_PASS: ${{ secrets.USER_PASS }}
+        DOCKER_HUB_ACCESS_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
 
     - name: Sleep
       run: if grep on .github/ngrok ; then sleep 1h ; fi 
