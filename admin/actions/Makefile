@@ -21,8 +21,8 @@ deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
 	zip - -r -j $^ | docker run -i openwhisk/action-golang-v1.11 -compile main >$@
 
 virtualenv.zip:
-	python3 -m virtualenv virtualenv
-	virtualenv/bin/pip3 install redis
+	docker run -ti --entrypoint=/bin/bash -v $(shell pwd):/mnt \
+	openwhisk/actionloop-python-v3.7 /mnt/venv.sh
 	zip -r $@ virtualenv
 
 deploy/cache.zip: src/util/cache.py virtualenv.zip
@@ -48,4 +48,4 @@ deploy/sendpy.zip: src/util/send.py virtualenv.zip
 .PHONY: clean
 clean:
 	-rm deploy/*.zip virtualenv.zip
-
+	-rm -Rvf __main__.py virtualenv
