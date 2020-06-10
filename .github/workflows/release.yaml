@@ -72,6 +72,8 @@ jobs:
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
           source $HOME/.nvm/nvm.sh
           nvm install v10
+          sudo apt-get -y install python3.7
+          sudo ln -sf /usr/bin/python3.7 /usr/bin/python3
 
       - name: Build
         id: build
