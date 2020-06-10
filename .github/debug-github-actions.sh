@@ -32,9 +32,11 @@ HAS_ERRORS=$(grep "command failed" < .ngrok.log)
 
 if [[ -z "$HAS_ERRORS" ]]; then
   echo ""
+  echo "You have an hour to debug this build"
   echo "=========================================="
   echo "To connect: $(grep -o -E "tcp://(.+)" < .ngrok.log | sed "s/tcp:\/\//ssh $USER@/" | sed "s/:/ -p /")"
   echo "=========================================="
+  sleep 1h
 else
   echo "$HAS_ERRORS"
   exit 4

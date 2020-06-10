@@ -1,6 +1,6 @@
 VER?=$(shell git tag --points-at HEAD | head -1)
 
-.PHONY: branch build test release release_mac snapshot all clean
+.PHONY: preflight branch build test release release_mac snapshot all clean
 branch:
 	$(MAKE) build 
 	$(MAKE) test
@@ -23,7 +23,7 @@ clean:
 	-$(MAKE) -C ide clean
 	-$(MAKE) -C iosdk clean
 	
-build:
+build: preflight
 	$(MAKE) -C admin
 	$(MAKE) -C ide
 	$(MAKE) -C iosdk
@@ -44,3 +44,10 @@ test:
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)
 	git push pagopa master --tags
+
+preflight:
+	echo "checking required versions"
+	node -v | grep v10
+	python3 -V | grep 3.7
+	go version | grep go1.13
+

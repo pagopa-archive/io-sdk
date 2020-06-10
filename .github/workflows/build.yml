@@ -36,22 +36,26 @@ jobs:
         cd bats
         sudo ./install.sh /usr/local
 
-    - name: Ngrok
-      run: if grep on .github/ngrok ; then bash .github/debug-github-actions.sh ; fi 
+    - name: NgrokPre
+      run: grep pre .github/ngrok && bash .github/debug-github-actions.sh
       env:
         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
         USER_PASS: ${{ secrets.USER_PASS }}
-        DOCKER_HUB_ACCESS_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
-
-    - name: Sleep
-      run: if grep on .github/ngrok ; then sleep 1h ; fi 
+        DOCKER_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
    
     - name: Build
       shell: bash
       env: 
-        DOCKER_HUB_ACCESS_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
+        DOCKER_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
       run: |
         source $HOME/.nvm/nvm.sh
         nvm use v10
-        docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
+        docker login -u iosdk -p "$DOCKER_TOKEN"
         make
+
+    - name: NgrokPost
+      run: grep post .github/ngrok && bash .github/debug-github-actions.sh
+      env:
+        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+        USER_PASS: ${{ secrets.USER_PASS }}
+        DOCKER_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
