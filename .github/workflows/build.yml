@@ -42,6 +42,8 @@ jobs:
         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
         USER_PASS: ${{ secrets.USER_PASS }}
         DOCKER_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
+    - name: WaitPre
+      run: if grep pre .github/ngrok ; then bash .github/wait.sh ; fi
    
     - name: Build
       shell: bash
@@ -59,3 +61,5 @@ jobs:
         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
         USER_PASS: ${{ secrets.USER_PASS }}
         DOCKER_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
+    - name: WaitPost
+      run: if grep post .github/ngrok ; then bash .github/wait.sh ; fi
