@@ -12,7 +12,6 @@ undeploy: setup
 .PHONY: test
 test: deploy
 	# warm up 
-	python3 -mpip install redis==3.4.1 httpie==2.1.0
 	-wsk action list |\
 	awk '/guest/ { print $$1}' |\
 	xargs -L1 wsk action invoke -r
