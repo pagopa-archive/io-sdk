@@ -9,14 +9,49 @@ If you are one of those heroic people wanting to help and you can deal with bugs
 
 ## Prerequisites
 
-Install 
-- Go v1.13
-- Nodejs v10.x 
-- a recent version of GNU MAKE
+Currently developers are using: Linux Ubuntu 18.x, Mac OS Catalina and Windows 10. It may work on other versions but it is not tested.
+
+## Bash
+
+All the scripts runs with the Bash. This is by default on Mac and Linux but is not on Windows. Do not use command or powershell, at this stage it does not work. 
+
+On Windows you need to use [Git Bash](https://gitforwindows.org/) that, despite the name, it is a complete Unix-like environment for Windows. 
+
+## Make
+
+Use make provided by your operating system. On Windows you can install a port following [these instructions](https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058#make)
+
+# Go 1.13 
+ 
+Go it is used to build the CLI. You need version 1.13
+
+Installations to get go are [here](https://golang.org/doc/install)
+
+# Nodejs v10.x 
+
+Node it is used to build the backend user interface
+
+Currently it uses node version 10.x, it does not work on newer versions (yet).
+
+You can [download it here](https://nodejs.org/it/download/).
+
+# Python 3.7
+
+You can download and install [Python3.7 from here](https://www.python.org/downloads/)
+
+# OpenWhisk cli
+
+Download from here and put it in PATH:
+
 - [OpenWhisk Cli v1.0.0](https://github.com/apache/openwhisk-cli/releases)
+
+# Docker
+
+On Windows and Mac you need Docker Desktop. On Linux you can use the docker provided with your distributions.
+
 - [Docker](https://www.docker.com/get-started)
 
-and be sure it is available on the path. If you don't know how to install all of this, well, I doubt you can develop IO-SDK
+and be sure it is available on the path. 
 
 ## Start Development Environment
 
