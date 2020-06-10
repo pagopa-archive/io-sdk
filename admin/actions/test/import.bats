@@ -2,7 +2,7 @@
 load util
 
 @test "util/import" {
-   post $URL/util/import login=demo password=demo
+   ipost $URL/util/import login=demo password=demo
    run filter jq
    ckdiff <$H/import.json
 }

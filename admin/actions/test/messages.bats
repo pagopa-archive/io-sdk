@@ -2,7 +2,7 @@
 load util
 
 @test "messages" {
-    post $URL/util/messages a=1
+    ipost $URL/util/messages a=1
     ckline "validation errors"
     post $URL/util/messages <$H/messages.json
     ckline "id"
