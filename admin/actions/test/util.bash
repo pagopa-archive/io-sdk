@@ -25,18 +25,18 @@ function setup {
 }
 
 function get { 
-  run http --timeout=300 GET "$@"
+  run python3 -m httpie --timeout=300 GET "$@"
 }
 
 function put { 
-  run http --timeout=300 PUT "$@"
+  run python3 -m httpie --timeout=300 PUT "$@"
 }
 
 function post { 
-  run http --timeout=300 POST "$@"
+  run python3 -m httpie --timeout=300 POST "$@"
 }
 
 function fpost { 
-  run http -f --timeout=300 POST "$@"
+  run python3 -m httpie -f --timeout=300 POST "$@"
 }
 
