@@ -21,7 +21,7 @@ deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
 	zip - -r -j $^ | docker run -i openwhisk/action-golang-v1.11 -compile main >$@
 
 virtualenv.zip:
-	docker run -ti --entrypoint=/bin/bash -v $(shell pwd):/mnt \
+	docker run -i --entrypoint=/bin/bash -v $(shell pwd):/mnt \
 	openwhisk/actionloop-python-v3.7 /mnt/venv.sh
 	zip -r $@ virtualenv
 
