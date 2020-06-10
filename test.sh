@@ -3,7 +3,7 @@ set -e
 source $HOME/.nvm/nvm.sh
 nvm use v10
 iosdk/iosdk stop
-rm -Rvf $HOME/tmp-iosdk-test
+sudo rm -Rvf $HOME/tmp-iosdk-test
 docker pull library/redis:5
 echo "****** INIT"
 iosdk/iosdk init $HOME/tmp-iosdk-test pagopa/io-sdk-javascript --io-apikey=123456890 --wskprops
