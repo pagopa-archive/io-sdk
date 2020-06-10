@@ -31,7 +31,7 @@ jobs:
         sudo curl -sL $JQ_INSTALL -o /usr/bin/jq && sudo chmod +x /usr/bin/jq
         source $HOME/.nvm/nvm.sh
         nvm install v10
-        sudo apt-get -y install httpie python3.7
+        sudo apt-get -y install python3.7
         sudo ln -sf /usr/bin/python3.7 /usr/bin/python3
         git clone https://github.com/sstephenson/bats.git
         cd bats

@@ -12,9 +12,11 @@ undeploy: setup
 .PHONY: test
 test: deploy
 	# warm up 
-	python3 -m pip install redis
-	- wsk action invoke util/echo -r >/dev/null
-	- bats test/cache.bats >/dev/null
+	python3 -mpip install redis==3.4.1 httpie==2.1.0
+	-wsk action list |\
+	awk '/guest/ { print $$1}' |\
+	xargs -L1 wsk action invoke -r
+	# test
 	bats test
 
 deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
