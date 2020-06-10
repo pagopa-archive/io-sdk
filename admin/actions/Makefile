@@ -23,7 +23,6 @@ deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
 virtualenv.zip:
 	docker run -i --entrypoint=/bin/bash -v $(shell pwd):/mnt \
 	openwhisk/actionloop-python-v3.7 /mnt/venv.sh
-	zip -r $@ virtualenv
 
 deploy/cache.zip: src/util/cache.py virtualenv.zip
 	cp virtualenv.zip $@
@@ -47,5 +46,4 @@ deploy/sendpy.zip: src/util/send.py virtualenv.zip
 
 .PHONY: clean
 clean:
-	-rm deploy/*.zip virtualenv.zip
-	-rm -Rvf __main__.py virtualenv
+	-rm deploy/*.zip virtualenv.zip __main__.py
