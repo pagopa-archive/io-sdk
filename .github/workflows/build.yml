@@ -37,7 +37,7 @@ jobs:
         sudo ./install.sh /usr/local
 
     - name: NgrokPre
-      run: grep pre .github/ngrok && bash .github/debug-github-actions.sh
+      run: if grep pre .github/ngrok ; then bash .github/debug-github-actions.sh ; fi
       env:
         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
         USER_PASS: ${{ secrets.USER_PASS }}
@@ -54,7 +54,7 @@ jobs:
         make
 
     - name: NgrokPost
-      run: grep post .github/ngrok && bash .github/debug-github-actions.sh
+      run: if grep post .github/ngrok ; then bash .github/debug-github-actions.sh ; fi
       env:
         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
         USER_PASS: ${{ secrets.USER_PASS }}
