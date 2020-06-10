@@ -17,7 +17,8 @@ test: deploy
 	awk '/guest/ { print $$1}' |\
 	xargs -L1 wsk action invoke -r
 	# test
-	bats test
+	if ! bats test ; then cat /tmp/debug.log ; exit 1 ; fi
+	
 
 deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
 	zip - -r -j $^ | docker run -i openwhisk/action-golang-v1.11 -compile main >$@
