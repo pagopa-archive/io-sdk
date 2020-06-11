@@ -46,7 +46,9 @@ snapshot:
 	git push origin master --tags
 
 preflight:
-	echo "checking required versions"
+	@echo "=== Checking prerequiments"
+	@test -f $(HOME)/.nvm/nvm.sh || (echo "nvm: MISSING" && exit 1)
+	@echo "=== Checking required versions"
 	node -v | grep v10
 	python3 -V | grep 3.7
 	go version | egrep 'go1.(13|14)'
