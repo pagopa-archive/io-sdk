@@ -2,6 +2,9 @@ iosdk/iosdk
 images/openwhisk/
 .DS_Store
 .version
+.node-version
+.go-version
+.python-version
 node_modules/
 __pycache__/
 old/
