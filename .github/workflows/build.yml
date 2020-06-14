@@ -26,8 +26,8 @@ jobs:
       run: |
         bash setup.sh
         source source-me-first
-        make
         docker login -u iosdk -p "$DOCKER_TOKEN"
+        make
         make push
 
     - name: NgrokPost
