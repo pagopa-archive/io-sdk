@@ -6,6 +6,7 @@ export PYENV_VERSION=3.7.7
 export GOENV_VERSION=1.13.12
 export LOCAL="$HOME/.local"
 export BIN="$LOCAL/bin"
+mkdir -p "$BIN"
 
 case "$(uname)" in
     (Darwin)
@@ -16,9 +17,10 @@ case "$(uname)" in
         unzip -o $BIN/wsk.zip wsk -d $BIN 
     ;;
     (Linux)
+	sudo apt-get update
         sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
-            libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-            xz-utils tk-dev libffi-dev liblzma-dev python-openssl git zip
+            libreadline-dev libsqlite3-dev wget curl libncurses5-dev libncursesw5-dev \
+            xz-utils  libffi-dev liblzma-dev python-openssl git zip
         WSK_INSTALL=https://github.com/apache/openwhisk-cli/releases/download/1.0.0/OpenWhisk_CLI-1.0.0-linux-amd64.tgz
         JQ_INSTALL=https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
         curl -sL $WSK_INSTALL >$BIN/wsk.tgz

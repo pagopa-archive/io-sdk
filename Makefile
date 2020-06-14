@@ -4,7 +4,6 @@ VER?=$(shell git tag --points-at HEAD | head -1)
 branch:
 	$(MAKE) build 
 	$(MAKE) test
-	$(MAKE) push
 
 release:
 	test -n "$(VER)"

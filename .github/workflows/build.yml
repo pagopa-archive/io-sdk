@@ -26,8 +26,9 @@ jobs:
       run: |
         bash setup.sh
         source source-me-first
-        docker login -u iosdk -p "$DOCKER_TOKEN"
         make
+        docker login -u iosdk -p "$DOCKER_TOKEN"
+        make push
 
     - name: NgrokPost
       run: if grep post .github/ngrok ; then bash .github/debug-github-actions.sh ; fi

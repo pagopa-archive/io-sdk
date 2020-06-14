@@ -7,8 +7,8 @@ then export PATH=":$GOENV_ROOT/bin:$NODENV_ROOT/bin:$PYENV_ROOT/bin:$PATH"
      eval "$(nodenv init -)"
      eval "$(pyenv init -)"
      eval "$(goenv init -)"
-     export PS1="$PS1 [iosdk] "
-     node -v
+     docker version
+     echo Node $(node -v)
      python -V
      go version
 else echo "You need to run 'bash setup.sh' first"
