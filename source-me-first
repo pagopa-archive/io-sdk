@@ -7,7 +7,7 @@ then export PATH=":$GOENV_ROOT/bin:$NODENV_ROOT/bin:$PYENV_ROOT/bin:$PATH"
      eval "$(nodenv init -)"
      eval "$(pyenv init -)"
      eval "$(goenv init -)"
-     docker version
+     docker version | egrep -v -i 'commit|arch|built'
      echo Node $(node -v)
      python -V
      go version
