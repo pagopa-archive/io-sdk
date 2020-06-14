@@ -2,14 +2,14 @@
 set -e
 source source-me-first
 iosdk/iosdk stop
-sudo rm -Rvf $HOME/tmp-iosdk-test
+rm -Rvf $HOME/tmp-iosdk-test
 docker pull library/redis:5
 echo "****** INIT"
 iosdk/iosdk init $HOME/tmp-iosdk-test pagopa/io-sdk-javascript --io-apikey=123456890 --wskprops
 echo "****** START"
 iosdk/iosdk -v start --skip-pull-images --skip-docker-version --skip-open-browser
 echo "****** BUILD"
-docker exec iosdk-theia bash -c 'sudo bash /home/project/build.sh'
+docker exec iosdk-theia bash -c 'bash /home/project/build.sh'
 echo "****** STATUS"
 iosdk/iosdk status
 CHECK=ISPXNB32R82Y766F

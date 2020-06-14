@@ -3,7 +3,7 @@ export NODENV_ROOT="$HOME/.nodenv"
 export GOENV_ROOT="$HOME/.goenv"
 export LOCAL_BIN="$HOME/.local/bin"
 if [[ -d $PYENV_ROOT ]] && [[ -d $NODENV_ROOT ]] && [[ -d $GOENV_ROOT ]] && [[ -d $LOCAL_BIN ]]
-then export PATH=":$GOENV_ROOT/bin:$NODENV_ROOT/bin:$PYENV_ROOT/bin:$PATH"
+then export PATH="$LOCAL_BIN:$GOENV_ROOT/bin:$NODENV_ROOT/bin:$PYENV_ROOT/bin:$PATH"
      eval "$(nodenv init -)"
      eval "$(pyenv init -)"
      eval "$(goenv init -)"
