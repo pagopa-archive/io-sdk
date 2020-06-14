@@ -58,7 +58,7 @@ jobs:
           DOCKER_HUB_ACCESS_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         run: |
           bash setup.sh
-          source setup-me-first
+          source source-me-first
           docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
           sudo apt-get install -y alien
           make release
