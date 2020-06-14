@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+source source-me-first
 iosdk/iosdk stop
 sudo rm -Rvf $HOME/tmp-iosdk-test
 docker pull library/redis:5
