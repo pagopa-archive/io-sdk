@@ -38,7 +38,7 @@ stop:
 	-docker exec openwhisk stop
 
 public/build/bundle.js: $(wildcard src/*.svelte)
-	node -v | grep v10
+	node -v | grep v12
 	npm install
 	npm run build
 

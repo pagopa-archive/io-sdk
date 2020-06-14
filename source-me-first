@@ -1,0 +1,15 @@
+export PYENV_ROOT="$HOME/.pyenv"
+export NODENV_ROOT="$HOME/.nodenv"
+export GOENV_ROOT="$HOME/.goenv"
+export LOCAL_BIN="$HOME/.local/bin"
+if [[ -d $PYENV_ROOT ]] && [[ -d $NODENV_ROOT ]] && [[ -d $GOENV_ROOT ]] && [[ -d $LOCAL_BIN ]]
+then export PATH=":$GOENV_ROOT/bin:$NODENV_ROOT/bin:$PYENV_ROOT/bin:$PATH"
+     eval "$(nodenv init -)"
+     eval "$(pyenv init -)"
+     eval "$(goenv init -)"
+     export PS1="$PS1 [iosdk] "
+     node -v
+     python -V
+     go version
+else echo "You need to run 'bash setup.sh' first"
+fi

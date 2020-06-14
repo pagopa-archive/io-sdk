@@ -47,7 +47,6 @@ snapshot:
 
 preflight:
 	echo "checking required versions"
-	node -v | grep v10
+	node -v | grep v12
 	python3 -V | grep 3.7
-	go version | egrep 'go1.(13|14)'
-
+	go version | grep go1.13

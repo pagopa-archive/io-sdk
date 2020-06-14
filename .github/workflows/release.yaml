@@ -20,16 +20,8 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
-      - name: Get dependencies
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-          source $HOME/.nvm/nvm.sh
-          nvm install v10
-
       - name: Build
         run: |
-          source $HOME/.nvm/nvm.sh
-          nvm use v10
           make release_mac
 
       - name: Create Artifacts File
@@ -65,7 +57,8 @@ jobs:
         env:
           DOCKER_HUB_ACCESS_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         run: |
-          source setup.sh
+          bash setup.sh
+          source setup-me-first
           docker login -u iosdk -p "$DOCKER_HUB_ACCESS_TOKEN"
           sudo apt-get install -y alien
           make release

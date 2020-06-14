@@ -24,8 +24,9 @@ jobs:
       env: 
         DOCKER_TOKEN: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
       run: |
+        bash setup.sh
+        source source-me-first
         docker login -u iosdk -p "$DOCKER_TOKEN"
-        source setup.sh
         make
 
     - name: NgrokPost
