@@ -35,5 +35,4 @@ It will then open the user interface at `http://localhost:3280`.
 
 Other commands are `iosdk status` to check the status or `iosdk stop` to stop the sdk.
 
-How the SDK works is going to be discussed in some (upcoming) YouTube videos.
-
+You can check how the sdk works [in this video](https://youtu.be/qnnCg_cIwWc) (it is in Italian). 
