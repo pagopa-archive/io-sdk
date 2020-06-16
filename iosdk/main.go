@@ -135,6 +135,7 @@ func parse(cmd string) {
 // Main entrypoint for wskide
 func Main(version string) {
 	kingpin.UsageTemplate(kingpin.CompactUsageTemplate).Version(version).Author(Author)
+	kingpin.HelpFlag.Short('h')
 	kingpin.CommandLine.Help = Description
 	cmd := kingpin.Parse()
 	if *verboseFlag {
