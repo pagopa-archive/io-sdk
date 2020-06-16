@@ -48,7 +48,7 @@ func ExampleStart() {
 	// Deploying IDE...
 	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
-	// docker run -d -p 3000:3000 --rm --name iosdk-theia --add-host=openwhisk:172.17.0.2 -v /tmp/iosdk-test/javascript:/home/project pagopa/iosdk-theia:test
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia -e HOME=/home/project -v /tmp/iosdk-test/javascript:/home/project --add-host=openwhisk:172.17.0.2 pagopa/iosdk-theia:test
 	// <nil>
 }
 

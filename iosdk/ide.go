@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os/user"
 	"path/filepath"
-	"runtime"
 )
 
 // IdeDeploy deploys and mounts a folder
@@ -48,7 +47,7 @@ func ideDockerRun(dir string) (err error) {
 	}
 
 	uid := ""
-	if runtime.GOOS == "linux" {
+	if RuntimeOS == "linux" {
 		usr, err := user.Current()
 		LogIf(err)
 		if err == nil {
@@ -57,8 +56,8 @@ func ideDockerRun(dir string) (err error) {
 	}
 
 	command := fmt.Sprintf(`docker run -d -p 3000:3000
-	--rm --name iosdk-theia -e HOME=/home/project -e USER=iosdk %s
-	--add-host=openwhisk:%s %s %s`, uid, *openwhiskIP, mount, image)
+	--rm --name iosdk-theia -e HOME=/home/project 
+	%s %s --add-host=openwhisk:%s %s`, mount, uid, *openwhiskIP, image)
 	Sys(command)
 	return nil
 }

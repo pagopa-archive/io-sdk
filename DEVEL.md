@@ -5,13 +5,15 @@
 
 # Using IO-SDK as a developer
 
-If you are one of those heroic people wanting to help and you can deal with bugs, crashes and the occasional complete destruction of you computer, you can follow with those instructions. 
+If you are one of those heroic people wanting to help and you can deal with bugs, crashes and the occasional complete destruction of you computer, you can follow with those instructions.
+
+After you read this document, do not forget to [check also this other document](DEBUG.md) for debugging tips.
 
 ## Prerequisites
 
-Supported development platforms are: 
+Supported development platforms are:
 - Linux Ubuntu 18.x
-- Mac OS Catalina 
+- Mac OS Catalina
 - Windows 10 build 2003 with WSL2 and Ubuntu 18.04
 
 Also your workstation needs at least 8gb of memory.
@@ -42,7 +44,7 @@ Windows configuration is a bit more complex. The steps are:
 #### Update to build 2009
 
 More informations [to update windows are here](https://support.microsoft.com/en-us/help/4027667/windows-10-update)
- 
+
 #### Install Ubuntu-18.04 under WSL2
 
 Go into the Microsof Store and seach for Ubuntu. Install version 18.04 and launch it.
@@ -59,7 +61,7 @@ Instructions to install Docker Desktop for Windows [are here](https://docs.docke
 
 #### Use docker for windows as docker backend in WSL 2
 
-This step is critical. 
+This step is critical.
 
 After installation follow [these instructions](https://docs.docker.com/docker-for-windows/wsl/) to use the Docker running in Windows as the Docker to use in WSL.
 
@@ -122,7 +124,7 @@ DO `make build` from the top level to embed the code you modified in the image.
 
 ## Backend Actions
 
-The server side part of the backend are [OpenWhisk](http://openwhisk.apache.org), action written in various languages. 
+The server side part of the backend are [OpenWhisk](http://openwhisk.apache.org), action written in various languages.
 
 Source code is under `admin/actions/src`
 
@@ -134,11 +136,11 @@ You can deploy actions after changes with `make deploy`
 
 The CLI, that is used to launch and initialize the environment is under `iosdk` and it is written in the Go programming language.
 
-To develop the cli, do `cd iosdk` and use `make`. 
+To develop the cli, do `cd iosdk` and use `make`.
 
-The cli embeds the version number of the images to refer to them correctly. 
+The cli embeds the version number of the images to refer to them correctly.
 
-In development, the version is just the branch name. 
+In development, the version is just the branch name.
 
 When you push to master, the CI builds images and pushes to the Docker Hub, so the CLI can retrieve the version stored in Docker Hub.
 

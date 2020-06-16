@@ -24,9 +24,11 @@ func Start() error {
 	if err != nil {
 		return err
 	}
-	err = IdeDeploy(Config.AppDir)
-	if err != nil {
-		return err
+	if !*skipIde {
+		err = IdeDeploy(Config.AppDir)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }

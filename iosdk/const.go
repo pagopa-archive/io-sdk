@@ -1,5 +1,7 @@
 package main
 
+import "runtime"
+
 // ConfigFile is the config file, change number if you need the project to be re-initialized
 const ConfigFile = "~/.iosdk.v2"
 
@@ -35,3 +37,6 @@ const DefaultWhiskAPIKey = "23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v
 
 // MinDockerMem is the minimum amount of memory required by docker
 const MinDockerMem = (4 * 1000 * 1000 * 1000) - 1
+
+// RuntimeOS to be changed for tests
+var RuntimeOS = runtime.GOOS

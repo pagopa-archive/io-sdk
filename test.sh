@@ -9,7 +9,7 @@ iosdk/iosdk init $HOME/tmp-iosdk-test pagopa/io-sdk-javascript --io-apikey=12345
 echo "****** START"
 iosdk/iosdk -v start --skip-pull-images --skip-docker-version --skip-open-browser
 echo "****** BUILD"
-docker exec --user=$UID iosdk-theia bash -c 'cp /home/theia/.wskprops /home/project/.wskprops ; env HOME=/home/project bash /home/project/build.sh'
+docker exec --user=$UID iosdk-theia bash -c 'bash /home/project/build.sh'
 echo "****** STATUS"
 iosdk/iosdk status
 CHECK=ISPXNB32R82Y766F

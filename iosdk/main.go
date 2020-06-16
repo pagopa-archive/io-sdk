@@ -23,6 +23,7 @@ var (
 	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
 	skipPullImages    = kingpin.Flag("skip-pull-images", "skip pull images").Hidden().Default("false").Bool()
 	skipOpenBrowser   = kingpin.Flag("skip-open-browser", "skip pull images").Hidden().Default("false").Bool()
+	skipIde           = kingpin.Flag("skip-ide", "skip starting ide").Hidden().Default("false").Bool()
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()
@@ -48,6 +49,8 @@ var (
 
 	// stop
 	stopCmd = kingpin.Command("stop", "Stop Development Environment")
+	// restart
+	restartCmd = kingpin.Command("restart", "Restart Development Environment")
 	// status
 	statusCmd = kingpin.Command("status", "Check Containers Status")
 )
@@ -58,11 +61,15 @@ func parseDebug(cmd string) bool {
 		ConfigLoad()
 		WskPropsSave()
 	case ideDeployCmd.FullCommand():
-		IdeDeploy("")
+		FatalIf(ConfigLoad())
+		IdeDeploy(Config.AppDir)
+		configureIde()
 	case ideDestroyCmd.FullCommand():
 		IdeDestroy()
 	case whiskDeployCmd.FullCommand():
+		FatalIf(ConfigLoad())
 		WhiskDeploy()
+		WhiskUpdatePackageParameters("iosdk", ConfigMap())
 	case whiskDestroyCmd.FullCommand():
 		WhiskDestroy()
 	case redisDeployCmd.FullCommand():

@@ -170,6 +170,8 @@ func PropagateConfig() {
 
 	fmt.Println("Configuring Whisk")
 	WhiskUpdatePackageParameters("iosdk", ConfigMap())
-	fmt.Println("Configuring IDE")
-	configureIde()
+	if !*skipIde {
+		fmt.Println("Configuring IDE")
+		configureIde()
+	}
 }
