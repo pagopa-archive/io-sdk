@@ -109,6 +109,14 @@ func parse(cmd string) {
 	// Stop
 	case stopCmd.FullCommand():
 		Stop()
+	case restartCmd.FullCommand():
+		Stop()
+		err := Start()
+		ShowError(err)
+		if err == nil {
+			PropagateConfig()
+		}
+		fmt.Println("\nRestarted, please reload the browser.")
 	// Init
 	case initCmd.FullCommand():
 		dir, err := Init(*initDirArg, *initRepoArg, os.Stderr)
