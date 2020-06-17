@@ -38,7 +38,7 @@ The test command saves the test output in `difftest.out`
 The `difftest.py` comes to the rescue, you pass the test output and returns a list of failed tests , with an index:
 
 ```
-$ python3 difftest.py difftest.out
+$ python3 difftest.py 
 0 --- FAIL: ExampleIdeDockerRun (0.00s)
 1 --- FAIL: ExampleStart (1.03s)  
 ```
@@ -46,7 +46,7 @@ $ python3 difftest.py difftest.out
 Then you can see what went wrong in a single test passing the index:
 
 ```
-$ python3 difftest.py difftest.out 1
+$ python3 difftest.py 1
 31c31
 < docker run -d -p 3000:3000 --rm --name iosdk-theia -e HOME=/home/project --add-host=openwhisk: 172.17.0.2 -v /tmp/iosdk-test/javascript:/home/project pagopa/iosdk-theia:test 
 ---
