@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 tests = {}
-base = sys.argv[1]
+base = "difftest.out"
 f = open(base, 'r')
 lines = f.readlines()
 
@@ -17,14 +17,14 @@ while i < len(lines):
             fails.append(i+1)
     i+=1
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 1:
     n = 0
     for i in fails:
         print(n, lines[i], end='')
         n += 1
     sys.exit(len(fails))
 
-n = int(sys.argv[2])
+n = int(sys.argv[1])
 k = fails[n]+2
 got = []
 want = []
@@ -37,7 +37,6 @@ while not (lines[k].startswith("FAIL") or lines[k].startswith("=== RUN")):
     #print(lines[k])
     want.append(lines[k])
     k += 1
-
 
 import tempfile
 import os

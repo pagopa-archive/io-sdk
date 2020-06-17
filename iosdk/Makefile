@@ -6,7 +6,7 @@ iosdk: $(shell ls *.go)
 .PHONY: test clean
 test:
 	go test -v | tee difftest.out
-	python3 difftest.py difftest.out
+	python3 difftest.py
 
 clean:
 	-rm iosdk

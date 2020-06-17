@@ -48,10 +48,10 @@ func Init(dir, repo string, log sideband.Progress) (string, error) {
 	if repo == "" {
 		fmt.Println("Select one of the available templates for importers, or provide your own.")
 		fmt.Println("The javascript template is for Excel import.")
-		fmt.Println("The java template is for SQL import.")
-		fmt.Println("The python template is for REST import.")
+		fmt.Println("The php template is for SQL import.")
+		fmt.Println("The python template is for GraphQL import.")
 		fmt.Println("The github template requires a github repo (user/path).")
-		opt := Select("Which template:", "javascript,java,python,github")
+		opt := Select("Which template:", "javascript,php,python,github")
 		if opt == "" {
 			return "", fmt.Errorf("aborted template selection")
 		}

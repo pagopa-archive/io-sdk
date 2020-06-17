@@ -23,8 +23,8 @@ func ExampleStart() {
 	// stat /tmp/iosdk-test/.iosdk.v3: no such file or directory
 	// Select one of the available templates for importers, or provide your own.
 	// The javascript template is for Excel import.
-	// The java template is for SQL import.
-	// The python template is for REST import.
+	// The php template is for SQL import.
+	// The python template is for GraphQL import.
 	// The github template requires a github repo (user/path).
 	// Preparing work directory /tmp/iosdk-test/javascript for https://github.com/pagopa/io-sdk-javascript
 	// Done.
