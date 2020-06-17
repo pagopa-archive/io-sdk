@@ -3,7 +3,7 @@ package main
 import "runtime"
 
 // ConfigFile is the config file, change number if you need the project to be re-initialized
-const ConfigFile = "~/.iosdk.v2"
+const ConfigFile = "~/.iosdk.v3"
 
 // Author is the main author
 const Author = "Michele Sciabarra"

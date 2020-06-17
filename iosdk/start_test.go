@@ -20,7 +20,7 @@ func ExampleStart() {
 	// Output:
 	// === Init ===
 	// You need to run 'iosdk init ', first.
-	// stat /tmp/iosdk-test/.iosdk.v2: no such file or directory
+	// stat /tmp/iosdk-test/.iosdk.v3: no such file or directory
 	// Select one of the available templates for importers, or provide your own.
 	// The javascript template is for Excel import.
 	// The java template is for SQL import.
@@ -29,9 +29,9 @@ func ExampleStart() {
 	// Preparing work directory /tmp/iosdk-test/javascript for https://github.com/pagopa/io-sdk-javascript
 	// Done.
 	// /tmp/iosdk-test/javascript <nil>
-	// Wrote /tmp/iosdk-test/.iosdk.v2
+	// Wrote /tmp/iosdk-test/.iosdk.v3
 	// <nil>
-	// /tmp/iosdk-test/.iosdk.v2
+	// /tmp/iosdk-test/.iosdk.v3
 	// === Start ===
 	// docker info
 	// docker version --format {{.Server.Version}}

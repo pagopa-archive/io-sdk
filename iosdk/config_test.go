@@ -14,10 +14,10 @@ func ExampleConfigLoad() {
 	fmt.Println(Config.IoAPIKey)
 	fmt.Println(len(Config.WhiskAPIKey))
 	// Output:
-	// stat /tmp/iosdk-test/.iosdk.v2: no such file or directory
-	// Wrote /tmp/iosdk-test/.iosdk.v2
+	// stat /tmp/iosdk-test/.iosdk.v3: no such file or directory
+	// Wrote /tmp/iosdk-test/.iosdk.v3
 	// <nil>
-	// /tmp/iosdk-test/.iosdk.v2
+	// /tmp/iosdk-test/.iosdk.v3
 	// 123456
 	// 101
 }

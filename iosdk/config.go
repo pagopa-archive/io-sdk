@@ -104,7 +104,7 @@ func WskPropsSave() error {
 // configureDefaults sets defaults in configuration
 func configureDefaults() {
 	if Config.IoMessages == "" {
-		Config.IoMessages = "https://api.cd.italia.it/api/v1/messages"
+		Config.IoMessages = IoAPIHost + "/messages"
 	}
 	if Config.WhiskAPIHostLocal == "" {
 		Config.WhiskAPIHostLocal = "http://localhost:3280"
