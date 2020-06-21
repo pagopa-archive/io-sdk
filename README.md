@@ -1,4 +1,4 @@
-#  IO-SDK v0.5.1
+# IO-SDK
 
 IO-SDK è un kit di sviluppo che ha l'obiettivo di semplificare l'invio di messaggi alla app IO, fornendo gli strumenti necessari per poter realizzare l'integrazione di una molteplicità di fonti dati presenti nella pubblica amminstrazione con l'app IO in breve tempo.
 
