@@ -1,4 +1,10 @@
-# 0.6
+# 0.5.1
+
+- included 3 plugins (javascript, php, pythond)
+
+- fixed a number of issues
+
+# 0.5
 
 First public release including:
 

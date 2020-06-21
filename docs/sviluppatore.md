@@ -1,10 +1,10 @@
-# Connettori io-sdk  
+# Sviliuppo Connettori io-sdk 
 
 ![connector](/docs/images/UseCase-IO-SDK-Connector.png)
 
 I vari connettori, nei vari linguaggi, devono tornare un json di tipo "form", se non ci sono parametri nell'invocazione del connettore, di tipo "body" quando i parametri ci sono  
 
-## Json FROM  
+## Json form
 
 Il json form descrive i campi che saranno visualizzati nella pagina "Import" dell'io-sdk, di seguito un esempio:
 

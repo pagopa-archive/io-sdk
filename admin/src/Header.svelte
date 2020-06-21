@@ -11,6 +11,11 @@
         <ul class="nav">
           <li class="d-flex nav-item">
             <div class="text-white align-self-center">
+              <a target="_blank" class="nav-link" href="https://developer.io.italia.it/openapi.html">API IO</a>
+            </div>
+          </li>
+          <li class="d-flex nav-item">
+            <div class="text-white align-self-center">
               <a target="_blank" class="nav-link" href="https://github.com/pagopa/io-sdk">GitHub</a>
             </div>
           </li>
