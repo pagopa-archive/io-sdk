@@ -1,4 +1,4 @@
-# Sviliuppo Connettori io-sdk 
+# Sviluppo Connettori io-sdk 
 
 ![connector](/docs/images/UseCase-IO-SDK-Connector.png)
 
@@ -10,27 +10,29 @@ Il json form descrive i campi che saranno visualizzati nella pagina "Import" del
 
 
 ```
-{
-  "form": [
-    {
-      "type": "message",
-      "name": "note",
-      "description": "Connect to SQLServer db to import messages"
-    },
-    {
-      "name": "connectionstring",
-      "description": "ConnectionString",
-      "type": "string",
-      "required": true
-    }
+{ "body": 
+  {
+    "form": [
+      {
+        "type": "message",
+        "name": "note",
+        "description": "Connect to SQLServer db to import messages"
+      },
+      {
+        "name": "connectionstring",
+        "description": "ConnectionString",
+        "type": "string",
+        "required": true
+      }
   ]
 }
 ```
 
+TODO: specificare i vari casi
 
 ## Json BODY  
 
-Se ritornano i messaggi:  
+Se ritornano i messaggi:
 
 ```
 {
@@ -59,8 +61,7 @@ oppure, se c'è un errore
 {
     "body": 
     {
-        "data": "messaggio di errore"
+        "error": "messaggio di errore"
     }
 }
 ```
-
