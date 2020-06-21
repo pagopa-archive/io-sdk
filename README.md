@@ -22,7 +22,7 @@ Per maggior informazioni consultare la seguente documentazione in italiano:
 
 - [il mananuale amministratore](/docs/amministratore.md) indirizzato al sistemista che cura l'installazione 
 - [il manuale utente](/docs/utente.md) indirizzato all'utilizzatore del sistema
-- [il manuale sviluppatore](/docs/sviluppattore.md) indirizzato agli sviluppatori che desiderano sviluppare nuove integrazioni
+- [il manuale sviluppatore](/docs/sviluppatore.md) indirizzato agli sviluppatori che desiderano sviluppare nuove integrazioni
 
 Il [documento di sviluppo dell'SDK](DEVEL.md) è in inglese, ed è indirizzato a coloro che desiderano collaborare allo sviluppo dell'SDK stesso.
 
