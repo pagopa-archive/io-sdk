@@ -16,11 +16,13 @@ A questo scopo l'IO-SDK fornisce una serie di componenti:
 - una serie di plugin modificabili per connettersi alle varie fonti dati
 - un ambiente di sviluppo integrato (IDE) per lo sviluppo
 
+**NOTA**: i seguenti  documenti non sono ancora completi
+
 Per maggior informazioni consultare la seguente documentazione in italiano:
 
-- [il manuale utente]() indirizzato all'utilizzatore del sistema
-- [il mananuale amministratore]() indirizzato al sistemista che cura l'installazione 
-- [il manuale sviluppatore]() indirizzato agli sviluppatori che desiderano sviluppare nuove integrazioni
+- [il mananuale amministratore](/docs/amministratore.md) indirizzato al sistemista che cura l'installazione 
+- [il manuale utente](/docs/utente.md) indirizzato all'utilizzatore del sistema
+- [il manuale sviluppatore](/docs/sviluppattore.md) indirizzato agli sviluppatori che desiderano sviluppare nuove integrazioni
 
 Il [documento di sviluppo dell'SDK](DEVEL.md) è in inglese, ed è indirizzato a coloro che desiderano collaborare allo sviluppo dell'SDK stesso.
 
