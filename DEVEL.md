@@ -65,9 +65,9 @@ This step is critical.
 
 After installation follow [these instructions](https://docs.docker.com/docker-for-windows/wsl/) to use the Docker running in Windows as the Docker to use in WSL.
 
-## Setup the development environmewnt
+## Setup the development environment
 
-If the prerequisites are satisfied, you can setup and test the developmewnt environment as follows:
+If the prerequisites are satisfied, you can setup and test the development environment as follows:
 
 ```
 git clone https://github.com/pagopa/io-sdk
@@ -79,7 +79,7 @@ make
 
 If all the test passes, congratulations, you development environment is ready.
 
-## Dayly development tasks
+## Daily development tasks
 
 In general you do not need to repeat the entire setup procedure every day.
 
