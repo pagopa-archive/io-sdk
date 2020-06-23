@@ -10,7 +10,7 @@
   let state = {};
   let action = "util/send";
   let data = {
-    dest: "",
+    fiscal_code: "",
     subject: "",
     markdown: ""
   };
@@ -28,7 +28,7 @@
         if (res.ok) {
           let message = await res.json();
           //console.log(data[id])
-          data.dest = message[id].fiscal_code;
+          data.fiscal_code = message[id].fiscal_code;
           data.subject = message[id].subject;
           data.markdown = message[id].markdown;
         }
@@ -87,26 +87,26 @@
 {:else}
   <div>
     <div class="form-group">
-      <label class="active" for="codFiscDest">
+      <label class="active" for="fiscal_code">
         Codice Fiscale Destinatario
       </label>
       <input
         type="text"
         class="form-control"
-        id="codFiscDest"
-        bind:value={data.dest} />
+        id="fiscal_code"
+        bind:value={data.fiscal_code} />
     </div>
     <div class="form-group">
-      <label class="active" for="messageSubject">Soggetto del messaggio</label>
+      <label class="active" for="subject">Soggetto del messaggio</label>
       <input
         type="text"
         class="form-control"
-        id="messageSubject"
+        id="subject"
         bind:value={data.subject} />
     </div>
     <div class="form-group">
-      <textarea id="message" rows="3" bind:value={data.markdown} />
-      <label class="active" for="message">Markdown del messaggio</label>
+      <textarea id="markdown" rows="3" bind:value={data.markdown} />
+      <label class="active" for="markdown">Markdown del messaggio</label>
     </div>
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
