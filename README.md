@@ -16,8 +16,6 @@ A questo scopo l'IO-SDK fornisce una serie di componenti:
 - una serie di plugin modificabili per connettersi alle varie fonti dati
 - un ambiente di sviluppo integrato (IDE) per lo sviluppo
 
-**NOTA**: i seguenti  documenti non sono ancora completi
-
 Per maggior informazioni consultare la seguente documentazione in italiano:
 
 - [il mananuale amministratore](/docs/amministratore.md) indirizzato al sistemista che cura l'installazione 
