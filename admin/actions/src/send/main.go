@@ -49,7 +49,7 @@ func Main(data map[string]interface{}) map[string]interface{} {
 	if !ok {
 		return mkMap("error", "no parameter 'fiscal_code'")
 	}
-	message.Dest = s
+	message.FiscalCode = s
 
 	s, ok = data["subject"].(string)
 	if !ok {

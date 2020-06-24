@@ -16,7 +16,7 @@ var entry = []Entrypoint{
 }
 
 func ExampleSendMessage() {
-	n := 0
+	n := 1
 	msg := Message{}
 	res, err := SendMessage(&entry[n], &msg)
 	_, ok := res["detail"]
@@ -27,13 +27,16 @@ func ExampleSendMessage() {
 	_, ok = res["detail"]
 	fmt.Println(2, ok, err)
 
-	msg.Markdown = `# This is a markdown header\nto show how easily markdown can be converted to **HTML**\n\nRemember: this has to be a long text.`
+	msg.Markdown = `# This is a markdown header
+to show how easily markdown can be converted to **HTML**
+Remember: this has to be a long text.`
 	res, err = SendMessage(&entry[n], &msg)
 	_, ok = res["detail"]
 	fmt.Println(3, ok, err)
 
-	msg.Dest = "ISPXNB32R82Y766D"
+	msg.FiscalCode = "AAAAAA00A00A000A"
 	res, err = SendMessage(&entry[n], &msg)
+	fmt.Println(res)
 	_, ok = res["id"]
 	fmt.Println(4, ok, err)
 	// Output:

@@ -6,12 +6,13 @@ const answerTpl = `<table>
  <tr><th>Body</th><td>{{.Markdown}}</td></td>
 </table>
 `
+
+//"due_date": "{{.DueDate}}"
+
 const messageTpl = `{
-	"time_to_live": 3600,
 	"content": {
 		"subject": "{{.Subject}}",
-		"markdown": "{{.Markdown}}",
-		"due_date": "{{.DueDate}}"
+		"markdown": "{{.Markdown}}"
 	},
-	"fiscal_code": "{{.Dest}}"
+	"fiscal_code": "{{.FiscalCode}}"
 }`

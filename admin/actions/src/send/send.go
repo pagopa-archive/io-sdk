@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 // Entrypoint is the entrypoint to send messages
@@ -18,17 +17,17 @@ type Entrypoint struct {
 
 // Message is the message
 type Message struct {
-	Dest     string
-	Subject  string
-	Markdown string
-	DueDate  string
+	FiscalCode string `json:"fiscal_code"`
+	Subject    string `json:"subject"`
+	Markdown   string `json:"markdown"`
+	//DueDate  string
 }
 
 // SendMessage send message to IO
 func SendMessage(entry *Entrypoint, msg *Message) (map[string]interface{}, error) {
-	if msg.DueDate == "" {
-		msg.DueDate = time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
-	}
+	//if msg.DueDate == "" {
+	//	msg.DueDate = time.Now().UTC().Format("2006-01-02T15:04:05.070Z")
+	//}
 	t := template.Must(template.New("message").Parse(messageTpl))
 	buf := new(bytes.Buffer)
 	t.Execute(buf, msg)
