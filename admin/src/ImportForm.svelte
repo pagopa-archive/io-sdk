@@ -1,4 +1,5 @@
 <script>
+  let loading = false;
   let uploadUrl = "http://localhost:3280/api/v1/web/guest/util/upload";
 
   import { formData } from "./store";
@@ -18,7 +19,8 @@
     // gather data from form
     let data = await parseForm()
     // perform import
-    if(data)
+    if(data) {
+      loading = true;
       fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -29,13 +31,15 @@
         async function(res) {
           let data = await res.json();
           formData.set(data);
+          loading = false;
         },
         function(err) {
           error = err.message;
           formData.set({ error: err.message });
+          loading = false;
         }
       );
-    else error = "cannot parse form";
+    } else error = "cannot parse form";
   }
 
 
@@ -98,8 +102,12 @@
     <div class="alert alert-danger" role="alert">Error: no form data</div>
   {/each}
   <div>
-    <button type="button" class="btn btn-primary" on:click={importer}>
-      Import
-    </button>
+    {#if loading}
+      <div>loading...</div>
+    {:else}
+      <button type="button" class="btn btn-primary" on:click={importer}>
+        Import
+      </button>
+    {/if}
   </div>
 </form>

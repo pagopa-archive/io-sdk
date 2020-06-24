@@ -110,7 +110,7 @@ Try also `wsk action list` and you should see the list of actions
 To develop the admin user interface, do:
 
 ```
-cd backend
+cd admin
 make devel
 ```
 
