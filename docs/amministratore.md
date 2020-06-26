@@ -7,22 +7,21 @@ L'sdk è disponibile per i seguenti sistemi operativi:
 - Distribuzioni Linux basate su `dpkg` (Debian, Ubuntu)
 - Distribuzioni Linux basate su `rpm` (Fedora, CentOS, RedHat)
 
-Richiede l'installazione di Docker e una "API KEY" per inviare messaggi ad IO.
+Richiede l'installazione di Docker e una "API KEY" per inviare messaggi ad IO. 
 
 ### Docker
 
-L'sdk richiede come prerequisito Docker, versione 18.06.3 o superiore.
+L'SDK richiede come prerequisito Docker, versione 18.06.3 o superiore.
 
 Sui sistemi Windows e Mac installare [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 Sui sistemi Linux seguire le installazioni per [il vostro sistema come descritto qui](https://docs.docker.com/engine/install/)
 
-
 ### API KEY IO
 
 Per ottenere una API KEY occorre registrarsi al [backoffice di IO](https://developer.io.italia.it/)
 
-TODO: fornire dettagli sulla API Key
+Informazioni per ottenere la API Key [sono qui](https://developer.io.italia.it/openapi.html).
 
 ## Installazione
 
@@ -137,4 +136,5 @@ Destroying Redis...
 
 ### Riavvio
 
-Utilizzare il comando `iosdk restart` per stoppare e riavviare i servizi
+Utilizzare il comando `iosdk restart` per stoppare e riavviare i servizi.
+
