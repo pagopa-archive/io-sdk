@@ -88,7 +88,7 @@
   <div>
     <div class="form-group">
       <label class="active" for="fiscal_code">
-        Codice Fiscale Destinatario
+        Fiscal Code
       </label>
       <input
         type="text"
@@ -97,7 +97,7 @@
         bind:value={data.fiscal_code} />
     </div>
     <div class="form-group">
-      <label class="active" for="subject">Soggetto del messaggio</label>
+      <label class="active" for="subject">Subject</label>
       <input
         type="text"
         class="form-control"
@@ -106,12 +106,12 @@
     </div>
     <div class="form-group">
       <textarea id="markdown" rows="3" bind:value={data.markdown} />
-      <label class="active" for="markdown">Markdown del messaggio</label>
+      <label class="active" for="markdown">Message (markdown)</label>
     </div>
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
         <label>Endpoint</label>
-        <select bind:value={action} title="Scegli una opzione">
+        <select bind:value={action} title="Select an endpoing">
           <option value="util/send">Development (Local)</option>
           <option value="iosdk/send">Production</option>
         </select>
