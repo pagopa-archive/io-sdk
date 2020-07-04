@@ -1,38 +1,26 @@
 # IO-SDK
 
-The app IO is the App to access Italian Government services.
+IO-SDK è un kit di sviluppo che ha l'obiettivo di semplificare l'invio di messaggi alla app IO, fornendo gli strumenti necessari per poter realizzare l'integrazione di una molteplicità di fonti dati presenti nella pubblica amminstrazione con l'app IO in breve tempo.
 
-The IO-SDK is a software development kit to develop integrations with the app IO.
+La app IO è una app sviluppata dal governo italiano con lo scopo di per essere un unico punto di accesso per interagice con i servizi pubblici locali e nazionali.
 
-This SDK allows to easily develop importers to send messages to italian citizens using IO.
+Tutti i servizi pubblici italiani possono integrarsi con l'app semplicemente connettendosi ai loro servizi REST per l'invio di comunicazioni al cittadino.
 
-This document is about how to start to use the sdk.
+Questo compito, per quanto semplice, può risultare comunque relativamente oneroso, soprattutto per le realtà più piccole.
 
-If you want to contribute, check the [development](DEVEL.md) document.
+A questo scopo l'IO-SDK fornisce una serie di componenti:
 
-## Using IO-SDK 
+- un server per l'esecuzione di micro-servizi
+- una interfaccia utente per la gestione dei messaggio
+- una riga di comando per il controllo del server
+- una serie di plugin modificabili per connettersi alle varie fonti dati
+- un ambiente di sviluppo integrato (IDE) per lo sviluppo
 
-To use IO-SDK you need to install Docker Desktop in Windows or Mac, or just Docker in Linux.
+Per maggior informazioni consultare la seguente documentazione in italiano:
 
-You also need an API Key for IO.
+- [il mananuale amministratore](/docs/amministratore.md) indirizzato al sistemista che cura l'installazione 
+- [il manuale utente](/docs/utente.md) indirizzato all'utilizzatore del sistema
+- [il manuale sviluppatore](/docs/sviluppatore.md) indirizzato agli sviluppatori che desiderano sviluppare nuove integrazioni
 
-Download and install one of the releases `iosdk`.
+Il [documento di sviluppo dell'SDK](DEVEL.md) è in inglese, ed è indirizzato a coloro che desiderano collaborare allo sviluppo dell'SDK stesso.
 
-If you have `go`, you can build the bleeding edge (master) with `go get github/pagopa/io-sdk/iosdk`.
-
-Master is supposed to be stable as development should happen in branches.
-
-Initialize the environment with `iosdk init`.
-
-It will ask for:
-
-- the work directory where you are going put your code. It *must* be below your home directory
-- a template to use, either one of the available templates to import Excel, SQL or REST data, or any third-parties templates that will (eventually) be available
-- the IO Api Key
-
-Once configured you can start the sdk with `iosdk start`. 
-It will then open the user interface at `http://localhost:3280`.
-
-Other commands are `iosdk status` to check the status or `iosdk stop` to stop the sdk.
-
-You can check how the sdk works [in this video](https://youtu.be/qnnCg_cIwWc) (it is in Italian). 
