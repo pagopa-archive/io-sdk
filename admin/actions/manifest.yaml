@@ -3,39 +3,39 @@ packages:
     version: 1.0
     actions:
       echo:
-        function: deploy/util/echo.go
-        docker: openwhisk/action-golang-v1.12
+        function: deploy/util/echo.js
+        runtime: nodejs:12
         web: raw
       cache:
         function: deploy/cache.zip
-        docker: actionloop/actionloop-python-v3.7
+        docker: openwhisk/actionloop-python-v3.7
         web: true
       store:
         function: deploy/store.zip
-        docker: actionloop/actionloop-python-v3.7
+        docker: openwhisk/actionloop-python-v3.7
         web: raw
       messages:
           function: deploy/messages.zip
-          docker: actionloop/actionloop-python-v3.7
+          docker: openwhisk/actionloop-python-v3.7
           web: raw
       send:
           function: deploy/sendpy.zip
-          docker: actionloop/actionloop-python-v3.7
+          docker: openwhisk/actionloop-python-v3.7
           web: true
       upload:
           function: deploy/util/upload.py
-          docker: actionloop/actionloop-python-v3.7
+          docker: openwhisk/actionloop-python-v3.7
           web: raw
       import:
         function: deploy/util/import.js
-        runtime: nodejs:10
+        runtime: nodejs:12
         web: true
   iosdk:
     version: 1.0
     actions:
       send:
-        function: deploy/send.zip
-        docker: openwhisk/action-golang-v1.12
+        function: deploy/iosdk/send.py
+        docker: openwhisk/actionloop-python-v3.7
         web: true
       config:
         function: deploy/iosdk/config.js
