@@ -2,7 +2,9 @@
 build: deploy/sendpy.zip deploy/cache.zip deploy/messages.zip deploy/store.zip
 
 .PHONY: deploy
-deploy: build 
+deploy: build
+	docker pull actionloop/actionloop-python-v3.7
+	docker pull openwhisk/action-nodejs-v10
 	wsk project deploy
 
 .PHONY: undeploy
@@ -12,9 +14,7 @@ undeploy: setup
 .PHONY: test
 test: deploy
 	# warm up 
-	-wsk action list |\
-	awk '/guest/ { print $$1}' |\
-	xargs -L1 wsk action invoke -r
+	#-wsk action list | awk '/guest/ { print $$1}' | xargs -L1 wsk action invoke -r
 	# test
 	if ! bats test ; then cat /tmp/debug.log ; exit 1 ; fi
 	

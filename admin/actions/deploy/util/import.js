@@ -9,7 +9,7 @@ function main(args) {
             require('https').get(url, function handleHttp(resp)  {
                 let data = '';
                 resp.on('data', (chunk) => { data += chunk; });
-                resp.on('end', () => { resolve({"body": data}) });
+                resp.on('end', () => { resolve({"body": { "data": JSON.parse(data) }})});
               }
             ).on("error", (err) => {resolve({"error": err.message})})
         })

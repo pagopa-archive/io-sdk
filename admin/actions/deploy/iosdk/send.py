@@ -72,27 +72,3 @@ def main(args):
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-
-
-# %%
-args = {}
-#print(main(args))
-args['io-messages'] = "https://api.io.italia.it/api/v1/messages"
-#print(main(args))
-args['io-apikey'] = "483b7b1f3a974b45b5c44a43538c9255"
-args['subject'] = "Welcome new user !"
-args['markdown'] = "This is a markdown header to show how easily markdown can be converted to **HTML** Remember: this has to be a long text."
-#print(main(args))
-args['fiscal_code'] = "DGRMLL66R65H769R"
-#print(len(main(args)['body']['id']))
-#args['amount'] = "a"
-args['amount'] = 1
-args["due_date"] = "2021-01-01T00:00:00.000Z"
-args["notice_number"]: "000000000000000001"
-print(main(args))
-
-
-
-
-
-# %%

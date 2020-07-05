@@ -11,7 +11,8 @@
           <ul class="link-list">
             <Router>
               <MenuItem icon="fas fa-home" description="Home" to="/"/>
-              <MenuItem icon="fas fa-file-import" description="Import Messages" to="import"/>
+              <MenuItem icon="fas fa-file-import" description="Import URL" to="import"/>
+              <MenuItem icon="fa fa-wrench" description="Custom Import" to="custom"/>
               <MenuItem icon="fas fa-shipping-fast" description="Send Messages" to="ship"/>
               <MenuItem icon="far fa-envelope" description="Single Message" to="send"/>
               <MenuItem icon="fas fa-bug" description="Debugging" to="debug"/>

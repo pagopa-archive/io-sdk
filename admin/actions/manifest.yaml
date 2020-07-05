@@ -41,6 +41,6 @@ packages:
         function: deploy/iosdk/config.js
         docker: openwhisk/action-nodejs-v10
       import:
-        function: deploy/util/import.js
+        function: deploy/iosdk/import.js
         docker: openwhisk/action-nodejs-v10
         web: true
