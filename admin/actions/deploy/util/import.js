@@ -14,11 +14,11 @@ function main(args) {
             ).on("error", (err) => {resolve({"error": err.message})})
         })
     }
-    return { "form": [
+    return { "body": { "form": [
         {
             "type": "message",
             "name": "note",
-            "description": "Use url 'https://bit.ly/iosdk-sample' for sample data"
+            "description": "Use url 'https://raw.githubusercontent.com/pagopa/io-sdk/master/docs/sample.json' for sample data"
         },
         {
             "name": "url",
@@ -38,5 +38,5 @@ function main(args) {
             "type": "password",
             "required": true
         }]
-    }
+    } }
 }

@@ -18,8 +18,3 @@ load util
 EOF
 }
 
-@test "send message real" {
-    skip
-    fpost $URL/iosdk/send fiscal_code=ISPXNB32R82Y766F subject="Hello World" markdown="This must be a long string of at least 80 characters, so let me talk a bit more to get that length."
-    ckline id
-}

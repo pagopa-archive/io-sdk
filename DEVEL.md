@@ -42,9 +42,13 @@ Windows configuration is a bit more complex. The steps are:
 - use docker from WSL2-Ubuntu
 - create an ssh proxy to access localhost
 
+More details below.
+
 #### Update to build 2009
 
-More informations [to update windows are here](https://support.microsoft.com/en-us/help/4027667/windows-10-update)
+You need to update Windows 10 at lest to build 2009 in order to have WSL2.
+
+Check here to read more informations [to update windows are here](https://support.microsoft.com/en-us/help/4027667/windows-10-update)
 
 #### Install Ubuntu-18.04 under WSL2
 

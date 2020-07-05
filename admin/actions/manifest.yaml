@@ -4,43 +4,43 @@ packages:
     actions:
       echo:
         function: deploy/util/echo.js
-        runtime: nodejs:12
+        docker: openwhisk/action-nodejs-v10
         web: raw
       cache:
         function: deploy/cache.zip
-        docker: openwhisk/actionloop-python-v3.7
+        docker: actionloop/actionloop-python-v3.7
         web: true
       store:
         function: deploy/store.zip
-        docker: openwhisk/actionloop-python-v3.7
+        docker: actionloop/actionloop-python-v3.7
         web: raw
       messages:
           function: deploy/messages.zip
-          docker: openwhisk/actionloop-python-v3.7
+          docker: actionloop/actionloop-python-v3.7
           web: raw
       send:
           function: deploy/sendpy.zip
-          docker: openwhisk/actionloop-python-v3.7
+          docker: actionloop/actionloop-python-v3.7
           web: true
       upload:
           function: deploy/util/upload.py
-          docker: openwhisk/actionloop-python-v3.7
+          docker: actionloop/actionloop-python-v3.7
           web: raw
       import:
         function: deploy/util/import.js
-        runtime: nodejs:12
+        docker: openwhisk/action-nodejs-v10
         web: true
   iosdk:
     version: 1.0
     actions:
       send:
         function: deploy/iosdk/send.py
-        docker: openwhisk/actionloop-python-v3.7
+        docker: actionloop/actionloop-python-v3.7
         web: true
       config:
         function: deploy/iosdk/config.js
-        runtime: nodejs:10
+        docker: openwhisk/action-nodejs-v10
       import:
         function: deploy/util/import.js
-        runtime: nodejs:10
+        docker: openwhisk/action-nodejs-v10
         web: true

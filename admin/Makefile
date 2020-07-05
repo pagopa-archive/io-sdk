@@ -26,6 +26,7 @@ devel:
 
 .PHONY: start
 start: ../iosdk/iosdk
+	../iosdk/iosdk debug wskprops
 	../iosdk/iosdk start --skip-ide --skip-pull-images	
 
 .PHONY: stop
