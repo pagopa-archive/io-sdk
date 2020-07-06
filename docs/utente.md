@@ -11,6 +11,7 @@ Da questo menù è possibile selezionare le seguenti operazioni:
 - **Single Message** apre la schermata per l'invio di  un singolo messaggio
 - **Import Messages** apre la schermata per l'importazione di messaggi da varie fonte dati
 - **Send Messages** apre la schermata per l'invio di messaggi multipli, che devono esser prima importati
+- **Single Message** apre la schermata per l'invio di un singolo messaggio
 - **Debugging** apre la schermata per il controllo della memoria intermedia e serve a fare verifiche di esecuzione
 - **Development** apre un editor per lo sviluppo e la modifica degli importatori
 
@@ -23,32 +24,36 @@ In questa schermata è possibile inviare un singolo messaggio.
 Occorre specificare:
 
 - Il codice fiscale del destinatario
-- L'argomento del messaggio ("soggetto")
+- Il soggetto del messaggio
 - Il corpo del messaggio in formato markdown
 
-A questo punto è possibile mandare il messaggio direttamente a destinazione selezionado come endpoint Production, oppure Development. In quest'ultimo caso, il messaggio sarà visibile per l'ispezione in "Debugging", con il nome "sent:XXXX" dove XXXX è il codice fiscale del destinatario.
+Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione e dipende dalla API Key in uso. Consultare [il manuale amministratore](amministratore.md) per maggiori informazioni.
+
+A questo punto è possibile mandare il messaggio a destinazione selezionado come "endpoint" Production, oppure Development. In quest'ultimo caso, il messaggio sarà visibile per l'ispezione in "Debugging", con il nome "sent:XXXX" dove XXXX è il codice fiscale del destinatario. Altrimenti, se il destinatario è abilitato, verrà ricevuto come email oppure nell'app.
 
 ## Importazione Messaggi
 
-La voce di menù "Import Messages" seleziona un connettore. Il connettore dipende da quello che è stato installato usando la funzione "Development".
+La voce di menù "Import Messages" permette di importare i messaggi utilizzando un "connettore". Un "connettore" è un programma (che può essere scritto in molti linguaggi di programmazione, e modificato per l'occorrenza) che consente di collegarsi a varie fonte dati (fogli excel, database, servizi REST) 
 
-Se non si installa nessun connettore (come specificato nella sezione), compare il connettore predefinito di esempio, che importa solamente dati di prova:
+Il connettore preasente dipende da quello che è stato installato usando la funzione "Development".
+
+Se non si installa nessun nuovo connettore (come specificato nella sezione), compare il connettore predefinito di esempio, che importa solamente dati di prova:
 
 ![Import Messages](/docs/images/user-import-messages.png)
 
 Nel connettore predefinito si devono specificare come utente e password `demo` e questo genera dei dati fittizzi per provare il sistema.
 
-Più interessante è l'importatore "excel" che viene installato a partire da  template `javascript` (vedi la sezione Development)
+Più interessante è l'importatore "excel" che viene installato a partire dal template `javascript`. Vedi la sezione Development per informazioni su come installare un nuovo connettore.
 
-Una volta installato il connettore javascript presenta una form che chiede l'upload di un file:
+Una volta installato il connettore "excel" presenta una form che chiede l'upload di un file:
 
 ![Import Excel](/docs/images/user-import-excel-form.png)
 
-È possibile specificare un file nel formato dell'esempio (un foglio di test  si trova sotto test/data.xlsx).
+È possibile specificare un file in un formato predefinito (un esempio di formato è `test/data.xlsx` nella directory specificata dove è installato il connettore stesso). 
 
 ![Import Excel Sample](/docs/images/user-import-excel-sample.png)
 
-Usando questo importatore è possibile importare dati usando il formato Excel.
+Usando questo importatore è possibile importare dati usando il formato Excel. Dovete uploadare il un file Excel (in formato `xslsx` e l'importatore farà il resto).
 
 ## Invio Messaggio Singolo
 
@@ -56,21 +61,21 @@ Selezionando "Single Message" è possibile inviare un singolo messaggio.
 
 ![Send Message](/docs/images/user-send-message.png)
 
-Occorre riempire il campo Codice Fiscale del destinatario, il Soggetto del messaggio e il corpo del messaggio in formato markdown e selezionare la destinazione, che può essere "Development" o "Production".
+Occorre riempire il campo codice fiscale del destinatario, il soggetto del messaggio e il corpo del messaggio in formato markdown e selezionare l'endpoint, che può essere "Development" o "Production".
 
-Nel primo caso, il messaggio non verrà effettivamente inviato ma sarà visibile in "Debugging", nel secondo caso sarà effettivamente inviato a destinazione.
+Nel primo caso, il messaggio non verrà effettivamente inviato ma sarà visibile in "Debugging", nel secondo caso sarà effettivamente inviato a destinazione, generando una email oppure una notifica nella app IO.
 
 ## Invio Messaggi
 
-Una volta importati i messaggi sono pronti per l'invio e sono visibili sotto "Send Messages".
+Una volta importati, i messaggi sono pronti per l'invio e sono visibili sotto "Send Messages".
 
 ![Send Messages](/docs/images/user-send-messages.png)
 
-I messaggi da inviare vanno selezionati. Possono essere selezionati uno ad uno cliccando checkbox. Possono essere selezionati tutti con "Select All", possono essere deleselezionati tutti con "Deselect All" e si può invertire la selezione.
+I messaggi da inviare vanno selezionati. Possono essere selezionati uno ad uno con le checkbox. Possono essere selezionati tutti con "Select All". Possono essere deleselezionati tutti con "Deselect All". Infine  si può invertire la selezione.
 
-Ogni messaggio è visibile come un link, seguendo il link si arriva alla funzione di invio di messaggio singolo con riempiti i campi.
+Ogni messaggio è visibile come un linkp; seguendo il link si arriva alla funzione di invio di messaggio singolo con riempiti i campi di quel messagio.
 
-Una volta selezionati i messaggi possono venire inviati. In basso esiste un pull down per selezionare se si inviano i messaggi "in produzione" oppure se vengono inviati a uno ricettore "Development" per testare cosa viene inviato. In quest'ultimo caso i messaggi inviati saranno visibili in "Debugging".
+Una volta selezionati i messaggi possono venire inviati. In basso esiste una selezione dell'endpoint per selezionare se si inviano i messaggi in "Production" oppure se vengono inviati a un ricettore "Development" per testare cosa viene inviato. In quest'ultimo caso i messaggi inviati saranno visibili in "Debugging".
 
 ## Debugging
 
@@ -81,10 +86,10 @@ Questa schermata permette di esaminare la "cache", ovvero l'area di lavoro tempo
 Correntemente sono visibili due cose:
 
 - I messaggi pronti per l'invio (in formato `message:XXX`) 
-- i messaggi inviati a "Development" (`sent:XXX`).
+- I messaggi inviati a "Development" (`sent:XXX`) per verificare l'invio.
 
 È possibile filtrare i messaggi importati e i messaggi inviati.
-È anche possibile filtrare usando generici pattern come in [questo formato](https://redis.io/commands/keys).
+È anche possibile filtrare usando generici pattern in [questo formato](https://redis.io/commands/keys).
 
 Cliccando su un elemento in cache è possibile vedere l'elemento memorizzato in formato JSON.
 
@@ -92,7 +97,7 @@ Cliccando su un elemento in cache è possibile vedere l'elemento memorizzato in 
 
 ## Development
 
-Cliccando su Development si accede ad un ambiente di sviluppo integrato, simile al [Microsoft VSCode](https://code.visualstudio.com/) ma eseguito in un web browser. Si tratta del [Eclipse Theia](https://theia-ide.org/).
+Cliccando su Development si accede ad un ambiente di sviluppo integrato, simile al [Microsoft VSCode](https://code.visualstudio.com/) ma eseguito in un web browser. Si tratta di [Eclipse Theia](https://theia-ide.org/).
 
 ![Development](/docs/images/user-development.png)
 
@@ -102,9 +107,7 @@ Per installare un connettore, occorre aprire un terminale (Menù "Terminal" segu
 
 I dettagli dei singoli connettori variano per ogni linguaggio di programmazione e fonte dati. In generale sono delle funzioni scritte nei vari linguaggi di programmazione che devono "accedere a fonti dati diverse" e ritornare i dati in un formato JSON predefinito. 
 
-Il formano dei connettori [è descritto qui](sviluppatore.md)
+Il formato dati dei connettori [è descritto qui](sviluppatore.md).
 
-L'ambiente è molto evoluto e non può essere descritto qui, si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente. 
-
-
+L'ambiente IDE è molto evoluto  si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente.  Notare che nell'IDE fornito sono installati alcuni plugin speicifi per i vari linguaggi di programmazione.
 
