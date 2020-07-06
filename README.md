@@ -24,3 +24,10 @@ Per maggior informazioni consultare la seguente documentazione in italiano:
 
 Il [documento di sviluppo dell'SDK](DEVEL.md) è in inglese, ed è indirizzato a coloro che desiderano collaborare allo sviluppo dell'SDK stesso.
 
+<<<<<<< HEAD
+=======
+Per incontrare la community di IO-SDK potete andare su:
+
+- Il topic IO-SDK della [Community NoiOpen](https://noiopen.discourse.group/c/progetti/io-sdk/11) che gestisce il progetto
+- Il topic IO-SDK su [Developers Italia](https://forum.italia.it/c/progetto-io/io-sdk/75) 
+>>>>>>> 5300608a51427ed0989e7b5589af71b38fc8eb3b
