@@ -19,7 +19,7 @@ test: deploy
 	if ! bats test ; then cat /tmp/debug.log ; exit 1 ; fi
 	
 virtualenv.zip:
-	docker run -i --entrypoint=/bin/bash -v $(shell pwd):/mnt \
+	docker run -i --entrypoint=/bin/bash -v "$(shell pwd):/mnt" \
 	openwhisk/actionloop-python-v3.7 /mnt/venv.sh
 
 deploy/cache.zip: src/util/cache.py virtualenv.zip

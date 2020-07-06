@@ -11,5 +11,6 @@ old/
 *.zip
 *.bak
 *.jar
+.idea/
 difftest.out*
 tmp/
