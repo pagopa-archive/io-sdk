@@ -12,7 +12,9 @@
   let data = {
     fiscal_code: "",
     subject: "",
-    markdown: ""
+    markdown: "",
+    amount: "",
+    notice_number: ""
   };
 
   async function start() {
@@ -31,6 +33,8 @@
           data.fiscal_code = message[id].fiscal_code;
           data.subject = message[id].subject;
           data.markdown = message[id].markdown;
+          data.amount = message[id].amount;
+          data.notice_number = message[id].notice_number;
         }
       })
       .catch(err => {
@@ -107,6 +111,22 @@
     <div class="form-group">
       <textarea id="markdown" rows="3" bind:value={data.markdown} />
       <label class="active" for="markdown">Message (markdown)</label>
+    </div>
+    <div class="form-group">
+      <label class="active" for="amount">Amount</label>
+      <input
+        type="text"
+        class="form-control"
+        id="amount"
+        bind:value={data.amount} />
+    </div>
+    <div class="form-group">
+      <label class="active" for="amount">Notice Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="notice_number"
+        bind:value={data.notice_number} />
     </div>
     <div class="form-group">
       <div class="bootstrap-select-wrapper">

@@ -9,8 +9,7 @@
       <aside>
         <div class="link-list-wrapper">
           <ul class="link-list">
-            <Router>
-              <MenuItem icon="fas fa-home" description="Home" to="/"/>
+            <Router>  
               <MenuItem icon="fas fa-file-import" description="Import URL" to="import"/>
               <MenuItem icon="fa fa-wrench" description="Custom Import" to="custom"/>
               <MenuItem icon="fas fa-shipping-fast" description="Send Messages" to="ship"/>
