@@ -10,7 +10,7 @@
         <div class="link-list-wrapper">
           <ul class="link-list">
             <Router>  
-              <MenuItem icon="fas fa-file-import" description="Import fromd URL" to="import"/>
+              <MenuItem icon="fas fa-file-import" description="Import from URL" to="import"/>
               <MenuItem icon="fa fa-wrench" description="Custom Import" to="custom"/>
               <MenuItem icon="fas fa-shipping-fast" description="Send Messages" to="ship"/>
               <MenuItem icon="far fa-envelope" description="Single Message" to="send"/>
