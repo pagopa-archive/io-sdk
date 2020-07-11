@@ -29,9 +29,17 @@
         }
       }).then(
         async function(res) {
-          let data = await res.json();
-          formData.set(data);
-          loading = false;
+          console.log(res);
+          if(res.status===204){
+            let error = "data format not valid";
+            formData.set({ error });
+            loading = false;
+          }
+          else{
+            let data = await res.json();
+            formData.set(data);
+            loading = false;
+          }
         },
         function(err) {
           error = err.message;
@@ -39,7 +47,9 @@
           loading = false;
         }
       );
-    } else error = "cannot parse form";
+    } 
+    else 
+      error = "cannot parse form";
   }
 
 
