@@ -37,9 +37,8 @@ func ExampleInHomePath() {
 func ExamplePreflightDockerMemory() {
 	*DryRunFlag = true
 	*verboseFlag = true
-	DryRunPush("\nTotal Memory: 11GiB\n", "\nTotal Memory: 3GiB\n")
-	fmt.Println(preflightDockerMemory())
-	fmt.Println(preflightDockerMemory())
+	fmt.Println(preflightDockerMemory("\nTotal Memory: 11GiB\n"))
+	fmt.Println(preflightDockerMemory("\nTotal Memory: 3GiB\n"))
 	// Output:
 	// docker info
 	// <nil>

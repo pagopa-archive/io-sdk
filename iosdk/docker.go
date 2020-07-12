@@ -5,6 +5,14 @@ import (
 	"strings"
 )
 
+func dockerInfo() (string, error) {
+	out, err := SysErr("@docker info")
+	if err != nil {
+		return "", fmt.Errorf("Docker is not running")
+	}
+	return out, nil
+}
+
 func dockerVersion() (string, error) {
 	return SysErr("@docker version --format {{.Server.Version}}")
 }
