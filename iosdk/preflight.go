@@ -48,42 +48,44 @@ func preflightInHomePath(dir string) error {
 }
 
 // Preflight perform preflight checks
-func Preflight(dir string) error {
-	err := preflightDockerMemory()
+func Preflight(dir string) (string, error) {
+	info, err := dockerInfo()
 	if err != nil {
-		return err
+		return "", err
+	}
+	err = preflightDockerMemory(info)
+	if err != nil {
+		return "", err
 	}
 	err = preflightEnsureDockerVersion()
 	if err != nil {
-		return err
+		return "", err
 	}
 	err = preflightInHomePath(dir)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return info, nil
 }
 
 // preflightDockerMemory checks docker memory
-func preflightDockerMemory() error {
-	out, err := SysErr("@docker info")
-	if err != nil {
-		return fmt.Errorf("Docker is not running")
-	}
+func preflightDockerMemory(info string) error {
 	var search = regexp.MustCompile(`Total Memory: (.*)`)
-	result := search.FindString(string(out))
+	result := search.FindString(string(info))
 	if result == "" {
 		return fmt.Errorf("Docker is not running")
 	}
 	mem := strings.Split(result, ":")
 	memory := strings.TrimSpace(mem[1])
 	n, err := units.ParseStrictBytes(memory)
+	if err != nil {
+		return err
+	}
 	log.Debug("mem:", n)
 	//fmt.Println(n)
 	if n <= int64(MinDockerMem) {
 		return fmt.Errorf("IOSDK needs 4GB memory allocatable on docker")
 	}
-
 	return nil
 
 }

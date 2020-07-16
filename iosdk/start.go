@@ -8,7 +8,7 @@ func Start() error {
 		fmt.Println("You need to run 'iosdk init ', first.")
 		return err
 	}
-	err := Preflight(Config.AppDir)
+	info, err := Preflight(Config.AppDir)
 	if err != nil {
 		return err
 	}
@@ -25,7 +25,7 @@ func Start() error {
 		return err
 	}
 	if !*skipIde {
-		err = IdeDeploy(Config.AppDir)
+		err = IdeDeploy(Config.AppDir, info)
 		if err != nil {
 			return err
 		}

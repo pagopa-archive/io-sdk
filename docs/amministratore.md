@@ -2,7 +2,7 @@
 
 L'sdk è disponibile per i seguenti sistemi operativi:
 
-- Windows 10
+- Windows 10 Professional
 - Mac OS Catalina
 - Distribuzioni Linux basate su `dpkg` (Debian, Ubuntu)
 - Distribuzioni Linux basate su `rpm` (Fedora, CentOS, RedHat)
@@ -51,7 +51,7 @@ Verificare che il comando sia disponibile e della versione giusta con:
 
 ```
 $ iosdk --version
-pagopa0.5.1
+0.5.2
 ```
 
 A questo punto inizializzate il sistema con il comando: `iosdk init`.
@@ -90,9 +90,11 @@ Sono disponibili correntemente:
 - `python` è un importer per importare dati da fonti dati GraphQL scritto in Python
 - `github` permette di selezionare generici importer disponibili su GitHub
 
-L'SDK importerà il connettore selezionato.
+L'SDK copiera' il codice sorgente dell'SDK nella directory specificata per poterlo personalizzare.
 
-L'ultimo passo è fornire la API Key di IO
+**NOTA**: il connettore specificato non viene automaticamente installato. Deve essere "deployato", vedere il manuale utente per dettagli.
+
+L'ultimo passo è fornire la API Key di IO:
 
 ```
 IO Api Key
@@ -101,12 +103,16 @@ Enter a value:
 
 Occorre specificare il valore ottenuto dal backoffice.
 
+**NOTA**: Per ottenere una API key occorre correntemente registrarsi nel sito `developers.io.italia.it` con la vostra email e da lì è possibile ottenere una API per inviare messaggi al vosto indirizzo emaail tramite un codice fiscale  predefinito e con importo zero. Per ottenere l'invio di messaggi con importi occorre richiederli per email a `onboarding@io.italia.it`.
+
 ## Avvio e gestione dei servizi
 
 A questo punto è possibile avviare il sistema con il comando: `iosdk start`
 
-Il comando provvederà a scaricare le immagini docker del kit di sviluppo, configurarlo e lanciarlo in esecuzione, mostrando l'interfaccia utente web descritta nel [manuale utente](/docs/utente.md)
+Il comando provvederà a scaricare le immagini docker del kit di sviluppo, configurarlo e lanciarlo in esecuzione, mostrando l'interfaccia utente web descritta nel [manuale utente](/docs/utente.md).
 
+
+Se non si disponone di sufficiente memoria si può evitare di avviare l'ambiente di sviluppo (IDE) con il comando: `iosdk start --skip-ide`.
 
 ### Controllo di stato
 
@@ -119,7 +125,7 @@ iosdk-redis: running
 iosdk-theia: running
 ```
 
-Normalmente devono essere in esecuzione 3 servizi.
+Normalmente devono essere in esecuzione 3 servizi (o due se non si è abilitato l'IDE).
 
 ### Stop
 
@@ -137,4 +143,3 @@ Destroying Redis...
 ### Riavvio
 
 Utilizzare il comando `iosdk restart` per stoppare e riavviare i servizi.
-
