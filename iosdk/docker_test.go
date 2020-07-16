@@ -30,9 +30,9 @@ func ExampleDockerIP() {
 func ExampleDockerInfo() {
 	DryRunPush("!bad", "Info: hello")
 	out, err := dockerInfo()
-	fmt.Println(1, err, out)
+	fmt.Println(1, err, out+"*")
 	out, err = dockerInfo()
-	fmt.Println(2, err, out)
+	fmt.Println(2, err, out+"*")
 	// Output:
 	// docker info
 	// 1 Docker is not running

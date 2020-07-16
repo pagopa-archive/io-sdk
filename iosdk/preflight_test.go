@@ -42,6 +42,6 @@ func ExamplePreflightDockerMemory() {
 	// Output:
 	// docker info
 	// <nil>
-	// docker info
+	/// docker info
 	// IOSDK needs 4GB memory allocatable on docker
 }

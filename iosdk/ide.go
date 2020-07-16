@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"os/user"
 	"path/filepath"
+	"regexp"
+	"strings"
 )
 
 // IdeDeploy deploys and mounts a folder
-func IdeDeploy(dir string) error {
+func IdeDeploy(dir string, info string) error {
 	fmt.Println("Deploying IDE...")
 	if dir != "" {
 		err := preflightInHomePath(dir)
@@ -15,7 +17,7 @@ func IdeDeploy(dir string) error {
 			return err
 		}
 	}
-	return ideDockerRun(dir)
+	return ideDockerRun(dir, info)
 }
 
 // IdeDestroy destroys ide
@@ -27,7 +29,7 @@ func IdeDestroy() error {
 
 // ideDockerRun starts the ide
 // it also mounts the project folder if the directory is not empty
-func ideDockerRun(dir string) (err error) {
+func ideDockerRun(dir string, info string) (err error) {
 	image := IdeImage + ":" + Version
 	if err = dockerPull(image); err != nil {
 		return err
@@ -37,6 +39,7 @@ func ideDockerRun(dir string) (err error) {
 		dir, err = filepath.Abs(dir)
 		LogIf(err)
 		if err == nil {
+			dir = fixPathDockerToolbox(dir, info)
 			mount = fmt.Sprintf("-v %s:/home/project", dir)
 		}
 	}
@@ -66,4 +69,21 @@ func ideDockerRun(dir string) (err error) {
 func OpenWhiskDockerWait() error {
 	fmt.Println(Sys("docker exec iosdk-whisk waitready"))
 	return nil
+}
+
+// on windows if you are using Docker Toolbox you need to change the path format
+// it expects an absolute path starting with `<drive>:` in windows
+func fixPathDockerToolbox(dir string, info string) string {
+	if RuntimeOS != "windows" {
+		return dir
+	}
+	var search = regexp.MustCompile(`Operating System: Boot2Docker`)
+	if search.FindString(info) == "" {
+		return dir
+	}
+	dir = strings.ReplaceAll(dir, "\\", "/")
+	if dir[1] == ':' {
+		dir = "/" + string(dir[0]) + dir[2:]
+	}
+	return dir
 }

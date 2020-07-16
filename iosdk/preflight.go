@@ -48,24 +48,24 @@ func preflightInHomePath(dir string) error {
 }
 
 // Preflight perform preflight checks
-func Preflight(dir string) error {
+func Preflight(dir string) (string, error) {
 	info, err := dockerInfo()
 	if err != nil {
-		return err
+		return "", err
 	}
 	err = preflightDockerMemory(info)
 	if err != nil {
-		return err
+		return "", err
 	}
 	err = preflightEnsureDockerVersion()
 	if err != nil {
-		return err
+		return "", err
 	}
 	err = preflightInHomePath(dir)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return info, nil
 }
 
 // preflightDockerMemory checks docker memory

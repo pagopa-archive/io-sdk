@@ -62,7 +62,8 @@ func parseDebug(cmd string) bool {
 		WskPropsSave()
 	case ideDeployCmd.FullCommand():
 		FatalIf(ConfigLoad())
-		IdeDeploy(Config.AppDir)
+		info, _ := Preflight(Config.AppDir)
+		IdeDeploy(Config.AppDir, info)
 		configureIde()
 	case ideDestroyCmd.FullCommand():
 		IdeDestroy()
