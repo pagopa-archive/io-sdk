@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"regexp"
 
 	"github.com/google/uuid"
 	"github.com/mitchellh/go-homedir"
@@ -157,8 +158,14 @@ func Configure(dir string) error {
 	return ConfigSave()
 }
 
-func configureIde() {
-	cmd := fmt.Sprintf("docker exec iosdk-theia wsk property set --apihost %s --auth %s", Config.WhiskAPIHostDocker, Config.WhiskAPIKey)
+func configureIde(info string) {
+	uid := ""
+	var search = regexp.MustCompile(`Operating System: Boot2Docker`)
+	if search.FindString(info) != "" {
+		uid = "-u root"
+	}
+
+	cmd := fmt.Sprintf("docker exec %s iosdk-theia wsk property set --apihost %s --auth %s", uid, Config.WhiskAPIHostDocker, Config.WhiskAPIKey)
 	err := Run(cmd)
 	if err != nil {
 		fmt.Println(err)
@@ -166,12 +173,12 @@ func configureIde() {
 }
 
 // PropagateConfig propagate configurations to started services
-func PropagateConfig() {
+func PropagateConfig(info string) {
 
 	fmt.Println("Configuring Whisk")
 	WhiskUpdatePackageParameters("iosdk", ConfigMap())
 	if !*skipIde {
 		fmt.Println("Configuring IDE")
-		configureIde()
+		configureIde(info)
 	}
 }
