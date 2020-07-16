@@ -40,8 +40,6 @@ func ExamplePreflightDockerMemory() {
 	fmt.Println(preflightDockerMemory("\nTotal Memory: 11GiB\n"))
 	fmt.Println(preflightDockerMemory("\nTotal Memory: 3GiB\n"))
 	// Output:
-	// docker info
 	// <nil>
-	/// docker info
-	// IOSDK needs 4GB memory allocatable on docker
+        // IOSDK needs 4GB memory allocatable on docker
 }

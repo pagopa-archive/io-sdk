@@ -35,7 +35,7 @@ func ExampleDockerInfo() {
 	fmt.Println(2, err, out+"*")
 	// Output:
 	// docker info
-	// 1 Docker is not running
+	// 1 Docker is not running *
 	// docker info
-	// 2 <nil> Info: hello
+	// 2 <nil> Info: hello*
 }
