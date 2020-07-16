@@ -58,6 +58,11 @@ func ideDockerRun(dir string, info string) (err error) {
 		}
 	}
 
+	var search = regexp.MustCompile(`Operating System: Boot2Docker`)
+	if search.FindString(info) != "" {
+		uid = "-u root"
+	}
+
 	command := fmt.Sprintf(`docker run -d -p 3000:3000
 	--rm --name iosdk-theia -e HOME=/home/project 
 	%s %s --add-host=openwhisk:%s %s`, mount, uid, *openwhiskIP, image)
