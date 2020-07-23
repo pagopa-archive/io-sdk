@@ -49,16 +49,16 @@ def main(args):
             },
             "fiscal_code": args['fiscal_code']
         }
-        if "amount" in args:
+        if "amount" in args and args["amount"] != "":
             pd = {
                 "amount": int(args["amount"]),
                 "notice_number": "000000000000000001",
             }
             if "notice_number" in args:
-                pd["notice_number"] = args["notice_number"]
-            if "due_date" in args:
+                pd["notice_number"] = ("000000000000000000" + args["notice_number"])[-18:]
+            if "due_date" in args and args["due_date"] !="" :
                 msg["due_date"] = args["due_date"]
-                if "invalid_after_due_date" in args:
+                if "invalid_after_due_date" in args and args["invalid_after_due_date"] !="":
                     pd["invalid_after_due_date"]= bool(args['invalid_after_due_date'])
             msg["content"]["payment_data"] = pd
         return send(url, hdr, msg)
