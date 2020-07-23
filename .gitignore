@@ -2,6 +2,7 @@ iosdk/iosdk
 images/openwhisk/
 .DS_Store
 .version
+.snapshot
 .node-version
 .go-version
 .python-version
