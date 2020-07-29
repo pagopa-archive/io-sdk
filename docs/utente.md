@@ -109,5 +109,5 @@ I dettagli dei singoli connettori variano per ogni linguaggio di programmazione 
 
 Il formato dati dei connettori [è descritto qui](sviluppatore.md).
 
-L'ambiente IDE è molto evoluto  si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente.  Notare che nell'IDE fornito sono installati alcuni plugin speicifi per i vari linguaggi di programmazione.
+L'ambiente IDE è molto evoluto si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente.  Notare che nell'IDE fornito sono installati alcuni plugin specifici per i vari linguaggi di programmazione.
 
