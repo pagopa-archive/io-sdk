@@ -1,6 +1,6 @@
 ## Prerequisiti
 
-L'sdk è disponibile per i seguenti sistemi operativi:
+L'SDK è disponibile per i seguenti sistemi operativi:
 
 - Windows 10 Professional
 - Mac OS Catalina
