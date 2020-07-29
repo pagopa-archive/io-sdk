@@ -1,4 +1,4 @@
-## Prequisiti
+## Prerequisiti
 
 L'sdk è disponibile per i seguenti sistemi operativi:
 
@@ -27,7 +27,7 @@ Informazioni per ottenere la API Key [sono qui](https://developer.io.italia.it/o
 
 Per installare l'SDK occorre installare la CLI (command line interface) di controllo.
 
-Andare andare sul sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionare una "release" (versione rilasciata) e scaricare l'installer corrispondente per il vostro sistema operativo.
+Andare sul sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionare una "release" (versione rilasciata) e scaricare l'installer corrispondente per il vostro sistema operativo.
 
 ![Releses](/docs/images/admin-releases.png)
 
@@ -56,7 +56,7 @@ $ iosdk --version
 
 A questo punto inizializzate il sistema con il comando: `iosdk init`.
 
-Il sistema vi chiederà una serie di informazioni per configurare il sistema.
+Il sistema vi chiederà una serie d'informazioni per configurare il sistema.
 
 La prima informazione richiesta è la directory di lavoro:
 
@@ -66,7 +66,7 @@ Work Directory (can already exists)
 Enter a value (Default is importer):
 ```
 
-Dovete specifare una directory di lavoro dove il sistema installerà l'importer corrente.
+Dovete specificare una directory di lavoro dove il sistema installerà l'importer corrente.
 
 **NOTA:**  per vincoli tecnici di Docker su Windows e MacOS, è necessario che la directory si trovi sotto la vostra "home" directory.
 
@@ -90,7 +90,7 @@ Sono disponibili correntemente:
 - `python` è un importer per importare dati da fonti dati GraphQL scritto in Python
 - `github` permette di selezionare generici importer disponibili su GitHub
 
-L'SDK copiera' il codice sorgente dell'SDK nella directory specificata per poterlo personalizzare.
+L'SDK copierà il codice sorgente dell'SDK nella directory specificata per poterlo personalizzare.
 
 **NOTA**: il connettore specificato non viene automaticamente installato. Deve essere "deployato", vedere il manuale utente per dettagli.
 
@@ -103,7 +103,7 @@ Enter a value:
 
 Occorre specificare il valore ottenuto dal backoffice.
 
-**NOTA**: Per ottenere una API key occorre correntemente registrarsi nel sito `developers.io.italia.it` con la vostra email e da lì è possibile ottenere una API per inviare messaggi al vosto indirizzo emaail tramite un codice fiscale  predefinito e con importo zero. Per ottenere l'invio di messaggi con importi occorre richiederli per email a `onboarding@io.italia.it`.
+**NOTA**: Per ottenere una API key occorre correntemente registrarsi nel sito `developers.io.italia.it` con la vostra email e da lì è possibile ottenere una API per inviare messaggi al vostro indirizzo email tramite un codice fiscale  predefinito e con importo zero. Per ottenere l'invio di messaggi con importi occorre richiederli per email a `onboarding@io.italia.it`.
 
 ## Avvio e gestione dei servizi
 
@@ -112,7 +112,7 @@ A questo punto è possibile avviare il sistema con il comando: `iosdk start`
 Il comando provvederà a scaricare le immagini docker del kit di sviluppo, configurarlo e lanciarlo in esecuzione, mostrando l'interfaccia utente web descritta nel [manuale utente](/docs/utente.md).
 
 
-Se non si disponone di sufficiente memoria si può evitare di avviare l'ambiente di sviluppo (IDE) con il comando: `iosdk start --skip-ide`.
+Se non si dispone di sufficiente memoria si può evitare di avviare l'ambiente di sviluppo (IDE) con il comando: `iosdk start --skip-ide`.
 
 ### Controllo di stato
 
