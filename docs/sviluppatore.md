@@ -119,7 +119,7 @@ Esempio con io-sdk-javascript
 
 #### Forkare il repository sul proprio GitHub
 1. Loggarsi su GitHub.  
-2. Andare su https://github.com/noiopen/io-sdk-javascript  
+2. Andare su https://github.com/pagopa/io-sdk-javascript  
 3. Cliccare sul bottone "Fork" in alto a destra  
 
 #### Clonare il repository in locale
@@ -155,11 +155,11 @@ git push -u origin <nome_feature>
 (sostituire <nome_feature> con il nome della propria feature)  
 (sostituire <tuo_messaggio> con il messaggio del commit)  
 
-#### Creare una Pull Request verso NoiOpen
+#### Creare una Pull Request verso PagoPa
 1. Loggarsi su GitHub.  
 2. Andare su https://github.com/<tuo_username>/io-sdk-javascript   
 3. Cliccare sul bottone "Pull request"  
-4. Indicare, a sinistra, il repository NoiOpen e il branch al quale si vuole contribuire, a destra, il nostro repository e il branch dove si è sviluppata la feature.  
+4. Indicare, a sinistra, il repository PagoPa e il branch al quale si vuole contribuire, a destra, il nostro repository e il branch dove si è sviluppata la feature.  
 5. Indicare un messaggio per la Pull request, e se presente indicare la Issue relativa
 ```
 See #numero_issue
@@ -183,7 +183,7 @@ In particolare una volta installato (o se hai già installato DOCKER) [queste is
 ##### Modalità Sviluppo
 ###### Clonare il repository IO-SDK in locale
 ```
-git clone https://github.com/noiopen/io-sdk-javascript
+git clone https://github.com/pagopa/io-sdk-javascript
 ```
 (non abbiamo bisogno di forkare il repo perché non dovremo ad andarlo a modificare)  
 
