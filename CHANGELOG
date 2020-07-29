@@ -1,4 +1,20 @@
-# 0.6
+# 0.5.2
+
+- pagamenti e scadenze
+ 
+- proxy importer
+
+- documentation
+
+- support docker-toolbox
+
+# 0.5.1
+
+- included 3 plugins (javascript, php, pythond)
+
+- fixed a number of issues
+
+# 0.5
 
 First public release including:
 

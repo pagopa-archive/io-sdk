@@ -1,16 +1,15 @@
 <script>
+  export let action;
+
   import { formData } from "./store";
   import { onMount } from "svelte";
   import ImportForm from "./ImportForm.svelte";
   import ImportData from "./ImportData.svelte";
 
   const base = "http://localhost:3280/api/v1/web/guest/";
-  //let action = "util/import";
-  let action = "iosdk/import";
 
-  let url;
-  $: url = base + action;
-
+  let url = base + action;
+  let loading = true;
   let state = {};
   let message = "uploading...";
 
@@ -18,6 +17,7 @@
     const res = await fetch(url);
     state = await res.json();
     console.log(state);
+    loading = false;
   }
 
   async function save(data) {
@@ -35,9 +35,11 @@
         } else {
           message = res.statusText
         }
+        loading = false;
       })
       .catch(function(err) {
         message = err.message;
+        loading = false;
       });
   }
 
@@ -51,7 +53,9 @@
 
 <h2>Import</h2>
 <div>
-  {#if state.form}
+  {#if loading}
+    <div>loading...</div>
+  {:else if state.form}
     <ImportForm form={state.form} {url} />
   {:else if state.error}
     <div class="alert alert-danger" role="alert">Error: {state.error}</div>

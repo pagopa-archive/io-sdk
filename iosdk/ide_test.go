@@ -10,13 +10,13 @@ func ExampleIdeDockerRun() {
 		"", "Error:",
 		"", "172.17.0.2")
 	RuntimeOS = "darwin"
-	fmt.Println(1, ideDockerRun("/tmp"))
-	fmt.Println(2, ideDockerRun("/tmp"))
-	fmt.Println(3, ideDockerRun(""))
+	fmt.Println(1, ideDockerRun("/tmp", ""))
+	fmt.Println(2, ideDockerRun("/tmp", ""))
+	fmt.Println(3, ideDockerRun("", ""))
 	// Output:
 	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
-	// docker run -d -p 3000:3000 --rm --name iosdk-theia -e HOME=/home/project -v /tmp:/home/project --add-host=openwhisk:172.17.0.2 pagopa/iosdk-theia:test 
+	// docker run -d -p 3000:3000 --rm --name iosdk-theia -e HOME=/home/project -v /tmp:/home/project --add-host=openwhisk:172.17.0.2 pagopa/iosdk-theia:test
 	// 1 <nil>
 	// docker pull pagopa/iosdk-theia:test
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-openwhisk
@@ -35,4 +35,18 @@ func ExampleIdeDockerRm() {
 	// Destroying IDE...
 	// docker kill iosdk-theia
 	// 172.17.0.3
+}
+
+func ExampleFixPathDockerToolbox() {
+	RuntimeOS = "linux"
+	fmt.Println(fixPathDockerToolbox("a\\b", "does not matter"))
+	RuntimeOS = "windows"
+	fmt.Println(fixPathDockerToolbox("a\\b", "does not matter"))
+	fmt.Println(fixPathDockerToolbox("a\\b", "\nOperating System: Boot2Docker etc etc"))
+	fmt.Println(fixPathDockerToolbox("c:\\a\\b", "\nOperating System: Boot2Docker etc etc"))
+	// Output:
+	// a\b
+	// a\b
+	// a/b
+	// //c/a/b
 }

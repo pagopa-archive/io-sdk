@@ -21,7 +21,13 @@
     <div class="mr-1 pt-1 pb-1">
       <Router {url}>
         <Route path="/" component={Home} />
-        <Route path="import" component={Import} />
+        <Route path="import">
+          <Import action="util/import"/>
+        </Route>
+        <Route path="custom">
+          <Import action="iosdk/import"/>
+        </Route>
+        <Route path="custom" component={Import} />
         <Route path="ship" component={Ship} />
         <Route path="send" component={Send} />
         <Route path="send/:key" let:params>

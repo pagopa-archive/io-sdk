@@ -62,8 +62,9 @@ func parseDebug(cmd string) bool {
 		WskPropsSave()
 	case ideDeployCmd.FullCommand():
 		FatalIf(ConfigLoad())
-		IdeDeploy(Config.AppDir)
-		configureIde()
+		info, _ := Preflight(Config.AppDir)
+		IdeDeploy(Config.AppDir, info)
+		configureIde(info)
 	case ideDestroyCmd.FullCommand():
 		IdeDestroy()
 	case whiskDeployCmd.FullCommand():
@@ -97,10 +98,10 @@ func parse(cmd string) {
 	switch cmd {
 	// Start
 	case startCmd.FullCommand():
-		err := Start()
+		info, err := Start()
 		ShowError(err)
 		if err == nil {
-			PropagateConfig()
+			PropagateConfig(info)
 			if !*skipOpenBrowser {
 				time.Sleep(2 * time.Second)
 				browser.OpenURL(BrowserURL)
@@ -111,10 +112,10 @@ func parse(cmd string) {
 		Stop()
 	case restartCmd.FullCommand():
 		Stop()
-		err := Start()
+		info, err := Start()
 		ShowError(err)
 		if err == nil {
-			PropagateConfig()
+			PropagateConfig(info)
 		}
 		fmt.Println("\nRestarted, please reload the browser.")
 	// Init

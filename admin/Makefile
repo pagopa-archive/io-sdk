@@ -25,17 +25,16 @@ devel:
 	npm run dev
 
 .PHONY: start
-start:
-	docker run -ti \
-	-p 3280:3280 -p 3281:3281 \
-	--rm --name openwhisk --hostname openwhisk \
-	-v /var/run/docker.sock:/var/run/docker.sock \
-	-e CONTAINER_EXTRA_ENV=__OW_DEBUG_PORT=8081 \
-	$(IMG)
+start: ../iosdk/iosdk
+	../iosdk/iosdk debug wskprops
+	../iosdk/iosdk start --skip-ide --skip-pull-images	
 
 .PHONY: stop
-stop:
-	-docker exec openwhisk stop
+stop: ../iosdk/iosdk
+	-../iosdk/iosdk stop
+
+../iosdk/iosdk: build
+	$(MAKE) -C ../iosdk
 
 public/build/bundle.js: $(wildcard src/*.svelte)
 	node -v | grep v12

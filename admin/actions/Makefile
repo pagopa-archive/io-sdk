@@ -1,8 +1,10 @@
 .PHONY: build
-build: deploy/send.zip deploy/sendpy.zip deploy/cache.zip deploy/messages.zip deploy/store.zip
+build: deploy/sendpy.zip deploy/cache.zip deploy/messages.zip deploy/store.zip
 
 .PHONY: deploy
-deploy: build 
+deploy: build
+	docker pull actionloop/actionloop-python-v3.7
+	docker pull openwhisk/action-nodejs-v10
 	wsk project deploy
 
 .PHONY: undeploy
@@ -12,18 +14,12 @@ undeploy: setup
 .PHONY: test
 test: deploy
 	# warm up 
-	-wsk action list |\
-	awk '/guest/ { print $$1}' |\
-	xargs -L1 wsk action invoke -r
+	#-wsk action list | awk '/guest/ { print $$1}' | xargs -L1 wsk action invoke -r
 	# test
 	if ! bats test ; then cat /tmp/debug.log ; exit 1 ; fi
 	
-
-deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
-	zip - -r -j $^ | docker run -i openwhisk/action-golang-v1.11 -compile main >$@
-
 virtualenv.zip:
-	docker run -i --entrypoint=/bin/bash -v $(shell pwd):/mnt \
+	docker run -i --entrypoint=/bin/bash -v "$(shell pwd):/mnt" \
 	openwhisk/actionloop-python-v3.7 /mnt/venv.sh
 
 deploy/cache.zip: src/util/cache.py virtualenv.zip
@@ -49,3 +45,7 @@ deploy/sendpy.zip: src/util/send.py virtualenv.zip
 .PHONY: clean
 clean:
 	-rm deploy/*.zip virtualenv.zip __main__.py
+
+# to build go actions - not used not but it may be useful for later
+#deploy/send.zip: $(filter-out  %_test.go, $(wildcard src/send/*.go))
+#	zip - -r -j $^ | docker run -i openwhisk/action-golang-v1.11 -compile main >$@

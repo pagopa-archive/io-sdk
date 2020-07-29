@@ -2,6 +2,7 @@ iosdk/iosdk
 images/openwhisk/
 .DS_Store
 .version
+.snapshot
 .node-version
 .go-version
 .python-version
@@ -11,5 +12,6 @@ old/
 *.zip
 *.bak
 *.jar
+.idea/
 difftest.out*
 tmp/

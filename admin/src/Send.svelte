@@ -10,9 +10,11 @@
   let state = {};
   let action = "util/send";
   let data = {
-    dest: "",
+    fiscal_code: "",
     subject: "",
-    markdown: ""
+    markdown: "",
+    amount: "",
+    notice_number: ""
   };
 
   async function start() {
@@ -28,9 +30,11 @@
         if (res.ok) {
           let message = await res.json();
           //console.log(data[id])
-          data.dest = message[id].fiscal_code;
+          data.fiscal_code = message[id].fiscal_code;
           data.subject = message[id].subject;
           data.markdown = message[id].markdown;
+          data.amount = message[id].amount;
+          data.notice_number = message[id].notice_number;
         }
       })
       .catch(err => {
@@ -87,31 +91,47 @@
 {:else}
   <div>
     <div class="form-group">
-      <label class="active" for="codFiscDest">
-        Codice Fiscale Destinatario
+      <label class="active" for="fiscal_code">
+        Fiscal Code
       </label>
       <input
         type="text"
         class="form-control"
-        id="codFiscDest"
-        bind:value={data.dest} />
+        id="fiscal_code"
+        bind:value={data.fiscal_code} />
     </div>
     <div class="form-group">
-      <label class="active" for="messageSubject">Soggetto del messaggio</label>
+      <label class="active" for="subject">Subject</label>
       <input
         type="text"
         class="form-control"
-        id="messageSubject"
+        id="subject"
         bind:value={data.subject} />
     </div>
     <div class="form-group">
-      <textarea id="message" rows="3" bind:value={data.markdown} />
-      <label class="active" for="message">Markdown del messaggio</label>
+      <textarea id="markdown" rows="3" bind:value={data.markdown} />
+      <label class="active" for="markdown">Message (markdown)</label>
+    </div>
+    <div class="form-group">
+      <label class="active" for="amount">Amount</label>
+      <input
+        type="text"
+        class="form-control"
+        id="amount"
+        bind:value={data.amount} />
+    </div>
+    <div class="form-group">
+      <label class="active" for="amount">Notice Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="notice_number"
+        bind:value={data.notice_number} />
     </div>
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
         <label>Endpoint</label>
-        <select bind:value={action} title="Scegli una opzione">
+        <select bind:value={action} title="Select an endpoing">
           <option value="util/send">Development (Local)</option>
           <option value="iosdk/send">Production</option>
         </select>

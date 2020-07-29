@@ -3,14 +3,14 @@ package main
 import "fmt"
 
 // Start openwhisk-ide
-func Start() error {
+func Start() (string, error) {
 	if err := ConfigLoad(); err != nil {
 		fmt.Println("You need to run 'iosdk init ', first.")
-		return err
+		return "", err
 	}
-	err := Preflight(Config.AppDir)
+	info, err := Preflight(Config.AppDir)
 	if err != nil {
-		return err
+		return "", err
 	}
 	if *useDefaultAPIKey {
 		Config.WhiskAPIKey = DefaultWhiskAPIKey
@@ -18,19 +18,19 @@ func Start() error {
 	}
 	err = RedisDeploy()
 	if err != nil {
-		return err
+		return "", err
 	}
 	err = WhiskDeploy()
 	if err != nil {
-		return err
+		return "", err
 	}
 	if !*skipIde {
-		err = IdeDeploy(Config.AppDir)
+		err = IdeDeploy(Config.AppDir, info)
 		if err != nil {
-			return err
+			return "", err
 		}
 	}
-	return nil
+	return info, nil
 }
 
 // Stop openwhisk-ide

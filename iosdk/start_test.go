@@ -8,7 +8,8 @@ import (
 func ExampleStart() {
 	//*DryRunFlag = true
 	fmt.Println("=== Init ===")
-	fmt.Println(Start())
+	_, err := Start()
+	fmt.Println(err)
 	DryRunPush("/tmp/iosdk-test/javascript", "javascript", "123456")
 	dir, err := Init("", "", ioutil.Discard)
 	fmt.Println(dir, err)
@@ -16,7 +17,8 @@ func ExampleStart() {
 	fmt.Print(run("ls -a /tmp/iosdk-test/.io*"))
 	fmt.Println("=== Start ===")
 	DryRunPush("\nTotal Memory: 11GiB\n", MinDockerVersion, "", "123", "", "1.2.3.4", "", "", "", "172.17.0.2")
-	fmt.Println(Start())
+	_, err = Start()
+	fmt.Println(err)
 	// Output:
 	// === Init ===
 	// You need to run 'iosdk init ', first.

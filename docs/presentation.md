@@ -1,10 +1,5 @@
-
-
 ![Slide1](/docs/images/Slide1.png)
 ![Slide2](/docs/images/Slide2.png)
-
-![UI](/docs/images/UseCase-IO-SDK-UI.png)
-
 ![Slide3](/docs/images/Slide3.png)
 ![Slide4](/docs/images/Slide4.png)
 ![Slide4](/docs/images/Slide5.png)
