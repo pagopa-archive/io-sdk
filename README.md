@@ -1,8 +1,8 @@
 # IO-SDK
 
-IO-SDK è un kit di sviluppo che ha l'obiettivo di semplificare l'invio di messaggi alla app IO, fornendo gli strumenti necessari per poter realizzare l'integrazione di una molteplicità di fonti dati presenti nella pubblica amminstrazione con l'app IO in breve tempo.
+IO-SDK è un kit di sviluppo che ha l'obiettivo di semplificare l'invio di messaggi alla app IO, fornendo gli strumenti necessari per poter realizzare l'integrazione di una molteplicità di fonti dati presenti nella pubblica amministrazione con l'app IO in breve tempo.
 
-La app IO è una app sviluppata dal governo italiano con lo scopo di per essere un unico punto di accesso per interagice con i servizi pubblici locali e nazionali.
+La app IO è una app sviluppata dal Governo italiano con lo scopo di per essere un unico punto di accesso per interagice con i servizi pubblici locali e nazionali.
 
 Tutti i servizi pubblici italiani possono integrarsi con l'app semplicemente connettendosi ai loro servizi REST per l'invio di comunicazioni al cittadino.
 
