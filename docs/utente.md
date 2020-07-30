@@ -1,12 +1,12 @@
 # Manuale dell'utilizzatore di IO-SDK
 
-In questo manuale descrive l'uso del kit di sviluppo IO-SDK per invio di messaggi alla app IO.
+In questo manuale viene descritto l'uso del kit di sviluppo IO-SDK per l'invio di messaggi all'app IO.
 
-Dopo aver effettuato l'installazione come descritto nel [manuale di amministrazione](/docs/amministratore.md) compare un menù principale come segue:
+Dopo aver effettuato l'installazione come descritto nel [manuale di amministrazione](/docs/amministratore.md) compare un menu con queste opzioni:
 
 ![Main Menu](/docs/images/user-main-menu.png)
 
-Da questo menù è possibile selezionare le seguenti operazioni:
+Da questo menu è possibile selezionare le seguenti operazioni:
 
 - **Single Message** apre la schermata per l'invio di  un singolo messaggio
 - **Import Messages** apre la schermata per l'importazione di messaggi da varie fonte dati
@@ -19,7 +19,7 @@ Da questo menù è possibile selezionare le seguenti operazioni:
 
 ![Send Message](/docs/images/user-send-message.png)
 
-In questa schermata è possibile inviare un singolo messaggio.
+Da schermata è possibile inviare un singolo messaggio.
 
 Occorre specificare:
 
@@ -27,9 +27,9 @@ Occorre specificare:
 - Il soggetto del messaggio
 - Il corpo del messaggio in formato markdown
 
-Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione e dipende dalla API Key in uso. Consultare [il manuale amministratore](amministratore.md) per maggiori informazioni.
+Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione e dipende dalla API Key in uso. Consultate [il manuale amministratore](amministratore.md) per maggiori informazioni.
 
-A questo punto è possibile mandare il messaggio a destinazione selezionado come "endpoint" Production, oppure Development. In quest'ultimo caso, il messaggio sarà visibile per l'ispezione in "Debugging", con il nome "sent:XXXX" dove XXXX è il codice fiscale del destinatario. Altrimenti, se il destinatario è abilitato, verrà ricevuto come email oppure nell'app.
+A questo punto è possibile inviare il messaggio al destinatario selezionado come "endpoint" Production, oppure Development. In quest'ultimo caso, il messaggio sarà visibile per l'ispezione in "Debugging", con il nome "sent:XXXX" dove XXXX è il codice fiscale del destinatario. Altrimenti, se il destinatario è abilitato, verrà ricevuto come email oppure nell'app.
 
 ## Importazione Messaggi
 
