@@ -17,7 +17,24 @@ Le opzioni disponibili sono:
 - **Development** apre un editor per lo sviluppo e la modifica degli importatori;
 - **About**: fornisce informazioni sullo scopo dell'applicazione e sul team di sviluppatori.
 
-## Invio Singolo Messaggio
+## Import URL
+
+![Import URL](/docs/images/user-import-url.png)
+
+## Custom Import
+
+![Custom Import](/docs/images/user-custom-import.png)
+
+
+## Send Messages
+
+Quando userete per la prima volta l'applicazione IO-SDK potreste non avere ancora messaggi da inviare, in questo caso apparirà una pagina simile a quella seguente che vi informerà sulle operazioni da eseguire per importare i messaggi:
+
+![Send Message](/docs/images/user-send-message-first-time.png)
+
+...
+...
+
 
 ![Send Message](/docs/images/user-send-message.png)
 
