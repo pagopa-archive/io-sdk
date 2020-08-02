@@ -11,9 +11,8 @@ Per il suo funzionamento richiede l'installazione di Docker e di una "API KEY" p
 
 ### Docker
 
-L'SDK richiede come prerequisito Docker versione 18.06.3 o superiore. Sui sistemi Windows e MacOS potete installare [Docker Desktop](https://www.docker.com/products/docker-desktop).
-
-Sui sistemi Linux seguite le istruzioni fornite per [il vostro sistema come descritto qui](https://docs.docker.com/engine/install/)
+L'SDK richiede come prerequisito Docker versione 18.06.3 o superiore.
+Per Windows e MacOS potete installare [Docker Desktop](https://www.docker.com/products/docker-desktop). Per Linux seguite le istruzioni fornite per [il vostro sistema come descritto qui](https://docs.docker.com/engine/install/)
 
 ### API KEY IO
 
