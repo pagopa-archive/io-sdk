@@ -35,12 +35,12 @@ Installate ed eseguite il programma di installazione come fate normalmente con g
 
 ## Configurazione
 
-Dopo che avrete installato la Command Line Interface (CLI), aprendo una finestra dei comandi sul vostro computer, sarà disponibile il nuovo comando `iosdk`. Nell'esempio seguente sono indicati i comandi che potete digitare per verificare se l'installazione è corretta. Il prefisso `$` potrebbe cambiare in funzione del vostro sistema operativo, in ogni caso non dovete scriverlo prima dei comandi. 
+Dopo che avrete installato la Command Line Interface (CLI), aprendo una finestra dei comandi sul vostro computer, sarà disponibile il nuovo comando `iosdk`. Nell'esempio seguente sono indicati i comandi che potete digitare per verificare se l'installazione è corretta.
 
 Per esempio, per verificare che la CLI sia disponibile e della versione giusta scrivete (premendo invio alla fine):
 
 ```
-$ iosdk --version
+iosdk --version
 ```
 
 Dovreste ottenere una risposta simile a questa, ricordandovi che potrebbe cambiare in funzione della versione di CLI che avete scaricato:
