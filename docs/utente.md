@@ -26,10 +26,6 @@ che vi invita a definire un connettore usando un file di esempio. Potete copiare
 
 ![Import JSON Esempio](/docs/images/user-import-json-esempio.png)
 
-## Custom Import
-
-![Custom Import](/docs/images/user-custom-import.png)
-
 ## Send Messages
 
 Quando userete per la prima volta l'applicazione IO-SDK potreste non avere ancora messaggi da inviare, in questo caso apparirà una pagina simile a quella seguente che vi informerà sulle operazioni da eseguire per importare i messaggi:
@@ -105,28 +101,17 @@ Ulteriori dettagli sui connettori li trovate nel [manuale dello sviluppatore](sv
 
 ![About](/docs/images/user-manual-about.png)
 
+## Custom Import
 
+Abbiamo tenuto per ultima la descrizione della funzionalità di Custom Import perché, se avete seguito l'esempio nel [manuale dell'amministratore](amministratore.md) e poi i passaggi descritti in questa pagina, a questo punto dovreste aver completato la configurazione per caricare un file in formato Excel.
 
-### questa diventa una nuova sezione importare un excel
+![Custom Import](/docs/images/user-custom-import.png)
 
-La voce di menù "Import Messages" permette di importare i messaggi utilizzando un "connettore". Un "connettore" è un programma (che può essere scritto in molti linguaggi di programmazione, e modificato per l'occorrenza) che consente di collegarsi a varie fonte dati (fogli excel, database, servizi REST) 
+Un "connettore" è un programma (che può essere scritto in linguaggi di programmazione diversi secondo la necessità) che consente di collegarsi a varie fonti di dati: dai file in formato Excel, appunto, ai servizi REST.
 
-Il connettore preasente dipende da quello che è stato installato usando la funzione "Development".
-
-Se non si installa nessun nuovo connettore (come specificato nella sezione), compare il connettore predefinito di esempio, che importa solamente dati di prova:
-
-![Import Messages](/docs/images/user-import-messages.png)
-
-Nel connettore predefinito si devono specificare come utente e password `demo` e questo genera dei dati fittizzi per provare il sistema.
-
-Più interessante è l'importatore "excel" che viene installato a partire dal template `javascript`. Vedi la sezione Development per informazioni su come installare un nuovo connettore.
-
-Una volta installato il connettore "excel" presenta una form che chiede l'upload di un file:
-
-![Import Excel](/docs/images/user-import-excel-form.png)
-
-È possibile specificare un file in un formato predefinito (un esempio di formato è `test/data.xlsx` nella directory specificata dove è installato il connettore stesso). 
+Il file da caricare nel nostro caso di esempio deve trovarsi nella directory specificata dove è stato installato il connettore e potrebbe essere ad esempio:
+```
+test/data.xlsx
+```
 
 ![Import Excel Sample](/docs/images/user-import-excel-sample.png)
-
-Usando questo importatore è possibile importare dati usando il formato Excel. Dovete uploadare il un file Excel (in formato `xslsx` e l'importatore farà il resto).
