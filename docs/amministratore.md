@@ -25,7 +25,7 @@ In questo modo sarà possibile ottenere una API Key per inviare messaggi al vost
 
 Partiamo dall'installazione della Command Line Interface (CLI): accedete al sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionate e scaricate una versione rilasciata (release) valida per il vostro sistema operativo.
 
-![Releses](/docs/images/admin-releases.png)
+![Releases](/docs/images/admin-releases.png)
 
 Ricordate che: 
 - il file `.exe` è l'installer per Windows
@@ -125,7 +125,7 @@ Il comando provvederà a scaricare le immagini docker del kit di sviluppo, confi
 
 Al termine verrà visualizzata l'interfaccia utente come una pagina web (verrà lanciata nel vostro browser predefiniti). Le funzionalità sono descritte nel [manuale dell'utilizzatore](/docs/utente.md)
 
-![Releses](/docs/images/iosdk-web-ide-1.png)
+![Main Menu](/docs/images/user-main-menu.png)
 
 ### Controllo dello stato dei servizi
 
