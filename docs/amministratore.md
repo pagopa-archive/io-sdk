@@ -51,7 +51,7 @@ Per esempio, per verificare che la CLI sia disponibile e della versione giusta s
 $ iosdk --version
 ```
 
-Dovreste ottenere una risposta del tipo
+Dovreste ottenere una risposta simile a questa, ricordandovi che potrebbe cambiare in funzione della versione di CLI che avete scaricato:
 ```
 2020.0723.1102-snapshot
 ```
@@ -60,10 +60,7 @@ Potete adesso proseguire inizializzando il sistema scrivendo il comando:
 
 `iosdk init`
 
-Il sistema vi chiederà una serie di informazioni per configurare il sistema.
-
-La prima informazione richiesta è la directory di lavoro:
-
+Il vostro computer vi chiederà una serie di informazioni per configurare il sistema. La prima informazione richiesta è relativa alla la directory di lavoro:
 
 ```
 Work Directory (can already exists)
@@ -72,9 +69,9 @@ Enter a value (Default is importer):
 
 Dovete specifare una directory di lavoro dove il sistema installerà l'importer corrente.
 
-**NOTA:**  per vincoli tecnici di Docker su Windows e MacOS, è necessario che la directory si trovi sotto la vostra "home" directory.
+**NOTA:** Tenete presente che Docker, sia su Windows che su MacOS, richiede che la directory si trovi sotto la vostra "home" directory (quella dell'utente che state usando per accedere al vostro computer).
 
-Il secondo step è selezionare uno dei connettori esistenti.
+Il secondo passo riguarda la selezionare di uno dei connettori tra quelli disponinibili:
 
 ```
 Which template:
@@ -87,16 +84,16 @@ Which template:
 Enter a number (Default is 1):
 ```
 
-Sono disponibili correntemente:
+In particolare:
 
-- `javascript` è un importer per importare file excel scritto in Javascript
-- `php` è un importer per importare dati da database Postgresql scritto in PHP
-- `python` è un importer per importare dati da fonti dati GraphQL scritto in Python
-- `github` permette di selezionare generici importer disponibili su GitHub
+- `javascript` è un importer per i file in formato Microsoft Excel scritto in Javascript;
+- `php` è un importer per caricare dati dai database PostgreSQL scritto in PHP;
+- `python` è un importer per caricare dati da fonti GraphQL scritto in Python;
+- `github` permette di selezionare generici importer disponibili su GitHub.
 
-L'SDK copiera' il codice sorgente dell'SDK nella directory specificata per poterlo personalizzare.
+Il programma quindi collocherà il codice sorgente dell'SDK nella directory specificata e potrete personalizzarlo successivamente.
 
-**NOTA**: il connettore specificato non viene automaticamente installato. Deve essere "deployato", vedere il manuale utente per dettagli.
+**NOTA**: Il connettore specificato non viene automaticamente installato. Deve essere "deployato", vedere il manuale utente per dettagli.
 
 L'ultimo passo è fornire la API Key di IO:
 
