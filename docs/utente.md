@@ -84,7 +84,7 @@ Da questa funzione si accede all'ambiente di sviluppo integrato (IDE) [Eclipse T
 
 ![Development](/docs/images/user-development.png)
 
-Usando questo ambiente è possibile installare e modificare diversi connettori, come anticipato nel [manuale dell'amministratore](amministratore.md) per completare l'installazione del connettore scelto, bisogna aprire un terminale dei comandi partendo dal menu Terminal e successivamente cliccando su New Terminal 
+Usando questo ambiente è possibile installare e modificare diversi connettori, come anticipato nel [manuale dell'amministratore](amministratore.md) per completare l'installazione del connettore scelto, bisogna aprire un terminale dei comandi partendo dal menu Terminal e successivamente cliccare su New Terminal 
 
 ![Dev New Terminal](/docs/images/user-dev-new-terminal.png)
 
