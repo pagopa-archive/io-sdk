@@ -98,9 +98,6 @@ quindi scrivere il comando seguente (premendo invio alla fine):
 
 Ulteriori dettagli sui connettori li trovate nel [manuale dello sviluppatore](sviluppatore.md).
 
-## About
-
-![About](/docs/images/user-manual-about.png)
 
 ## Custom Import
 
