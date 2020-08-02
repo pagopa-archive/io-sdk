@@ -6,7 +6,7 @@ Dopo aver effettuato l'installazione come descritto nel [manuale dell'amministra
 
 ![Main Menu](/docs/images/user-main-menu.png)
 
-Le opzioni disponinibili sono:
+Le opzioni disponibili sono:
 
 - **Import URL** ...;
 - **Custom Import** ...;
