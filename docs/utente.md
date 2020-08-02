@@ -59,6 +59,7 @@ Selezionando l'invio di un singolo messaggio occorre specificare:
 Specificate anche in questo caso il tipo di Endpoint e premete sul pulsante Send per inviare. Qualora sceglieste "Production" come Endpoint, se il destinatario è abilitato correttamente, verrà spedito un messaggio e-mail nell'App IO.
 
 **NOTE**
+
 a) Per scrivere il testo del messaggio potete usare una sintassi del testo chiamata "Markdown", ovvero una codifica progettata in modo che possa essere convertita in HTML
 
 b) Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione ed è correlato alla API Key in uso. Consultate [il manuale dell'amministratore](amministratore.md) per maggiori informazioni.
