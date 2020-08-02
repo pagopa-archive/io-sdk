@@ -39,7 +39,7 @@ Notare che
 
 Installare ed eseguire l'installer come da prassi per il vostro sistema operativo.
 
-**NOTA:** gli installer per MacOS e Windows non sono attualmente firmati, quindi occorre autorizzarne l'installazione.
+**NOTA:** gli installer per MacOS e Windows non sono attualmente firmati, quindi occorre autorizzarne l'installazione. Per MacOS potete trovare le istruzioni in [questa pagina](https://support.apple.com/it-it/HT202491).
 
 ## Configurazione
 
