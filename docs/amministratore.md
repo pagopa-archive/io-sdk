@@ -89,7 +89,7 @@ In particolare:
 - `python` è un importer per caricare dati da fonti GraphQL scritto in linguaggio Python;
 - `github` permette di selezionare generici importer disponibili su GitHub.
 
-Per effettuare la scelta, premete il tasto relarivo al numero (da 1 a 4).
+Per effettuare la scelta il numero corrispondente, da 1 a 4.
 
 Il programma quindi collocherà il codice sorgente dell'SDK nella directory specificata. 
 
