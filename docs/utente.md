@@ -10,8 +10,7 @@ Le opzioni disponibili sono:
 
 - **Import URL** ...;
 - **Custom Import** ...;
-- **Send Messages** apre la schermata per l'invio di messaggi multipli, che devono esser prima importati;
-- **Single Message** apre la schermata per l'invio di  un singolo messaggio;
+- **Send Messages** apre la schermata per l'invio di messaggi multipli (che devono essere prima importati);
 - **Single Message** apre la schermata per l'invio di un singolo messaggio;
 - **Debugging** apre la schermata per il controllo della memoria intermedia e serve a fare verifiche di esecuzione;
 - **Development** apre un editor per lo sviluppo e la modifica degli importatori;
@@ -19,12 +18,17 @@ Le opzioni disponibili sono:
 
 ## Import URL
 
+Se è la prima volta che cliccate su questa funzione vedrete una pagina simile a questa:
+
 ![Import URL](/docs/images/user-import-url.png)
+
+che vi invita a definire un connettore usando un file di esempio. Potete copiare dunque l'indirizzo proposto e premere il pulsante Import per caricare un esempio e proseguire nell'esplorazione delle funzionalità dell'IO-SDK.
+
+![Import JSON Esempio](/docs/images/user-import-json-esempio.png)
 
 ## Custom Import
 
 ![Custom Import](/docs/images/user-custom-import.png)
-
 
 ## Send Messages
 
@@ -32,25 +36,78 @@ Quando userete per la prima volta l'applicazione IO-SDK potreste non avere ancor
 
 ![Send Message](/docs/images/user-send-message-first-time.png)
 
-...
-...
+Se avete già importato almeno un messaggio, la schermata invece potrebbe essere simile a questa:
+
+![Send Message After Import](/docs/images/user-send-message-after-import.png)
+
+Trovate l'indicativo del messaggio o dei messaggi importati con alla sinistra di ciascun messaggio una casella di spunta che permette di indicare la selezione specifica del messaggio. Dopo avere selezionato almeno un messaggio potete scegliere l'endpoint di riferimento tra i valori proposti nella casella di scelta ad elenco e premere il pulsante Send Selected Messages per inviare il messaggio
+
+![Send Selected Message](/docs/images/user-send-selected-message.png)
+
+Il corretto invio verrà indicato da un messaggio di conferma come quello evidenziato nell'immagine sottostante:
+
+![Send Selected Message OK](/docs/images/user-send-selected-message-ok.png)
+
+## Single Message
+
+![Send Single Message](/docs/images/user-send-single-message.png)
+
+Selezionando l'invio di un singolo messaggio occorre specificare:
+
+- Fiscal Code: il codice fiscale del destinatario;
+- Subject: il soggetto del messaggio;
+- Message: il testo del messaggio;
+- Amout: l'importo;
+- Notice Number: il numero dell'avviso.
+
+Specificate anche in questo caso il tipo di Endpoint e premete sul pulsante Send per inviare. Qualora sceglieste "Production" come Endpoint, se il destinatario è abilitato correttamente, verrà spedito un messaggio e-mail nell'App IO.
+
+**NOTE**
+a) Per scrivere il testo del messaggio potete usare una sintassi del testo chiamata "Markdown", ovvero una codifica progettata in modo che possa essere convertita in HTML
+
+b) Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione ed è correlato alla API Key in uso. Consultate [il manuale dell'amministratore](amministratore.md) per maggiori informazioni.
+
+## Debugging
+
+Da questa sezione dell'applicazione è possibile effettuare i riscontri sul corretto funzionamento ed ottenere maggiori dettagli su eventuali anomalie. Nell'immagine qui sotto riportata vedete ad esempio il messaggio spedito prima come esempio.
+
+![Debugging](/docs/images/user-debugging.png)
+
+I pulsanti nella parte superiore permettono, nell'ordine, di mostrare tutte le informazioni di debug, visualizzare i messaggi importati, mostrare solo i messaggi inviati, cercare tra le informazioni (qualora l'elenco fosse molto lungo). Per la ricerca potete sfruttare i pattern definendoli in [questo formato](https://redis.io/commands/keys).
+
+Cliccando sulla chiave corrispondente ad un certo messaggio visualizzerete il dettaglio (in formato JSON), come nell'esempio seguente:
+
+![Debugging Details](/docs/images/user-debugging-dettaglio.png)
+
+Il pulsante Clean Current Keys permette di pulire la cache.
+
+## Development
+
+Da questa funzione si accede all'ambiente di sviluppo integrato (IDE) [Eclipse Theia](https://theia-ide.org/), potete trovare maggiori informazioni nella [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto viene usata la stessa interfaccia utente. 
+
+![Development](/docs/images/user-development.png)
+
+Usando questo ambiente è possibile installare e modificare diversi connettori, come anticipato nel [manuale dell'amministratore](amministratore.md) per completare l'installazione del connettore scelto, bisogna aprire un terminale dei comandi partendo dal menu Terminal e successivamente cliccando su New Terminal 
+
+![Dev New Terminal](/docs/images/user-dev-new-terminal.png)
+
+quindi scrivere il comando seguente (premendo invio alla fine):
+
+```
+./build.sh
+```
+
+![Dev Build OK](/docs/images/user-dev-build-ok.png)
+
+Ulteriori dettagli sui connettori li trovate nel [manuale dello sviluppatore](sviluppatore.md).
+
+## About
+
+![About](/docs/images/user-manual-about.png)
 
 
-![Send Message](/docs/images/user-send-message.png)
 
-In questa schermata è possibile inviare un singolo messaggio.
-
-Occorre specificare:
-
-- Il codice fiscale del destinatario
-- Il soggetto del messaggio
-- Il corpo del messaggio in formato markdown
-
-Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione e dipende dalla API Key in uso. Consultare [il manuale amministratore](amministratore.md) per maggiori informazioni.
-
-A questo punto è possibile mandare il messaggio a destinazione selezionado come "endpoint" Production, oppure Development. In quest'ultimo caso, il messaggio sarà visibile per l'ispezione in "Debugging", con il nome "sent:XXXX" dove XXXX è il codice fiscale del destinatario. Altrimenti, se il destinatario è abilitato, verrà ricevuto come email oppure nell'app.
-
-## Importazione Messaggi
+### questa diventa una nuova sezione importare un excel
 
 La voce di menù "Import Messages" permette di importare i messaggi utilizzando un "connettore". Un "connettore" è un programma (che può essere scritto in molti linguaggi di programmazione, e modificato per l'occorrenza) che consente di collegarsi a varie fonte dati (fogli excel, database, servizi REST) 
 
@@ -73,63 +130,3 @@ Una volta installato il connettore "excel" presenta una form che chiede l'upload
 ![Import Excel Sample](/docs/images/user-import-excel-sample.png)
 
 Usando questo importatore è possibile importare dati usando il formato Excel. Dovete uploadare il un file Excel (in formato `xslsx` e l'importatore farà il resto).
-
-## Invio Messaggio Singolo
-
-Selezionando "Single Message" è possibile inviare un singolo messaggio.
-
-![Send Message](/docs/images/user-send-message.png)
-
-Occorre riempire il campo codice fiscale del destinatario, il soggetto del messaggio e il corpo del messaggio in formato markdown e selezionare l'endpoint, che può essere "Development" o "Production".
-
-Nel primo caso, il messaggio non verrà effettivamente inviato ma sarà visibile in "Debugging", nel secondo caso sarà effettivamente inviato a destinazione, generando una email oppure una notifica nella app IO.
-
-## Invio Messaggi
-
-Una volta importati, i messaggi sono pronti per l'invio e sono visibili sotto "Send Messages".
-
-![Send Messages](/docs/images/user-send-messages.png)
-
-I messaggi da inviare vanno selezionati. Possono essere selezionati uno ad uno con le checkbox. Possono essere selezionati tutti con "Select All". Possono essere deleselezionati tutti con "Deselect All". Infine  si può invertire la selezione.
-
-Ogni messaggio è visibile come un linkp; seguendo il link si arriva alla funzione di invio di messaggio singolo con riempiti i campi di quel messagio.
-
-Una volta selezionati i messaggi possono venire inviati. In basso esiste una selezione dell'endpoint per selezionare se si inviano i messaggi in "Production" oppure se vengono inviati a un ricettore "Development" per testare cosa viene inviato. In quest'ultimo caso i messaggi inviati saranno visibili in "Debugging".
-
-## Debugging
-
-Questa schermata permette di esaminare la "cache", ovvero l'area di lavoro temporanea dove vengono memorizzati i dati per vari scopi
-
-![Debugging](/docs/images/user-debugging.png)
-
-Correntemente sono visibili due cose:
-
-- I messaggi pronti per l'invio (in formato `message:XXX`) 
-- I messaggi inviati a "Development" (`sent:XXX`) per verificare l'invio.
-
-È possibile filtrare i messaggi importati e i messaggi inviati.
-È anche possibile filtrare usando generici pattern in [questo formato](https://redis.io/commands/keys).
-
-Cliccando su un elemento in cache è possibile vedere l'elemento memorizzato in formato JSON.
-
-È infine possibile pulire la cache, eliminando i messaggi importati.
-
-## Development
-
-Cliccando su Development si accede ad un ambiente di sviluppo integrato, simile al [Microsoft VSCode](https://code.visualstudio.com/) ma eseguito in un web browser. Si tratta di [Eclipse Theia](https://theia-ide.org/).
-
-![Development](/docs/images/user-development.png)
-
-Usando l'editor è possibile installare e modificare generici connettori in vari linguaggi di programmazione. I connettori specifici sono scelti quando si installa l'SDK come [descritto nel manuale amministratore](amministratore.md).
-
-Per installare un connettore, occorre aprire un terminale (Menù "Terminal" seguito da "New Terminal") ed eseguire il comando `./build.sh`.
-
-I dettagli dei singoli connettori variano per ogni linguaggio di programmazione e fonte dati. In generale sono delle funzioni scritte nei vari linguaggi di programmazione che devono "accedere a fonti dati diverse" e ritornare i dati in un formato JSON predefinito. 
-
-Il formato dati dei connettori [è descritto qui](sviluppatore.md).
-
-L'ambiente IDE è molto evoluto  si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente.  Notare che nell'IDE fornito sono installati alcuni plugin speicifi per i vari linguaggi di programmazione.
-
-## About
-
-![About](/docs/images/user-manual-about.png)
