@@ -17,11 +17,14 @@ Sui sistemi Linux seguite le istruzioni fornite per [il vostro sistema come desc
 
 ### API KEY IO
 
-Per ottenere una API KEY occorre registrarsi al [backoffice di IO](https://developer.io.italia.it/). Le informazioni per ottenere la API Key [sono descritte in questa pagina](https://developer.io.italia.it/openapi.html).
+Per ottenere una API Key occorre registrarsi sul [backoffice di IO](https://developer.io.italia.it/). Le informazioni per ottenere la API Key [sono descritte in questa pagina](https://developer.io.italia.it/openapi.html).
+
+**IMPORTANTE** 
+In questo modo sarà possibile ottenere una API Key per inviare messaggi al vosto indirizzo e-mail tramite un codice fiscale fittizio predefinito e con importo zero. Per ottenere l'invio di messaggi con importi diversi, occorre farne espressa richiesta scrivendo all'indirizzo di posta elettronica `onboarding@io.italia.it`.
 
 ## Installazione
 
-Partiamo dall'installazione della Command Line Interface (CLI): accedete al sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionate e scaricate una "release" (versione rilasciata) valida per il vostro sistema operativo.
+Partiamo dall'installazione della Command Line Interface (CLI): accedete al sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionate e scaricate una versione rilasciata (release) valida per il vostro sistema operativo.
 
 ![Releses](/docs/images/admin-releases.png)
 
@@ -31,42 +34,43 @@ Ricordate che:
 - il file `.deb` è l'installer per Ubuntu Linux, Debian Linux e similari
 - il file `.rpm` è l'installer per Redhat Linux, Fedora Linux e similari
 
-Installate ed eseguite il programma di installazione come fate normalmente con gli altri progetti sul vostro sistema operativo. Tenete presente che gli installer per MacOS e Windows non sono attualmente firmati digitalmente, quindi occorre autorizzarne l'installazione. Per MacOS potete trovare le istruzioni in [questa pagina](https://support.apple.com/it-it/HT202491).
+Installate ed eseguite il programma di installazione come fate normalmente con gli altri programmi sul vostro sistema operativo. Tenete presente che gli installer per MacOS e Windows non sono al momento firmati digitalmente, quindi occorre autorizzarne l'installazione. Per MacOS potete trovare le istruzioni in [questa pagina](https://support.apple.com/it-it/HT202491).
 
 ## Configurazione
 
-Dopo che avrete installato la Command Line Interface (CLI), aprendo una finestra dei comandi sul vostro computer, sarà disponibile il nuovo comando `iosdk`. Nell'esempio seguente sono indicati i comandi che potete digitare per verificare se l'installazione è corretta.
-
-Per esempio, per verificare che la CLI sia disponibile e della versione giusta scrivete (premendo invio alla fine):
+Dopo che avrete installato la CLI, aprite un terminale dei comandi sul vostro computer e verificate scrivendo il comando seguente (premendo invio alla fine):
 
 ```
 iosdk --version
 ```
 
-Dovreste ottenere una risposta simile a questa, ricordandovi che potrebbe cambiare in funzione della versione di CLI che avete scaricato:
+Dovreste ottenere una risposta simile a questa, ricordatevi che potrebbe cambiare in funzione della versione di CLI che avrete installato:
 
 ```
 2020.0723.1102-snapshot
 ```
 
-Potete adesso proseguire inizializzando il sistema scrivendo il comando:
+Sempre dal terminale dei comandi potete proseguire scrivendo il comando:
 
 ```
 iosdk init
 ```
 
-Il vostro computer vi chiederà una serie di informazioni per configurare il sistema. La prima informazione richiesta è relativa alla la directory di lavoro:
+Il programma vi chiederà una serie di informazioni per completare la prima configurazione. La prima domanda è quella relativa alla la directory di lavoro dell'SDK:
 
 ```
 Work Directory (can already exists)
 Enter a value (Default is importer):
 ```
 
-Dovete specifare una directory di lavoro dove il sistema installerà l'importer corrente.
+Dovete specificare una directory di lavoro nella quale il programma installerà l'importer che sceglierete in segiuto.
 
-**NOTA:** Tenete presente che Docker, sia su Windows che su MacOS, richiede che la directory si trovi sotto la vostra "home" directory (quella dell'utente che state usando per accedere al vostro computer).
+**IMPORTANTE** 
+Docker, sia su Windows che su MacOS, richiede obbligatoriamente che la directory di lavoro sia collocata sotto la vostra "home" directory (quella dell'utente che state usando per accedere al vostro computer).
 
-Il secondo passo riguarda la selezionare di uno dei connettori tra quelli disponinibili:
+### Selezione dei connettori
+
+Il secondo passo riguarda la selezionare di uno dei connettori tra quelli disponibili:
 
 ```
 Which template:
@@ -81,14 +85,16 @@ Enter a number (Default is 1):
 
 In particolare:
 
-- `javascript` è un importer per i file in formato Microsoft Excel scritto in Javascript;
-- `php` è un importer per caricare dati dai database PostgreSQL scritto in PHP;
-- `python` è un importer per caricare dati da fonti GraphQL scritto in Python;
+- `javascript` serve per importare i file in formato Microsoft Excel ed è scritto in Javascript;
+- `php` per caricare dati dai database PostgreSQL potete scegliere il connettore scritto in PHP;
+- `python` è un importer per caricare dati da fonti GraphQL scritto in linguaggio Python;
 - `github` permette di selezionare generici importer disponibili su GitHub.
 
-Il programma quindi collocherà il codice sorgente dell'SDK nella directory specificata e potrete personalizzarlo successivamente.
+Per effettuare la scelta, premete il tasto relarivo al numero (da 1 a 4).
 
-**NOTA**: Il connettore specificato non viene automaticamente installato. Deve essere "deployato", vedere il manuale utente per dettagli.
+Il programma quindi collocherà il codice sorgente dell'SDK nella directory specificata. 
+
+Poiché il connettore specificato non viene automaticamente installato, deve essere implementato. Potrete farlo successivamente seguendo le indicazioni nel [manuale dell'utilizzatore](/docs/utente.md).
 
 L'ultimo passo è fornire la API Key di IO:
 
@@ -97,38 +103,60 @@ IO Api Key
 Enter a value: 
 ```
 
-Occorre specificare il valore ottenuto dal backoffice.
-
-**NOTA**: Per ottenere una API key occorre correntemente registrarsi nel sito `developers.io.italia.it` con la vostra email e da lì è possibile ottenere una API per inviare messaggi al vosto indirizzo emaail tramite un codice fiscale  predefinito e con importo zero. Per ottenere l'invio di messaggi con importi occorre richiederli per email a `onboarding@io.italia.it`.
+Occorre inserire la stringa alfanumerica che si trova nella sezione [Sottoscrizioni del vostro profilo sul "backoffice" di IO](https://developer.io.italia.it/profile).
 
 ## Avvio e gestione dei servizi
 
-A questo punto è possibile avviare il sistema con il comando: `iosdk start`
-
-Il comando provvederà a scaricare le immagini docker del kit di sviluppo, configurarlo e lanciarlo in esecuzione, mostrando l'interfaccia utente web descritta nel [manuale utente](/docs/utente.md).
-
-
-Se non si disponone di sufficiente memoria si può evitare di avviare l'ambiente di sviluppo (IDE) con il comando: `iosdk start --skip-ide`.
-
-### Controllo di stato
-
-Per verificare lo stato di esecuzione dei servizi si può utilizzare `iosdk status`:
+A questo punto è possibile avviare il sistema con il comando:
 
 ```
-$ iosdk status
+iosdk start
+```
+
+**IMPORTANTE**
+Poiché su Docker dovranno essere disponibili almeno 4 Gb di memoria RAM, se non si disponete di memoria sufficiente, potete evitare di avviare l'ambiente di sviluppo (IDE) scrivendo questo comando: 
+
+```
+iosdk start --skip-ide
+```
+
+Il comando provvederà a scaricare le immagini docker del kit di sviluppo, configurarlo e lanciarlo in esecuzione
+
+![Releses](/docs/images/iosdk-docker-start.png)
+
+Al termine verrà visualizzata l'interfaccia utente descritta nel [manuale dell'utilizzatore](/docs/utente.md)
+
+![Releses](/docs/images/iosdk-web-ide-1.png)
+
+### Controllo dello stato dei servizi
+
+Per verificare lo stato di esecuzione dei servizi potete scrivere, sempre da un terminale dei comandi:
+
+```
+iosdk status
+```
+
+che vi darà come risultato qualcosa di simile:
+
+```
 iosdk-openwhisk: running
 iosdk-redis: running
 iosdk-theia: running
 ```
 
-Normalmente devono essere in esecuzione 3 servizi (o due se non si è abilitato l'IDE).
+Normalmente devono essere in esecuzione questi tre servizi (oppure soltanto due se non è stato lanciato l'IDE).
 
-### Stop
+### Fermare l'esecuzione dei servizi
 
-Per fermare l'esecuzione dei servizi utilizzare `iosdk stop`:
+Per fermare l'esecuzione dei servizi scrivete:
 
 ```
-$ iosdk stop
+iosdk stop
+```
+
+nel terminale leggerete:
+
+```
 Destroying IDE...
 
 Destroying Whisk...
@@ -136,6 +164,10 @@ Destroying Whisk...
 Destroying Redis...
 ```
 
-### Riavvio
+### Riavviare i servizi
 
-Utilizzare il comando `iosdk restart` per stoppare e riavviare i servizi.
+Per fermare e riavviare i servizi, scrivete, sempre da un terminale dei comandi:
+
+```
+iosdk restart
+```
