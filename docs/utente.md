@@ -70,7 +70,7 @@ Da questa sezione dell'applicazione è possibile effettuare i riscontri sul corr
 
 ![Debugging](/docs/images/user-debugging.png)
 
-I pulsanti nella parte superiore permettono, nell'ordine, di mostrare tutte le informazioni di debug, visualizzare i messaggi importati, mostrare solo i messaggi inviati, cercare tra le informazioni (qualora l'elenco fosse molto lungo). Per la ricerca potete sfruttare i pattern definendoli in [questo formato](https://redis.io/commands/keys).
+I pulsanti nella parte superiore permettono, nell'ordine, di mostrare tutte le informazioni di debug, visualizzare i messaggi importati, mostrare solo i messaggi inviati, cercare tra le informazioni. In particolare, per la ricerca potete sfruttare i pattern facendo riferimento a [questo formato](https://redis.io/commands/keys).
 
 Cliccando sulla chiave corrispondente ad un certo messaggio visualizzerete il dettaglio (in formato JSON), come nell'esempio seguente:
 
