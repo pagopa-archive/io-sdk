@@ -1,8 +1,8 @@
 # Manuale dell'utilizzatore di IO-SDK
 
-In questo manuale descrive l'uso del kit di sviluppo IO-SDK per invio di messaggi alla app IO.
+In questa pagina descriviamo l'uso dell'IO-SDK per inviare messaggi alla app IO.
 
-Dopo aver effettuato l'installazione come descritto nel [manuale di amministrazione](/docs/amministratore.md) compare un menù principale come segue:
+Dopo aver effettuato l'installazione come descritto nel [manuale dell'amministratore](/docs/amministratore.md) verrà lanciato il vostro browser predefinito che aprirà una pagina principale come quella che vedete di seguito:
 
 ![Main Menu](/docs/images/user-main-menu.png)
 
