@@ -43,18 +43,22 @@ Installare ed eseguire l'installer come da prassi per il vostro sistema operativ
 
 ## Configurazione
 
-Una volta installata la CLI sarà disponibile nel PATH il comando `iosdk`.
+Dopo che avrete installato la Command Line Interface (CLI), aprendo una finestra dei comandi sul vostro computer, sarà disponibile il nuovo comando `iosdk`. Nell'esempio seguente sono indicati i comandi che potete digitare per verificare se l'installazione è corretta. Il prefisso `$` potrebbe cambiare in funzione del vostro sistema operativo, in ogni caso non dovete scriverlo prima dei comandi. 
 
-**NOTA:** nel seguito il prefisso `$` indica comandi che dovreste digitare alla riga di comando, mentre il resto sono output di esempio, che possono cambiare a seconda dei casi.
-
-Verificare che il comando sia disponibile e della versione giusta con:
+Per esempio, per verificare che la CLI sia disponibile e della versione giusta scrivete (premendo invio alla fine):
 
 ```
 $ iosdk --version
-0.5.2
 ```
 
-A questo punto inizializzate il sistema con il comando: `iosdk init`.
+Dovreste ottenere una risposta del tipo
+```
+2020.0723.1102-snapshot
+```
+
+Potete adesso proseguire inizializzando il sistema scrivendo il comando:
+
+`iosdk init`
 
 Il sistema vi chiederà una serie di informazioni per configurare il sistema.
 
