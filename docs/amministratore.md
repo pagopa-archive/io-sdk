@@ -1,45 +1,37 @@
 ## Prequisiti
 
-L'sdk è disponibile per i seguenti sistemi operativi:
+Il Software Development Kit (SDK) è disponibile per i seguenti sistemi operativi:
 
 - Windows 10 Professional
 - Mac OS Catalina
 - Distribuzioni Linux basate su `dpkg` (Debian, Ubuntu)
 - Distribuzioni Linux basate su `rpm` (Fedora, CentOS, RedHat)
 
-Richiede l'installazione di Docker e una "API KEY" per inviare messaggi ad IO. 
+Per il suo funzionamento richiede l'installazione di Docker e di una "API KEY" per inviare messaggi ad IO. 
 
 ### Docker
 
-L'SDK richiede come prerequisito Docker, versione 18.06.3 o superiore.
+L'SDK richiede come prerequisito Docker versione 18.06.3 o superiore. Sui sistemi Windows e MacOS potete installare [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
-Sui sistemi Windows e Mac installare [Docker Desktop](https://www.docker.com/products/docker-desktop)
-
-Sui sistemi Linux seguire le installazioni per [il vostro sistema come descritto qui](https://docs.docker.com/engine/install/)
+Sui sistemi Linux seguite le istruzioni fornite per [il vostro sistema come descritto qui](https://docs.docker.com/engine/install/)
 
 ### API KEY IO
 
-Per ottenere una API KEY occorre registrarsi al [backoffice di IO](https://developer.io.italia.it/)
-
-Informazioni per ottenere la API Key [sono qui](https://developer.io.italia.it/openapi.html).
+Per ottenere una API KEY occorre registrarsi al [backoffice di IO](https://developer.io.italia.it/). Le informazioni per ottenere la API Key [sono descritte in questa pagina](https://developer.io.italia.it/openapi.html).
 
 ## Installazione
 
-Per installare l'SDK occorre installare la CLI (command line interface) di controllo.
-
-Andare andare sul sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionare una "release" (versione rilasciata) e scaricare l'installer corrispondente per il vostro sistema operativo.
+Partiamo dall'installazione della Command Line Interface (CLI): accedete al sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionate e scaricate una "release" (versione rilasciata) valida per il vostro sistema operativo.
 
 ![Releses](/docs/images/admin-releases.png)
 
-Notare che 
+Ricordate che: 
 - il file `.exe` è l'installer per Windows
 - il file `.pkg` è l'installer per Mac OS
 - il file `.deb` è l'installer per Ubuntu Linux, Debian Linux e similari
 - il file `.rpm` è l'installer per Redhat Linux, Fedora Linux e similari
 
-Installare ed eseguire l'installer come da prassi per il vostro sistema operativo.
-
-**NOTA:** gli installer per MacOS e Windows non sono attualmente firmati, quindi occorre autorizzarne l'installazione. Per MacOS potete trovare le istruzioni in [questa pagina](https://support.apple.com/it-it/HT202491).
+Installate ed eseguite il programma di installazione come fate normalmente con gli altri progetti sul vostro sistema operativo. Tenete presente che gli installer per MacOS e Windows non sono attualmente firmati digitalmente, quindi occorre autorizzarne l'installazione. Per MacOS potete trovare le istruzioni in [questa pagina](https://support.apple.com/it-it/HT202491).
 
 ## Configurazione
 
