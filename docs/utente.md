@@ -6,14 +6,16 @@ Dopo aver effettuato l'installazione come descritto nel [manuale dell'amministra
 
 ![Main Menu](/docs/images/user-main-menu.png)
 
-Da questo menù è possibile selezionare le seguenti operazioni:
+Le opzioni disponinibili sono:
 
-- **Single Message** apre la schermata per l'invio di  un singolo messaggio
-- **Import Messages** apre la schermata per l'importazione di messaggi da varie fonte dati
-- **Send Messages** apre la schermata per l'invio di messaggi multipli, che devono esser prima importati
-- **Single Message** apre la schermata per l'invio di un singolo messaggio
-- **Debugging** apre la schermata per il controllo della memoria intermedia e serve a fare verifiche di esecuzione
-- **Development** apre un editor per lo sviluppo e la modifica degli importatori
+- **Import URL** ...;
+- **Custom Import** ...;
+- **Send Messages** apre la schermata per l'invio di messaggi multipli, che devono esser prima importati;
+- **Single Message** apre la schermata per l'invio di  un singolo messaggio;
+- **Single Message** apre la schermata per l'invio di un singolo messaggio;
+- **Debugging** apre la schermata per il controllo della memoria intermedia e serve a fare verifiche di esecuzione;
+- **Development** apre un editor per lo sviluppo e la modifica degli importatori;
+- **About**: fornisce informazioni sullo scopo dell'applicazione e sul team di sviluppatori.
 
 ## Invio Singolo Messaggio
 
@@ -111,3 +113,6 @@ Il formato dati dei connettori [è descritto qui](sviluppatore.md).
 
 L'ambiente IDE è molto evoluto  si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente.  Notare che nell'IDE fornito sono installati alcuni plugin speicifi per i vari linguaggi di programmazione.
 
+## About
+
+![About](/docs/images/user-manual-about.png)
