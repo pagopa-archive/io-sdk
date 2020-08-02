@@ -8,13 +8,13 @@ Dopo aver effettuato l'installazione come descritto nel [manuale dell'amministra
 
 Le opzioni disponibili sono:
 
-- **Import URL** ...;
-- **Custom Import** ...;
-- **Send Messages** apre la schermata per l'invio di messaggi multipli (che devono essere prima importati);
-- **Single Message** apre la schermata per l'invio di un singolo messaggio;
-- **Debugging** apre la schermata per il controllo della memoria intermedia e serve a fare verifiche di esecuzione;
-- **Development** apre un editor per lo sviluppo e la modifica degli importatori;
-- **About**: fornisce informazioni sullo scopo dell'applicazione e sul team di sviluppatori.
+- **Import URL**
+- **Custom Import**
+- **Send Messages**
+- **Single Message**
+- **Debugging**
+- **Development**
+- **About**
 
 ## Import URL
 
