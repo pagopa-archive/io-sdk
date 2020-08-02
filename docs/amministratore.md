@@ -44,13 +44,16 @@ iosdk --version
 ```
 
 Dovreste ottenere una risposta simile a questa, ricordandovi che potrebbe cambiare in funzione della versione di CLI che avete scaricato:
+
 ```
 2020.0723.1102-snapshot
 ```
 
 Potete adesso proseguire inizializzando il sistema scrivendo il comando:
 
-`iosdk init`
+```
+iosdk init
+```
 
 Il vostro computer vi chiederà una serie di informazioni per configurare il sistema. La prima informazione richiesta è relativa alla la directory di lavoro:
 
