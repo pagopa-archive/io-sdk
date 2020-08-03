@@ -1,4 +1,4 @@
-## Prequisiti
+## Prerequisiti
 
 Il Software Development Kit (SDK) è disponibile per i seguenti sistemi operativi:
 
@@ -26,6 +26,7 @@ In questo modo sarà possibile ottenere una API Key per inviare messaggi al vost
 Partiamo dall'installazione della Command Line Interface (CLI): accedete al sito [https://github.com/pagopa/io-sdk/releases](https://github.com/pagopa/io-sdk/releases), selezionate e scaricate una versione rilasciata (release) valida per il vostro sistema operativo.
 
 ![Releases](/docs/images/admin-releases.png)
+
 
 Ricordate che: 
 - il file `.exe` è l'installer per Windows
@@ -115,9 +116,7 @@ iosdk start
 **IMPORTANTE**
 Poiché su Docker dovranno essere disponibili almeno 4 Gb di memoria RAM, se non si disponete di memoria sufficiente, potete evitare di avviare l'ambiente di sviluppo (IDE) scrivendo questo comando: 
 
-```
-iosdk start --skip-ide
-```
+Se non si dispone di sufficiente memoria si può evitare di avviare l'ambiente di sviluppo (IDE) con il comando: `iosdk start --skip-ide`.
 
 Il comando provvederà a scaricare le immagini docker del kit di sviluppo, configurarlo e lanciarlo in esecuzione
 

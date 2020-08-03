@@ -22,13 +22,17 @@ Se è la prima volta che cliccate su questa funzione vedrete una pagina simile a
 
 ![Import URL](/docs/images/user-import-url.png)
 
+Da schermata è possibile inviare un singolo messaggio.
+
 che vi invita a definire un connettore usando un file di esempio. Potete copiare dunque l'indirizzo proposto e premere il pulsante Import per caricare un esempio e proseguire nell'esplorazione delle funzionalità dell'IO-SDK.
 
 ![Import JSON Esempio](/docs/images/user-import-json-esempio.png)
 
 ## Send Messages
 
-Quando userete per la prima volta l'applicazione IO-SDK potreste non avere ancora messaggi da inviare, in questo caso apparirà una pagina simile a quella seguente che vi informerà sulle operazioni da eseguire per importare i messaggi:
+Il codice fiscale deve essere quello di un soggetto abilitato alla ricezione e dipende dalla API Key in uso. Consultate [il manuale amministratore](amministratore.md) per maggiori informazioni.
+
+A questo punto è possibile inviare il messaggio al destinatario selezionado come "endpoint" Production, oppure Development. In quest'ultimo caso, il messaggio sarà visibile per l'ispezione in "Debugging", con il nome "sent:XXXX" dove XXXX è il codice fiscale del destinatario. Altrimenti, se il destinatario è abilitato, verrà ricevuto come email oppure nell'app.
 
 ![Send Message](/docs/images/user-send-message-first-time.png)
 
@@ -111,5 +115,7 @@ Il file da caricare nel nostro caso di esempio deve trovarsi nella directory spe
 ```
 test/data.xlsx
 ```
+
+L'ambiente IDE è molto evoluto si rimanda a [documentazione specifica di VSCode](https://code.visualstudio.com/docs) in quanto l'editor usa la stessa interfaccia utente.  Notare che nell'IDE fornito sono installati alcuni plugin specifici per i vari linguaggi di programmazione.
 
 ![Import Excel Sample](/docs/images/user-import-excel-sample.png)
