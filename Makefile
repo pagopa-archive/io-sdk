@@ -42,9 +42,9 @@ test:
 
 snapshot:
 	date +%Y.%m%d.%H%M-snapshot >.snapshot
-	git tag $(shell cat .snapshot) 
+	git tag "$(shell cat .snapshot)"
 	git push origin master --tags
-	git tag -d $(shell cat .snapshot)
+	git tag -d "$(shell cat .snapshot)"
 
 preflight:
 	echo "checking required versions"
