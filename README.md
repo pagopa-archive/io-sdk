@@ -16,13 +16,10 @@ Per facilitare queste operazioni il Software Development Kit per IO (IO-SDK) for
 
 Per maggior informazioni potete consultare la documentazione in lingua italiana:
 
+- [il manuale dell'utilizzatore](/docs/utente.md) indirizzato all'utilizzatore finale;
 - [il mananuale dell'amministratore](/docs/amministratore.md) che fornisce le informazioni per l'installazione;
 - [il manuale dello sviluppatore](/docs/sviluppatore.md) rivolto agli sviluppatori che desiderano contribuire con nuove integrazioni.
-- [il manuale dell'utilizzatore](/docs/utente.md) indirizzato all'utilizzatore finale;
 
 Il [documento di sviluppo dell'SDK](DEVEL.md) è invece scritto in lingua inglese, ed è rivolto a tutti coloro che desiderano contribuire allo sviluppo dell'SDK stesso.
 
-Per incontrare la community di IO-SDK potete visitare:
-
-- il topic IO-SDK della [Community NoiOpen](https://noiopen.discourse.group/c/progetti/io-sdk/11) che gestisce il progetto;
-- il topic IO-SDK su [Developers Italia](https://forum.italia.it/c/progetto-io/io-sdk/75).
+Per incontrare la community di IO-SDK potete visitare il topic IO-SDK della [Community NoiOpen](https://noiopen.discourse.group/c/progetti/io-sdk/11) che gestisce il progetto;
