@@ -1,11 +1,5 @@
 #!/bin/bash
-VERSION=$1
-# pick latest snapshot
-if test -z "$VERSION"
-then VERSION=$(git tag | grep snapshot | sort -r | head -1)
-     echo validating latest snapshot: $VERSION
-fi
-# cleanup
+VERSION="${1:?usage: <version>}"
 set -e
 # install
 PKG=IO-SDK-macos-installer-x64-${VERSION}.pkg

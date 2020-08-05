@@ -4,8 +4,6 @@
 .DESCRIPTION
    Execute iosdk init, iosdk start and test installation
 .EXAMPLE
-   .\validate.ps1
-.EXAMPLE
    .\validate.ps1 0.5.1
 .OUTPUTS
    At the end you should see iosdk status, showing services running
@@ -16,10 +14,12 @@
 #>
 
 if ($args[0] -eq $null) {
-    $version = "0.5.1"
-} else {
-    $version = $args[0]
-}
+    Write-Output "usage: validate.ps1 <version>"
+    exit
+} 
+
+$version = $args[0]
+
 
 $file = "iosdk_$version.exe"
 
