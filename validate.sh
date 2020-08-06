@@ -23,7 +23,7 @@ rm -Rvf $HOME/tmp-iosdk-validation
 docker exec iosdk-theia bash -c 'bash /home/project/build.sh'
 /usr/local/bin/iosdk status
 CHECK=ISPXNB32R82Y766F
-DATA="${1:-$HOME/tmp-iosdk-validation/data/data.xlsx}"
+DATA="${2:-$HOME/tmp-iosdk-validation/data/data.xlsx}"
 URL="http://localhost:3280/api/v1/web/guest/iosdk/import"
 JSON='{"file": "'$(base64 $DATA | tr -d '\n')'"}'
 HEAD="Content-Type: application/json"
