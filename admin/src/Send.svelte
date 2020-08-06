@@ -130,8 +130,8 @@
     </div>
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
-        <label>Endpoint</label>
-        <select bind:value={action} title="Select an endpoing">
+        <label for="select">Endpoint</label>
+        <select id="select" bind:value={action} title="Select an endpoing">
           <option value="util/send">Development (Local)</option>
           <option value="iosdk/send">Production</option>
         </select>
