@@ -88,7 +88,7 @@ func fixPathDockerToolbox(dir string, info string) string {
 	}
 	dir = strings.ReplaceAll(dir, "\\", "/")
 	if dir[1] == ':' {
-		dir = "//" + string(dir[0]) + dir[2:]
+		dir = "//" + strings.ToLower(string(dir[0])) + dir[2:]
 	}
 	return dir
 }
