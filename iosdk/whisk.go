@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 )
 
 // WhiskDeploy deploys openwhisk standalone
@@ -29,12 +30,16 @@ func whiskDockerRun() string {
 	if redisIP == nil {
 		return "cannot locate redis"
 	}
+	dockerSock := "/var/run/docker.sock:/var/run/docker.sock"
+	if runtime.GOOS == "windows" {
+		dockerSock = "/" + dockerSock
+	}
 	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
 --rm --name iosdk-openwhisk --hostname openwhisk
 -e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
 -e CONFIG_FORCE_whisk_users_guest=%s
--v //var/run/docker.sock:/var/run/docker.sock %s`,
-		*redisIP, Config.WhiskAPIKey, image)
+-v %s %s`,
+		*redisIP, Config.WhiskAPIKey, dockerSock, image)
 	_, err := SysErr(cmd)
 	if err != nil {
 		return "cannot start server: " + err.Error()

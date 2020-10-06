@@ -10,10 +10,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-// VerboseFlag is flag for verbose
-
 var (
-	// TestModeFlag enable behaviours useful for testing
 
 	// global flags
 	verboseFlag = kingpin.Flag("verbose", "Verbose Output").Short('v').Default("false").Bool()
@@ -24,6 +21,7 @@ var (
 	skipPullImages    = kingpin.Flag("skip-pull-images", "skip pull images").Hidden().Default("false").Bool()
 	skipOpenBrowser   = kingpin.Flag("skip-open-browser", "skip pull images").Hidden().Default("false").Bool()
 	skipIde           = kingpin.Flag("skip-ide", "skip starting ide").Hidden().Default("false").Bool()
+	useVersion        = kingpin.Flag("use-version", "use the given version of images").Default("").String()
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()
@@ -141,6 +139,9 @@ func Main(version string) {
 	cmd := kingpin.Parse()
 	if *verboseFlag {
 		log.SetLevel(log.TraceLevel)
+	}
+	if *useVersion != "" {
+		Version = *useVersion
 	}
 	parse(cmd)
 }
