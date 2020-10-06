@@ -1,3 +1,9 @@
+# 0.5.3
+
+- fixed problems with latest version of docker
+- updated package-lock.json
+- adding --use-version flag to use specific versions of images
+
 # 0.5.2
 
 - pagamenti e scadenze
