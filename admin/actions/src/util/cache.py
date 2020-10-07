@@ -31,15 +31,23 @@ def main(args):
             res["error"] = "cannot delete %s" % k
     elif "scan" in args:
         pattern = args["scan"]
-        (_, ls) = red.scan(match=pattern)
-        ls = [ i.decode("utf-8") for i in ls]
-        res["scan"] = ls
+        (cur, ls) = red.scan(0, match=pattern)
+        out = [i.decode('utf-8') for i in ls] 
+        while cur > 0:
+           (cur, ls) = red.scan(cur, match=pattern)
+           for i in ls:
+              out.append(i.decode('utf-8'))
+        res["scan"] = out
     elif "clean" in args:
         pattern = args["clean"]
-        (_, ls) = red.scan(match=pattern)
-        ls = [ i.decode("utf-8") for i in ls]
+        (cur, ls) = red.scan(0, match=pattern)
+        out = [i.decode('utf-8') for i in ls]
+        while cur > 0:
+           (cur, ls) = red.scan(cur, match=pattern)
+           for i in ls:
+              out.append(i.decode('utf-8'))
         res = {}
-        for i in ls:
+        for i in out:
             res[i] = red.delete(i) == 1
     if "__ow_method" in args:
         return { "body": json.dumps(res) }
