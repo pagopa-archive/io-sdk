@@ -4,9 +4,10 @@ import json
 import sys
 
 #%%
-def send(url, hdr, msg):
+def send(url, key, msg):
+    hdr = {"Ocp-Apim-Subscription-Key": key}
+    print("curl -X POST -d '%s' -H 'Ocp-Apim-Subscription-Key: %s' %s" %( json.dumps(msg), key, url))
     r = requests.post(url, json=msg, headers=hdr)
-    #print(r)
     if r.status_code == 201:
         return {"body": json.loads(r.text) }
     return { "body": {"error": r.text}}
@@ -17,7 +18,7 @@ def main(args):
     >>> args = {}
     >>> print(main(args))
     {'body': {'error': "missing argument 'io-messages'"}}
-    >>> args['io-messages'] = "https://api.io.italia.it/api/v1/messages"
+    >>> args['io-messages'] = ""
     >>> print(main(args))
     {'body': {'error': "missing argument 'io-apikey'"}}
     >>> args['io-apikey'] = "483b7b1f3a974b45b5c44a43538c9255"
@@ -38,10 +39,14 @@ def main(args):
     >>> args["notice_number"]: "000000000000000001"
     >>> print(len(main(args)['body']['id']))
     26
+    >>> #args['io-apikey'] = "c64b38f22e8344a18d63d7c524b171cc"
+    >>> #args['fiscal_code'] = "SCCNDR68T05L483L"
+    >>> #print(main(args))
+
     """
     try:
         url = args['io-messages']
-        hdr = {"Ocp-Apim-Subscription-Key": args['io-apikey']}
+        key = args['io-apikey']
         msg = {
             "content": {
                 "subject": args['subject'],
@@ -57,17 +62,17 @@ def main(args):
             if "notice_number" in args:
                 pd["notice_number"] = ("000000000000000000" + args["notice_number"])[-18:]
             if "due_date" in args and args["due_date"] !="" :
-                msg["due_date"] = args["due_date"]
+                msg["content"]["due_date"] = args["due_date"]
                 if "invalid_after_due_date" in args and args["invalid_after_due_date"] !="":
                     pd["invalid_after_due_date"]= bool(args['invalid_after_due_date'])
             msg["content"]["payment_data"] = pd
-        return send(url, hdr, msg)
+        return send(url, key, msg)
     except KeyError as e:
         return { "body": { "error": "missing argument %s" % str(e)}}
     except ValueError as e:
         return { "body": { "error": "conversion error"}}
-    except:
-        return { "body": { "error": str(sys.exc_info()[0]) } }
+    except Exception as e:
+        return { "body": { "error": str(e) } }
 
 if __name__ == "__main__":
     import doctest
