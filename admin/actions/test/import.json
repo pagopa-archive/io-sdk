@@ -5,7 +5,7 @@
       "due_date": 44197,
       "fiscal_code": "ISPXNB32R82Y766F",
       "invalid_after_due_date": false,
-      "markdown": "# Welcome, Giovanni Rossi\\\\nYour fiscal code is ISPXNB32R82Y766F\\\\nI hope you will enjoy IO.",
+      "markdown": "# Welcome, Giovanni Rossi\nYour fiscal code is ISPXNB32R82Y766F\nI hope you will enjoy IO.",
       "notice_number": 1,
       "subject": "Welcome to IO, Giovanni"
     },
@@ -14,7 +14,7 @@
       "due_date": 44197,
       "fiscal_code": "ISPXNB32R82Y766D",
       "invalid_after_due_date": false,
-      "markdown": "# Welcome, Luca Rossi\\\\nYour fiscal code is ISPXNB32R82Y766D\\\\n.I hope you will enjoy IO.",
+      "markdown": "# Welcome, Luca Ross\nYour fiscal code is ISPXNB32R82Y766D\n.I hope you will enjoy IO.",
       "notice_number": 1,
       "subject": "Welcome to IO, Luca"
     }

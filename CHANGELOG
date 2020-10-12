@@ -1,8 +1,13 @@
 # 0.5.3
 
+- updated package-lock.json for vulnerabilities
 - fixed problems with latest version of docker
-- updated package-lock.json
 - adding --use-version flag to use specific versions of images
+- adding sample.py to generate samples 
+- reworked import to handle "too many requests"
+- adding checkbox to form
+- proxy importer now supports http and https, get and post with args
+- credits
 
 # 0.5.2
 

@@ -30,6 +30,10 @@ packages:
         function: deploy/util/import.js
         docker: openwhisk/action-nodejs-v10
         web: true
+      sample:
+        function: deploy/util/sample.py
+        docker: actionloop/actionloop-python-v3.7
+        web: true
   iosdk:
     version: 1.0
     actions:

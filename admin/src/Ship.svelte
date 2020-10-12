@@ -1,6 +1,5 @@
 <script>
   import { Link } from "svelte-routing";
-  import { formData } from "./store";
   import { onMount } from "svelte";
 
   let action = "util/send";
@@ -12,6 +11,7 @@
   let state = {};
   let selection = [];
   let sent = {};
+  let delay = 1000;
 
   async function start() {
     fetch(scanUrl)
@@ -52,28 +52,45 @@
   async function cache(url, key) {
     let u = url + encodeURI(key);
     //console.log("cache", u);
-    let res = await fetch(u);
-    //console.log(key, "res", res)
-    if(res.ok) { 
-     let data = await res.json()
-     //console.log(key, "data", data)
-     return data
-    }
-    return { "error": res.statusText }
+    return fetch(u)
+    .then((res) => {
+      if(res.ok) return res.json()
+      if(res.status == 429) {
+        sent[key] = "too many requests - retrying in 5 seconds"
+        return new Promise(function(resolve) {
+          setTimeout(() => { return resolve(cache(url, key)) }, 5000)
+        })
+      }
+      return { "error": res.statusText }
+    })
+    .catch((res) => {       
+        return { "error": res.statusText }
+    })
+    // this should never be reached
+    return { "error": "cannot update cache" }
   }
 
-  async function send(data) {
+  async function send(data, key) {
     let u = baseUrl + action
-    console.log("send", u, data)
-    let res = await fetch(u, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (res.ok) {
-      return await res.json();
-    }
-    return { "error": res.statusText };
+    // console.log("send", u, data)
+    return fetch(u, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      if(res.status == 429) {
+        sent[key] = "too many requests - retrying in 5 seconds"
+        return new Promise(function(resolve) {
+          setTimeout(() => resolve(send(data, key)), 5000)
+        })
+      }
+      return { "error": res.code + " "+res.statusText}
+    }).catch( (res) => {
+      return { "error": res.code+ " "+res.statusText}
+    })
   }
 
   async function sendSelected() {
@@ -84,14 +101,14 @@
     let msg = await cache(getUrl, key);
     //console.log("cache=", msg);
     if (key in msg) {
-      let res = await send(msg[key]);
+      let res = await send(msg[key], key);
       console.log("send=", res)
-      if (res["id"]) {
+      if ("id" in res) {
         await cache(delUrl, key);
         sent[key] = "OK: " + res.id;
-      } else if (res["detail"]) {
+      } else if ("detail" in res) {
         sent[key] = "ERROR: " + res["detail"];
-      } else if (res.error) {
+      } else if ("error" in res) {
         sent[key] = "ERROR: " + res.error;
       } else {
         send[key] = "unknow error, check logs";
@@ -100,7 +117,8 @@
     } else {
       send[key] = key + " not found in cache, check logs";
     }
-    sendSelected();
+    console.log("waiting "+delay)
+    setTimeout(sendSelected, delay)
   }
 </script>
 
@@ -152,12 +170,23 @@
           Total Messages: {state.list.length} - Selected Messages: {selection.length}
         </big>
       </div>
-      <div class="form-group">
+      <div class="form-group"> 
         <div class="bootstrap-select-wrapper">
           <label for="select">Endpoint</label>
-          <select id="select" bind:value={action} title="Scegli una opzione">
+          <select id="select" bind:value={action} title="Select an option">
             <option value="util/send">Development (Local)</option>
             <option value="iosdk/send">Production</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="bootstrap-select-wrapper">
+          <label for="select">Max Rate</label>
+          <select id="select" bind:value={delay} title="Select an option">
+            <option value="1000">Max 1/sec</option>
+            <option value="500">Max 2/sec</option>
+            <option value="200">Max 5/sec</option>
+            <option value="100">Max 10/sec</option>
           </select>
         </div>
       </div>

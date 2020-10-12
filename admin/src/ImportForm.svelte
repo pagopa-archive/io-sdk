@@ -1,10 +1,11 @@
 <script>
-  let loading = false;
-  let uploadUrl = "http://localhost:3280/api/v1/web/guest/util/upload";
-
-  import { formData } from "./store";
   export let form = {};
   export let url;
+  import { formData } from "./store";
+
+  let loading = false;
+  let base = "http://localhost:3280/api/v1/web/guest";
+  let uploadUrl = base+"/util/upload";
 
   async function parseForm() {
     let submit = await fetch(uploadUrl, {
@@ -41,8 +42,6 @@
       );
     } else error = "cannot parse form";
   }
-
-
 </script>
 
 <form name="_theForm_" action={uploadUrl} method="post" enctype="multipart/form-data">
@@ -50,7 +49,7 @@
     {#if field.type == 'message'}
       <div class="callout">
         <div class="callout-title">{field.name}</div>
-        <p>{field.description}</p>
+        <p>{@html field.description}</p>
       </div>
       <br>
     {:else if field.type == 'string'}
@@ -86,13 +85,28 @@
     {:else if field.type == 'textarea'}
       <div class="form-group">
         <textarea 
-        id={field.name}
-        name={field.name}
-        rows="3" 
-        bind:value={field.value} />
+         id={field.name}
+         name={field.name}
+         rows="5"
+         cols="80"
+         bind:value={field.value}
+        />
         <label for={field.name}>{field.description}</label>
       </div>
-      <br />
+      <br/>
+      {:else if field.type == 'checkbox'}
+      <div>
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id={field.name}
+            name={field.name}
+            bind:checked={field.value}
+            />
+            <label for={field.name}>{field.description}</label>
+          </div>
+      </div>
+      <br/>
     {:else}
       <div class="alert alert-danger" role="alert">
         Error: Unknown or empty type {field.type}

@@ -42,17 +42,17 @@ def main(args):
     >>> #args['io-apikey'] = "c64b38f22e8344a18d63d7c524b171cc"
     >>> #args['fiscal_code'] = "SCCNDR68T05L483L"
     >>> #print(main(args))
-
     """
     try:
         url = args['io-messages']
         key = args['io-apikey']
+        code = args['fiscal_code'].split(":")[0]
         msg = {
             "content": {
                 "subject": args['subject'],
                 "markdown": args['markdown'],
             },
-            "fiscal_code": args['fiscal_code']
+            "fiscal_code": code
         }
         if "amount" in args and args["amount"] != "":
             pd = {

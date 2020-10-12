@@ -6,13 +6,24 @@ let body = marked(`
 
 IO-SDK è il kit di sviluppo per IO.
 
-Consente lo sviluppo di importatori per la app dei servizi pubblici italiani.
+Consente lo sviluppo di importatori per la app IO dei servizi pubblici italiani.
 
-Il nostro team è composto da:
+Hanno contribuito allo sviluppo, con codice, test, documentazione, gestione e promozione le seguenti persone:
 
-- Federico Feroldi, Team Leader
-- Mirko Calvaresi, Project Manager
-- Michele Sciabarrà, Developer
+- Andrea Saccavini
+- Andrea Tironi
+- Calogero Bonasia
+- Federico Feroldi
+- Francesco Rossi
+- Francesco Timperi Tiberi
+- Giovanni Gadaleta
+- Greta Quadrati
+- Leonardo Cigolini Gulesu
+- Michele Sciabarrà
+- Mirko Calvaresi
+- Pasquale Finocchiaro
+- Pierluigi Di Lorenzo
+- Simone Paolucci
 `);
 </script>
 
