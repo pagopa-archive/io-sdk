@@ -36,8 +36,9 @@ load util
 }
 
 @test "util/import sample post with args" {
-   run http --timeout 300 --json POST $URL/util/import url=http://localhost:3280/api/v1/web/guest/util/sample jsonargs='{"count":2,"fiscal_code":"BBBBB00B00B000B","amount":1,"due_date":"2021-01-01"}'
    #curl -X POST  -F url=http://localhost:3280/api/v1/web/guest/util/sample $URL/util/import
+   #run http --timeout 300 --json POST $URL/util/import url=http://localhost:3280/api/v1/web/guest/util/sample jsonargs='{"count":2,"fiscal_code":"BBBBB00B00B000B","amount":1,"due_date":"2021-01-01"}'
+   ijpost $URL/util/import url=http://localhost:3280/api/v1/web/guest/util/sample jsonargs='{"count":2,"fiscal_code":"BBBBB00B00B000B","amount":1,"due_date":"2021-01-01"}'
    ckline '"BBBBB00B00B000B:1"'
    ckline '"amount": 1'
    ckline '"due_date": "2021-01-01T00:00:00"'

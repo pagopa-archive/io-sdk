@@ -61,3 +61,11 @@ function fpost {
   run http -f --ignore-stdin --timeout=300 POST "$@"
   echo "$output" >>/tmp/debug.log
 }
+
+function ijpost { 
+  echo ">>> " http --json --ignore-stdin --timeout=300 POST "$@" >>/tmp/debug.log
+  run http --ignore-stdin --timeout=300 POST "$@"
+  echo "$output" >>/tmp/debug.log
+}
+
+
