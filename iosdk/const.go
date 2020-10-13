@@ -29,6 +29,9 @@ const WhiskImage = DockerHubUser + "/iosdk-openwhisk"
 // RedisImage is the image for redis
 const RedisImage = "library/redis:5"
 
+// RedisPassword is the local redis password for development
+const RedisPassword = "password"
+
 // IoAPIHost is the host to send messages
 const IoAPIHost = "https://api.io.italia.it/api/v1"
 

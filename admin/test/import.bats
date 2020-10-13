@@ -18,26 +18,26 @@ load util
 }
 
 @test "util/import sample get" {
-  ipost $URL/util/import useget=true url="http://localhost:3280/api/v1/web/guest/util/sample"
+  ipost $URL/util/import useget=true url="$SAMPLE"
   ckline '"AAAAAA00A00A000A:0"'
   ckline '"markdown"'
   ckline '"subject"'
-  ipost $URL/util/import useget=true url="http://localhost:3280/api/v1/web/guest/util/sample?count=2"
+  ipost $URL/util/import useget=true url="$SAMPLE?count=2"
   ckline '"AAAAAA00A00A000A:1"'
-  ipost $URL/util/import useget=true url="http://localhost:3280/api/v1/web/guest/util/sample?fiscal_code=BBBBB00B00B000B"
+  ipost $URL/util/import useget=true url="$SAMPLE?fiscal_code=BBBBB00B00B000B"
   ckline '"BBBBB00B00B000B:0"'
 }
 
 @test "util/import sample post" {
-   ipost $URL/util/import url=http://localhost:3280/api/v1/web/guest/util/sample
+   ipost $URL/util/import url="$SAMPLE"
    ckline '"fiscal_code": "AAAAAA00A00A000A:0"'
    ckline '"markdown":'
    ckline '"subject":'
 }
 
 @test "util/import sample post with args" {
-   run http --timeout 300 --json POST $URL/util/import url=http://localhost:3280/api/v1/web/guest/util/sample jsonargs='{"count":2,"fiscal_code":"BBBBB00B00B000B","amount":1,"due_date":"2021-01-01"}'
-   #curl -X POST  -F url=http://localhost:3280/api/v1/web/guest/util/sample $URL/util/import
+   run http --timeout 300 --json POST $URL/util/import url="$SAMPLE" jsonargs='{"count":2,"fiscal_code":"BBBBB00B00B000B","amount":1,"due_date":"2021-01-01"}'
+   #curl -X POST  -F url="$SAMPLE" $URL/util/import
    ckline '"BBBBB00B00B000B:1"'
    ckline '"amount": 1'
    ckline '"due_date": "2021-01-01T00:00:00"'

@@ -4,8 +4,9 @@ BRANCH=debugger
 WHISK=pagopa/openwhisk-standalone:$(VER)
 BUILDER=pagopa/builder-fpm-nsis:$(VER)
 THEIA=pagopa/theia:$(VER)
+PYTHONRUNTIME=pagopa/actionloop-python-v3.7:2020.10.13
 
-.PHONY: all builder openwhisk theia
+.PHONY: all builder openwhisk theia pythonruntime
 
 all: builder openwhisk theia
 
@@ -25,3 +26,7 @@ builder:
 theia:
 	docker build -t $(THEIA) theia
 	docker push $(THEIA)
+
+pythonruntime:
+	docker build -t $(PYTHONRUNTIME) pythonruntime
+	docker push $(PYTHONRUNTIME)

@@ -73,5 +73,6 @@ goenv install $GOENV_VERSION -s
 echo $GOENV_VERSION >.go-version
 
 # etc
-
 python3 -mpip install redis==3.4.1 httpie==2.1.0
+npm install -g https://apigcp.nimbella.io/downloads/nim/nimbella-cli.tgz
+

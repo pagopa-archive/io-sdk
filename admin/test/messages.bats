@@ -6,6 +6,6 @@ load util
     ckline "validation errors"
     post $URL/util/messages <"$H/messages.json"
     ckline "id"
-    run python3 src/util/cache.py get:message:1234567890123456
+    run wsk action invoke util/cache -r -p get message:1234567890123456
     ckline '"fiscal_code": "1234567890123456"'
 }

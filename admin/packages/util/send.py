@@ -4,7 +4,7 @@ import os
 import json
 import pip
 import zlib
-import redis
+from nimbella import redis
 
 def main(args):
     dest = args.get("fiscal_code")
@@ -12,7 +12,7 @@ def main(args):
     mesg = args.get("markdown") 
     if dest and subj and mesg:
         id = str(zlib.crc32(dest.encode("utf-8")))
-        red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
+        red =  redis()
         data = {"subject": subj, "markdown": mesg, "fiscal_code": dest}
         data = json.dumps(data).encode("utf-8")
         red.set("sent:%s" % dest, data)

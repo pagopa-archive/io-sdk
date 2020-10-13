@@ -22,8 +22,7 @@ func IdeDeploy(dir string, info string) error {
 
 // IdeDestroy destroys ide
 func IdeDestroy() error {
-	fmt.Println("Destroying IDE...")
-	fmt.Println(Sys("docker kill iosdk-theia"))
+	fmt.Printf("Destroying IDE: %s", Sys("@docker kill iosdk-theia"))
 	return nil
 }
 

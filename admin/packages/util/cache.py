@@ -1,8 +1,8 @@
 import json, os
-import redis
+from nimbella import redis
 
 def main(args):
-    red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
+    red =  redis()
     res = {}
     if "set" in args:
         arg = args["set"]

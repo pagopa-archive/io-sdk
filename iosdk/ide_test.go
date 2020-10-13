@@ -29,12 +29,11 @@ func ExampleIdeDockerRun() {
 
 func ExampleIdeDockerRm() {
 	*DryRunFlag = true
-	DryRunPush("172.17.0.3")
+	DryRunPush("iosdk-theia")
 	IdeDestroy()
 	// Output:
-	// Destroying IDE...
 	// docker kill iosdk-theia
-	// 172.17.0.3
+	// Destroying IDE: iosdk-theia
 }
 
 func ExampleFixPathDockerToolbox() {

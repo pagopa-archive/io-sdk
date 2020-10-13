@@ -3,25 +3,31 @@ function ckdiff {
 }
 
 function ckline {
+    #echo "compare with: $@"
     for line in "${lines[@]}"
-    do if echo $line | grep "$@"
-       then return 0
+    do #echo "check $line"
+       if echo "$line" | fgrep -- "$@"
+       then #echo "OK"
+            return 0
        fi
     done
+    #echo KO
     return 1
 }
 
 function filter {
     for line in "${lines[@]}"
-    do echo $line | "$@"
+    do echo "$line" | "$@"
     done
 }
 
 function setup {
     export H=${BATS_TEST_DIRNAME:=$PWD}
     source $HOME/.wskprops
-    export URL=$(wsk action get util/echo --url | tail +2 | sed -e 's!/util/echo!!')
+    export URL="$(wsk action get util/echo --url | tail +2 | sed -e 's!/util/echo!!')"
     [ -n "$URL" ] || exit 1
+    export SAMPLE="$(wsk action get util/sample --url | tail +2)"
+    [ -n "$SAMPLE" ] || exit 1
 }
 
 function get { 

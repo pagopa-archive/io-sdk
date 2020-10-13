@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/pagopa/go-input"
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 

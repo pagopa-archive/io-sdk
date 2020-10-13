@@ -4,7 +4,7 @@ import os
 import json
 import pip
 import zlib
-import redis
+from nimbella import redis
 
 def main(args):
     body = args["__ow_body"]
@@ -19,7 +19,7 @@ def main(args):
          body.get("content").get("due_date") ):
             code = body["fiscal_code"]
             id = str(zlib.crc32(code.encode("utf-8")))
-            red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
+            red = redis()
             data = json.dumps(body).encode("utf-8")
             red.set("message:%s" % code, data)
             return {"body": {"id": id} }

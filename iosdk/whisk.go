@@ -14,9 +14,8 @@ func WhiskDeploy() error {
 
 // WhiskDestroy destroys openwhisk standalone
 func WhiskDestroy() error {
-	fmt.Println("Destroying Whisk...")
 	Sys("docker exec iosdk-openwhisk stop")
-	fmt.Println()
+	fmt.Println("Destroying Whisk: iosdk-openwhisk")
 	return nil
 }
 
@@ -36,10 +35,10 @@ func whiskDockerRun() string {
 	}
 	cmd := fmt.Sprintf(`docker run -d -p 3280:3280
 --rm --name iosdk-openwhisk --hostname openwhisk
--e CONTAINER_EXTRA_ENV=__OW_REDIS=%s
+-e CONTAINER_EXTRA_ENV=__NIM_REDIS_IP=%s -e CONTAINER_EXTRA_ENV1=__NIM_REDIS_PASSWORD=%s
 -e CONFIG_FORCE_whisk_users_guest=%s
 -v %s %s`,
-		*redisIP, Config.WhiskAPIKey, dockerSock, image)
+		*redisIP, RedisPassword, Config.WhiskAPIKey, dockerSock, image)
 	_, err := SysErr(cmd)
 	if err != nil {
 		return "cannot start server: " + err.Error()

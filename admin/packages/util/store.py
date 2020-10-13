@@ -3,10 +3,10 @@ import time
 import os
 import json
 import pip
-import redis
+from nimbella import redis
 
 def main(args):
-    red =  redis.Redis(host=os.environ.get("__OW_REDIS", "127.0.0.1"))
+    red =  redis()
     body = args["__ow_body"]
     if args["__ow_headers"]["content-type"] == "application/json":
         body = base64.b64decode(body).decode("utf-8")

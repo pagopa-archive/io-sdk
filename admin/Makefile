@@ -3,7 +3,6 @@ IMG=pagopa/iosdk-openwhisk:$(IOSDK_VER)
 
 .PHONE: build
 build: web/public/build/bundle.js
-	$(MAKE) -C actions
 	docker build -t $(IMG) .
 
 .PHONY: push
@@ -12,12 +11,11 @@ push:
 
 .PHONY: clean
 clean:
-	-$(MAKE) -C actions clean
 	-docker rmi -f $(IMG)
 
 .PHONY: deploy
 deploy:
-	$(MAKE) -C actions deploy
+	$(MAKE) -C packages deploy
 
 .PHONY: devel
 devel:
@@ -41,4 +39,4 @@ web/public/build/bundle.js: $(wildcard web/src/*.svelte)
 
 .PHONY: undeploy
 undeploy:
-	$(MAKE) -C actions undeploy
+	$(MAKE) -C packages undeploy

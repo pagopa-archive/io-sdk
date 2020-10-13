@@ -13,8 +13,7 @@ func RedisDeploy() error {
 
 // RedisDestroy destroys openwhisk standalone
 func RedisDestroy() error {
-	fmt.Println("Destroying Redis...")
-	fmt.Println(Sys("docker stop iosdk-redis"))
+	fmt.Printf("Destroying Redis: %s", Sys("@docker stop iosdk-redis"))
 	return nil
 }
 
@@ -24,7 +23,7 @@ func redisDockerRun() string {
 		return err.Error()
 	}
 	cmd := fmt.Sprintf(`docker run -d -p 6379:6379
---rm --name iosdk-redis --hostname redis %s`, RedisImage)
+--rm --name iosdk-redis --hostname redis %s  --requirepass %s`, RedisImage, RedisPassword)
 	_, err := SysErr(cmd)
 	if err != nil {
 		return "cannot start redis: " + err.Error()

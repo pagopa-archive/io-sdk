@@ -1,5 +1,0 @@
-source ../../source-me-first 
-source test/util.bash
-setup
-export H=$PWD/test
-alias run=eval

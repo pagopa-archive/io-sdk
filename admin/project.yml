@@ -1,0 +1,29 @@
+bucket:
+  strip: 1
+packages:
+  - name: util
+    actions:
+      - name: echo
+        web: raw
+      - name: cache
+        web: true
+      - name: store
+        web: raw
+      - name: messages
+        web: raw
+      - name: send
+        web: true
+      - name: upload
+        web: raw
+      - name: import
+        web: true
+      - name: sample
+        web: true
+  - name: iosdk
+    actions:
+      - name: send
+        web: true
+      - name: config
+        web: false
+      - name: import
+        web: true

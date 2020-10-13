@@ -38,7 +38,7 @@ test:
 	# test execution
 	bash test.sh
 	# test actions
-	make -C admin/actions test
+	make -C admin/packages test
 
 snapshot:
 	date +%Y.%m%d.%H%M-snapshot >.snapshot

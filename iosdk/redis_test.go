@@ -8,7 +8,7 @@ func ExampleRedisRunOk() {
 	fmt.Println(redisDockerRun())
 	// Output:
 	// docker pull library/redis:5
-	// docker run -d -p 6379:6379 --rm --name iosdk-redis --hostname redis library/redis:5
+	// docker run -d -p 6379:6379 --rm --name iosdk-redis --hostname redis library/redis:5 --requirepass password
 }
 
 func ExampleRedisRunKo() {
@@ -21,16 +21,15 @@ func ExampleRedisRunKo() {
 	// docker pull library/redis:5
 	// 1 cannot pull library/redis:5
 	// docker pull library/redis:5
-	// docker run -d -p 6379:6379 --rm --name iosdk-redis --hostname redis library/redis:5
+	// docker run -d -p 6379:6379 --rm --name iosdk-redis --hostname redis library/redis:5 --requirepass password
 	// 2 cannot start redis: cannot start
 }
 
 func ExampleRedisDockerDestroy() {
 	// *DryRunFlag = false
-	fmt.Println(RedisDestroy())
+	DryRunPush("iosdk-redis")
+	RedisDestroy()
 	// Output:
-	// Destroying Redis...
 	// docker stop iosdk-redis
-	//
-	// <nil>
+	// Destroying Redis: iosdk-redis
 }

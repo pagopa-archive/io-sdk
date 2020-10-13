@@ -1,0 +1,50 @@
+packages:
+  util:
+    version: 1.0
+    actions:
+      echo:
+        function: packages/util/echo.js
+        docker: openwhisk/action-nodejs-v10
+        web: raw
+      cache:
+        function: packages/util/cache.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: true
+      store:
+        function: packages/util/store.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: raw
+      messages:
+        function: packages/util/messages.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: raw
+      send:
+        function: packages/util/send.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: true
+      upload:
+        function: packages/util/upload.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: raw
+      import:
+        function: packages/util/import.js
+        docker: openwhisk/action-nodejs-v10
+        web: true
+      sample:
+        function: packages/util/sample.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: true
+  iosdk:
+    version: 1.0
+    actions:
+      send:
+        function: packages/iosdk/send.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        web: true
+      config:
+        function: packages/iosdk/config.js
+        docker: docker: openwhisk/action-nodejs-v10
+      import:
+        function: packages/iosdk/import.js
+        docker: openwhisk/action-nodejs-v10
+        web: true
