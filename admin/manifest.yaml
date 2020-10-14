@@ -43,7 +43,7 @@ packages:
         web: true
       config:
         function: packages/iosdk/config.js
-        docker: docker: openwhisk/action-nodejs-v10
+        docker: openwhisk/action-nodejs-v10
       import:
         function: packages/iosdk/import.js
         docker: openwhisk/action-nodejs-v10

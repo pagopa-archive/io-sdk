@@ -17,11 +17,11 @@ var (
 
 	// hidden global flags
 	useDefaultAPIKey  = kingpin.Flag("use-default-api-key", "Use Default Whisk Api Key").Hidden().Default("false").Bool()
-	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Hidden().Default("false").Bool()
-	skipPullImages    = kingpin.Flag("skip-pull-images", "skip pull images").Hidden().Default("false").Bool()
-	skipOpenBrowser   = kingpin.Flag("skip-open-browser", "skip pull images").Hidden().Default("false").Bool()
-	skipIde           = kingpin.Flag("skip-ide", "skip starting ide").Hidden().Default("false").Bool()
-	useVersion        = kingpin.Flag("use-version", "use the given version of images").Default("").String()
+	skipDockerVersion = kingpin.Flag("skip-docker-version", "Skip check of docker version").Short('D').Default("false").Bool()
+	skipPullImages    = kingpin.Flag("skip-pull-images", "skip pull images").Short('P').Default("false").Bool()
+	skipOpenBrowser   = kingpin.Flag("skip-open-browser", "skip pull images").Short('B').Default("false").Bool()
+	skipIde           = kingpin.Flag("skip-ide", "skip starting ide").Short('I').Default("false").Bool()
+	useVersion        = kingpin.Flag("use-version", "use the given version of images").Short('V').Default("").String()
 
 	// hidden debug commands
 	debugCmd        = kingpin.Command("debug", "debug").Hidden()
