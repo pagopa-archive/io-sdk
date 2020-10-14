@@ -4,11 +4,13 @@ BRANCH=debugger
 WHISK=pagopa/openwhisk-standalone:$(VER)
 BUILDER=pagopa/builder-fpm-nsis:$(VER)
 THEIA=pagopa/theia:$(VER)
-PYTHONRUNTIME=pagopa/actionloop-python-v3.7:2020.10.13
 
-.PHONY: all builder openwhisk theia pythonruntime
+PYTHONRUNTIME=sciabarracom/actionloop-python-v3.7:2020-10-13
+NODEJSRUNTIME=sciabarracom/action-nodejs-v10:2020-10-13
 
-all: builder openwhisk theia
+.PHONY: all builder openwhisk theia pythonruntime nodejsruntime
+
+all: builder openwhisk theia pythonruntime nodejsruntime
 
 openwhisk:
 	test -d openwhisk || git clone $(REPO) openwhisk
@@ -30,3 +32,8 @@ theia:
 pythonruntime:
 	docker build -t $(PYTHONRUNTIME) pythonruntime
 	docker push $(PYTHONRUNTIME)
+
+
+nodejsruntime:
+	docker build -t $(NODEJSRUNTIME) nodejsruntime
+	docker push $(NODEJSRUNTIME)

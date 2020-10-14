@@ -27,7 +27,7 @@ load util
 }
 
 @test "util/sample get extra" {
-    get "$SAMPLE?fiscal_code=PLMFNZ48R20I480G&due_date=2020-12-12&amount=1"
+    get "$SAMPLE"'?fiscal_code=PLMFNZ48R20I480G&due_date=2020-12-12&amount=1'
     ckline '"amount": 1'
     ckline '"due_date": "2020-12-12T00:00:00"'
     ckline '"fiscal_code": "PLMFNZ48R20I480G:0"'

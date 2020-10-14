@@ -4,7 +4,8 @@ packages:
     actions:
       echo:
         function: packages/util/echo.js
-        docker: openwhisk/action-nodejs-v10
+        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        docker: openwhisk/action-nodejs-v10:nightly
         web: raw
       cache:
         function: packages/util/cache.py
@@ -28,7 +29,8 @@ packages:
         web: raw
       import:
         function: packages/util/import.js
-        docker: openwhisk/action-nodejs-v10
+        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        docker: openwhisk/action-nodejs-v10:nightly
         web: true
       sample:
         function: packages/util/sample.py
@@ -43,8 +45,10 @@ packages:
         web: true
       config:
         function: packages/iosdk/config.js
-        docker: openwhisk/action-nodejs-v10
+        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        docker: openwhisk/action-nodejs-v10:nightly
       import:
         function: packages/iosdk/import.js
-        docker: openwhisk/action-nodejs-v10
+        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        docker: openwhisk/action-nodejs-v10:nightly
         web: true

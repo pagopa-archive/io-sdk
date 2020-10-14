@@ -13,9 +13,6 @@ push:
 clean:
 	-docker rmi -f $(IMG)
 
-.PHONY: deploy
-deploy:
-	$(MAKE) -C packages deploy
 
 .PHONY: devel
 devel:
@@ -49,14 +46,14 @@ undeploy:
 
 .PHONY: test
 test: deploy
-	if ! bats test ; then cat /tmp/debug.log ; exit 1 ; fi
+	if ! bats test ; then echo "FAIL: check  /tmp/debug.log"; exit 1 ; fi
 
+
+.PHONY: nim_deploy
+nim_deploy:
+	nim project deploy .
 
 .PHONY: nim_test
 nim_test: nim_deploy
 	wsk property set --auth $(shell nim auth current --auth) --apihost $(shell nim auth current --apihost)
 	if ! bats test ; then echo "FAIL: check  /tmp/debug.log"; exit 1 ; fi
-
-.PHONY: nim_deploy
-nim_deploy:
-	nim project deploy .

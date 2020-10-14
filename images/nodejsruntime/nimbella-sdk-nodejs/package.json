@@ -1,0 +1,32 @@
+{
+  "name": "@nimbella/sdk",
+  "version": "1.1.0",
+  "description": "A Node.js library to interact with nimbella.com services.",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "keywords": [
+    "nimbella",
+    "serverless",
+    "openwhisk",
+    "functions",
+    "actions",
+    "lambda"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nimbella/nimbella-sdk-nodejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nimbella/nimbella-sdk-nodejs/issues"
+  },
+  "homepage": "https://github.com/nimbella/nimbella-sdk-nodejs",
+  "dependencies": {
+    "@google-cloud/storage": "^5.3.0",
+    "bluebird": "^3.7.2",
+    "mysql2": "^2.1.0",
+    "redis": "^3.0.2"
+  }
+}
