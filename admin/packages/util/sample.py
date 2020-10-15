@@ -16,6 +16,9 @@ def main(args):
     if "due_date" in args and args["due_date"] != "":
         try: rec["due_date"] = datetime.datetime.fromisoformat(args["due_date"]).isoformat()
         except Exception as e: print(str(e))
+    if "notice_number" in args and args["notice_number"] != "":
+        try: rec["notice_number"] = args["notice_number"]
+        except Exception as e: print(str(e))
 
     res = []
     for i in range(0, int(count)):

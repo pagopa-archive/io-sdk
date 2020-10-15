@@ -16,7 +16,7 @@ func ExampleStart() {
 	fmt.Println(Configure(dir))
 	fmt.Print(run("ls -a /tmp/iosdk-test/.io*"))
 	fmt.Println("=== Start ===")
-	DryRunPush("\nTotal Memory: 11GiB\n", MinDockerVersion, "", "123", "", "1.2.3.4", "", "", "", "172.17.0.2")
+	DryRunPush("\nTotal Memory: 11GiB\n", MinDockerVersion, "", "123", "", "", "", "1.2.3.4", "", "", "", "172.17.0.2")
 	_, err = Start()
 	fmt.Println(err)
 	// Output:
@@ -44,8 +44,10 @@ func ExampleStart() {
 	//
 	// Deploying Whisk...
 	// docker pull pagopa/iosdk-openwhisk:test
+	// docker pull sciabarracom/actionloop-python-v3.7:2020-10-13
+	// docker pull sciabarracom/action-nodejs-v10:2020-10-13
 	// docker inspect --format={{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} iosdk-redis
-	// docker run -d -p 3280:3280 --rm --name iosdk-openwhisk --hostname openwhisk -e CONTAINER_EXTRA_ENV=__NIM_REDIS_IP=1.2.3.4 -e CONTAINER_EXTRA_ENV1=__NIM_REDIS_PASSWORD=password -e CONFIG_FORCE_whisk_users_guest=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP -v /var/run/docker.sock:/var/run/docker.sock pagopa/iosdk-openwhisk:test
+	// docker run -d -p 3280:3280 --rm --name iosdk-openwhisk --hostname openwhisk -e CONTAINER_EXTRA_ENV=__OW_REDIS_IP=1.2.3.4 -e CONTAINER_EXTRA_ENV1=__OW_REDIS_PASSWORD=password -e CONFIG_FORCE_whisk_users_guest=23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP -v /var/run/docker.sock:/var/run/docker.sock pagopa/iosdk-openwhisk:test
 	// docker exec iosdk-openwhisk waitready
 	// Deploying IDE...
 	// docker pull pagopa/iosdk-theia:test

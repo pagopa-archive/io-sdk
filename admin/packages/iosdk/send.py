@@ -55,17 +55,22 @@ def main(args):
             "fiscal_code": code
         }
         if "amount" in args and args["amount"] != "":
-            pd = {
-                "amount": int(args["amount"]),
-                "notice_number": "000000000000000001",
-            }
-            if "notice_number" in args:
-                pd["notice_number"] = ("000000000000000000" + args["notice_number"])[-18:]
-            if "due_date" in args and args["due_date"] !="" :
-                msg["content"]["due_date"] = args["due_date"]
-                if "invalid_after_due_date" in args and args["invalid_after_due_date"] !="":
-                    pd["invalid_after_due_date"]= bool(args['invalid_after_due_date'])
-            msg["content"]["payment_data"] = pd
+            try:
+                amount = int(args["amount"])
+                pd = {
+                    "amount": amount,
+                    "notice_number": "000000000000000001",
+                }
+                if "notice_number" in args:
+                    pd["notice_number"] = ("000000000000000000" + args["notice_number"])[-18:]
+                if "due_date" in args and args["due_date"] !="" :
+                    msg["content"]["due_date"] = args["due_date"]
+                    if "invalid_after_due_date" in args and args["invalid_after_due_date"] !="":
+                        pd["invalid_after_due_date"]= bool(args['invalid_after_due_date'])
+                if amount >0:
+                    msg["content"]["payment_data"] = pd
+            except Exception as e:
+                print(str(e))
         return send(url, key, msg)
     except KeyError as e:
         return { "body": { "error": "missing argument %s" % str(e)}}

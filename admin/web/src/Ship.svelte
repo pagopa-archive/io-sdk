@@ -2,12 +2,16 @@
   import { Link } from "svelte-routing";
   import { onMount } from "svelte";
 
-  let action = "util/send";
+  const MAX_RETRY = 20
+  const PAUSE_RETRY = 30000
+  const MESSAGE_RETRY = " - waiting 30 seconds"
+
   const baseUrl = "http://localhost:3280/api/v1/web/guest/";
   const scanUrl = baseUrl + "util/cache?scan=message:*";
   const getUrl = baseUrl + "util/cache?get=";
   const delUrl = baseUrl + "util/cache?del=";
 
+  let action = "util/send";
   let state = {};
   let selection = [];
   let sent = {};
@@ -49,28 +53,45 @@
     return undefined;
   }
 
-  async function cache(url, key) {
+  async function cache(url, key, cnt) {
+    let counter = cnt
+    if(counter == MAX_RETRY) {
+      alert("too many retries - aborting cache update")
+      return
+    }
     let u = url + encodeURI(key);
     //console.log("cache", u);
     return fetch(u)
     .then((res) => {
       if(res.ok) return res.json()
+      console.log(res)
+      counter += 1
       if(res.status == 429) {
-        sent[key] = "too many requests - retrying in 5 seconds"
-        return new Promise(function(resolve) {
-          setTimeout(() => { return resolve(cache(url, key)) }, 5000)
-        })
+        sent[key] = "too many requests - retry #"+counter+MESSAGE_RETRY
+      } else { 
+        sent[key] = "ERROR: "+res.status+" "+res.statusText
       }
-      return { "error": res.statusText }
+      return new Promise(function(resolve) {
+          setTimeout(() => { return resolve(cache(url, key, counter)) }, PAUSE_RETRY)
+      })
     })
     .catch((res) => {       
-        return { "error": res.statusText }
+      counter += 1
+      sent[key] = "HTTP error - retry #"+counter+MESSAGE_RETRY
+      return new Promise(function(resolve) {
+        setTimeout(() => resolve(cache(url, key, counter)), PAUSE_RETRY)
+      })
     })
     // this should never be reached
     return { "error": "cannot update cache" }
   }
 
-  async function send(data, key) {
+  async function send(data, key, cnt) {
+    let counter = cnt
+    if(counter == MAX_RETRY) {
+      alert("too many retries - aborting sending data")
+      return
+    }
     let u = baseUrl + action
     // console.log("send", u, data)
     return fetch(u, {
@@ -78,18 +99,25 @@
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
     }).then((res) => {
+      console.log(res)
       if (res.ok) {
         return res.json();
       }
+      counter +=1
       if(res.status == 429) {
-        sent[key] = "too many requests - retrying in 5 seconds"
-        return new Promise(function(resolve) {
-          setTimeout(() => resolve(send(data, key)), 5000)
-        })
+        sent[key] = "too many requests - retrying "+count+MESSAGE_RETRY
+      } else {
+        sent[key] = "ERROR: "+ res.code + " "+res.statusText
       }
-      return { "error": res.code + " "+res.statusText}
-    }).catch( (res) => {
-      return { "error": res.code+ " "+res.statusText}
+      return new Promise(function(resolve) {
+          setTimeout(() => resolve(send(data, key, counter)), PAUSE_RETRY)
+      })
+    }).catch((res) => {
+      counter += 1
+      sent[key] = "HTTP error - retry #"+counter+MESSAGE_RETRY
+      return new Promise(function(resolve) {
+        setTimeout(() => resolve(send(data, key, counter)), PAUSE_RETRY)
+      })
     })
   }
 
@@ -98,13 +126,13 @@
     if (!key) 
       return;
     sent[key] = "sending..."
-    let msg = await cache(getUrl, key);
-    //console.log("cache=", msg);
+    let msg = await cache(getUrl, key, 0);
+    console.log("cache=", msg);
     if (key in msg) {
-      let res = await send(msg[key], key);
+      let res = await send(msg[key], key, 0);
       console.log("send=", res)
       if ("id" in res) {
-        await cache(delUrl, key);
+        await cache(delUrl, key, 0);
         sent[key] = "OK: " + res.id;
       } else if ("detail" in res) {
         sent[key] = "ERROR: " + res["detail"];

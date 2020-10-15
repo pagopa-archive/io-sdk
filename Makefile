@@ -5,6 +5,11 @@ branch:
 	$(MAKE) build 
 	$(MAKE) test
 
+build: preflight
+	$(MAKE) -C admin
+	$(MAKE) -C ide
+	$(MAKE) -C iosdk
+
 release:
 	test -n "$(VER)"
 	$(MAKE) IOSDK_VER=$(VER) build
@@ -22,10 +27,6 @@ clean:
 	-$(MAKE) -C ide clean
 	-$(MAKE) -C iosdk clean
 	
-build: preflight
-	$(MAKE) -C admin
-	$(MAKE) -C ide
-	$(MAKE) -C iosdk
 
 push:
 	docker login

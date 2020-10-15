@@ -32,13 +32,13 @@ func pullImages() (string, error) {
 	if err := dockerPull(NodeJSImage); err != nil {
 		return "", err
 	}
-	return image, nil 
+	return image, nil
 }
 
 // return empty string if ok, otherwise the error
 func whiskDockerRun() string {
-	image, err := pullImages() 
-        if err != nil {
+	image, err := pullImages()
+	if err != nil {
 		return err.Error()
 	}
 	redisIP := dockerIP("iosdk-redis")

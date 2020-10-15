@@ -1,7 +1,7 @@
 <script>
-  import { Link } from "svelte-routing";
-  export let data = [];
-  console.log(data);
+
+export let data = [];
+
 </script>
 
 <div>
@@ -11,6 +11,7 @@
         <th scope="col">FiscalCode</th>
         <th scope="col">Subject</th>
         <th scope="col">Message</th>
+        <th scope="col">Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -19,10 +20,11 @@
           <td>{rec.fiscal_code}</td>
           <td>{rec.subject}</td>
           <td>{rec.markdown}</td>
+          <td>{rec.amount}</td>
         </tr>
       {:else}
         <tr>
-          <td colspan="3">Error: no data</td>
+          <td colspan="4">Error: no data</td>
         </tr>
       {/each}
     </tbody>

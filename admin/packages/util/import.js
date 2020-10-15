@@ -73,8 +73,8 @@ function main(args) {
         {
             "name": "jsonargs",
             "description": "Args in JSON format to POST:",
-            "type": "string",
-            "value": "{\"count\":1, \"fiscal_code\":\"AAAAAA00A00A000A\", \"amount\":0,  \"due_date\":\"\"}",
+            "type": "textarea",
+            "value": "{\"count\":1,\n\"fiscal_code\":\"AAAAAA00A00A000A\",\n\"amount\":0,  \"due_date\":\"\", \"notice_number\":\"\"\n}",
             "required": false
         },
         {

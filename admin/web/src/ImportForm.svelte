@@ -1,11 +1,12 @@
 <script>
+  import { formData } from "./store";
   export let form = {};
   export let url;
-  import { formData } from "./store";
+
+  const base = "http://localhost:3280/api/v1/web/guest";
+  const uploadUrl = base+"/util/upload";
 
   let loading = false;
-  let base = "http://localhost:3280/api/v1/web/guest";
-  let uploadUrl = base+"/util/upload";
 
   async function parseForm() {
     let submit = await fetch(uploadUrl, {
@@ -91,7 +92,7 @@
          cols="80"
          bind:value={field.value}
         />
-        <label for={field.name}>{field.description}</label>
+        <label class="active" for={field.name}>{field.description}</label>
       </div>
       <br/>
       {:else if field.type == 'checkbox'}
