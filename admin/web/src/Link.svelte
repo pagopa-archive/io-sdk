@@ -5,7 +5,7 @@
   export let to = "";
   export let target = "";
   export let key = "";
-
+  
   function open(event) {
     event.preventDefault()
     window.open(target, "editor", )

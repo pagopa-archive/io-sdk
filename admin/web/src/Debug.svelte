@@ -1,9 +1,11 @@
 <script>
-  import { reload } from "./store";
-  import { onMount } from "svelte";
+  import { url } from "./url.js";
+  import { onMount, onDestroy } from "svelte";
   import Link from './Link.svelte'
+  import DebugData from './DebugData.svelte';
 
   export let api;
+  export let key = "";
 
   const cacheUrl = api + "/util/cache?";
   const scanUrl = cacheUrl + "scan="
@@ -46,11 +48,10 @@
   }
 
   onMount(start);
-  reload.subscribe(() => {
-    start();
-  });
+  onDestroy(url.subscribe(() => { start() }))
 </script>
 
+{#if key == ""}
 <h1>Cache</h1>
 <div class="form-group">
   <div class="input-group">
@@ -96,3 +97,6 @@
     </button>
   {/if}
 </div>
+{:else}
+<DebugData {api} {key}/>
+{/if}

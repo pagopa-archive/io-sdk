@@ -1,12 +1,14 @@
 <script>
-  export let key = "";
-  import { navigate, Link } from "svelte-routing";
   import { onMount } from "svelte";
+  import { navigate } from './url.js'
+
+  export let key = "";
+  export let api = "";
 
   let state = {};
 
   const url = api + "/util/cache";
-  let entry = window.atob(key);
+  const entry = window.atob(key);
 
   async function cache(action, entry) {
     let u = url + "?" + action + "=" + encodeURI(entry);
@@ -17,12 +19,13 @@
 
   onMount(() => cache("get", entry));
   function back() {
-    navigate("/debug");
+    navigate("debug", "")
   }
+
   function clean() {
     if(confirm("Are you sure?")) {
       cache("del", entry);
-      back();
+      back();     
     }
   }
 </script>
@@ -30,7 +33,7 @@
 <h1>Cache Data</h1>
 
 {#if state.get}
-  <big>Key:</big>
+  <big>Key:.</big>
   <p>{entry}</p>
   <big>Value:</big>
   <pre>{JSON.stringify(state.get, null, 2)}</pre>
@@ -45,4 +48,8 @@
   <h1>Error</h1>
   <p>{state.error}</p>
 {/if}
- <button type="button" class="btn btn-primary" on:click={back}>Back</button>
+<br>
+<button type="button" class="btn btn-primary" on:click={back}>
+  Back to Debugging
+</button>
+
