@@ -1,9 +1,11 @@
 <script>
-  import { Link } from "svelte-routing";
   import { reload } from "./store";
   import { onMount } from "svelte";
+  import Link from './Link.svelte'
 
-  const cacheUrl = "http://localhost:3280/api/v1/web/guest/util/cache?";
+  export let api;
+
+  const cacheUrl = api + "/util/cache?";
   const scanUrl = cacheUrl + "scan="
   const cleanUrl = cacheUrl + "clean="
 
@@ -80,9 +82,7 @@
   {#if state.list}
     <ul>
       {#each state.list as key}
-        <li>
-          <Link to="debug/{window.btoa(key)}">{key}</Link>
-        </li>
+        <li><Link to="debug/{window.btoa(key)}" description={key}/></li>
       {/each}
     </ul>
     <p>Elements Found: #{state.list.length}</p>

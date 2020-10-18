@@ -1,15 +1,17 @@
 <script>
   import { formData } from "./store";
-  export let form = {};
-  export let url;
 
-  const base = "http://localhost:3280/api/v1/web/guest";
-  const uploadUrl = base+"/util/upload";
+  export let api;
+  export let action;
+  export let form = {};
+
+  const uploadURL = api+"/util/upload";
+  const importURL = api + action;
 
   let loading = false;
 
   async function parseForm() {
-    let submit = await fetch(uploadUrl, {
+    let submit = await fetch(uploadURL, {
       method: "POST",
       body: new FormData(document["_theForm_"])
     })
@@ -23,7 +25,7 @@
     // perform import
     if(data) {
       loading = true;
-      fetch(url, {
+      fetch(importURL, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -45,7 +47,7 @@
   }
 </script>
 
-<form name="_theForm_" action={uploadUrl} method="post" enctype="multipart/form-data">
+<form name="_theForm_" action={uploadURL} method="post" enctype="multipart/form-data">
   {#each form as field}
     {#if field.type == 'message'}
       <div class="callout">

@@ -5,7 +5,7 @@
 
   let state = {};
 
-  const url = "http://localhost:3280/api/v1/web/guest/util/cache";
+  const url = api + "/util/cache";
   let entry = window.atob(key);
 
   async function cache(action, entry) {

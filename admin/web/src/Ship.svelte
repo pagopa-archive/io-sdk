@@ -1,17 +1,18 @@
 <script>
-  import { Link } from "svelte-routing";
   import { onMount } from "svelte";
+  import Link from './Link.svelte'
+
+  export let api
 
   const MAX_RETRY = 20
   const PAUSE_RETRY = 30000
   const MESSAGE_RETRY = " - waiting 30 seconds"
 
-  const baseUrl = "http://localhost:3280/api/v1/web/guest/";
-  const scanUrl = baseUrl + "util/cache?scan=message:*";
-  const getUrl = baseUrl + "util/cache?get=";
-  const delUrl = baseUrl + "util/cache?del=";
+  const scanUrl = api  + "/util/cache?scan=message:*";
+  const getUrl = api + "/util/cache?get=";
+  const delUrl = api + "/util/cache?del=";
 
-  let action = "util/send";
+  let action = "/util/send";
   let state = {};
   let selection = [];
   let sent = {};
@@ -92,9 +93,8 @@
       alert("too many retries - aborting sending data")
       return
     }
-    let u = baseUrl + action
-    // console.log("send", u, data)
-    return fetch(u, {
+    let sendURL = api + action
+    return fetch(sendURL, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
@@ -184,7 +184,7 @@
                 bind:group={selection}
                 value={key} />
               <label for={window.btoa(key)}>
-                <Link to="send/{window.btoa(key)}">{key}</Link>
+                <Link to="send/{window.btoa(key)}" description={key}/>
               </label>
             {:else}
               <del>{key}</del>
@@ -202,8 +202,8 @@
         <div class="bootstrap-select-wrapper">
           <label for="select">Endpoint</label>
           <select id="select" bind:value={action} title="Select an option">
-            <option value="util/send">Development (Local)</option>
-            <option value="iosdk/send">Production</option>
+            <option value="/util/send">Development (Local)</option>
+            <option value="/iosdk/send">Production</option>
           </select>
         </div>
       </div>
@@ -232,7 +232,7 @@
       </p>
       <p />
       <p>
-        Please, <Link to="/import">import some messages</Link>.
+        Please, <Link to="import" description="import some messages"/>.
       </p>
     {/if}
   {:else if state.error}

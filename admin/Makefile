@@ -31,6 +31,7 @@ stop: ../iosdk/iosdk
 	$(MAKE) -C ../iosdk
 
 web/public/build/bundle.js: $(wildcard web/src/*.svelte)
+	echo "Checking you did not forget to do source ../source-me-first"
 	node -v | grep v12
 	cd web && npm install && npm run build
 

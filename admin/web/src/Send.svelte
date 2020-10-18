@@ -1,14 +1,11 @@
 <script>
-  export let key = "";
-
-  import { Link } from "svelte-routing";
-  import { formData } from "./store";
   import { onMount } from "svelte";
-
-  let base = "http://localhost:3280/api/v1/web/guest/";
-
+ 
+  export let api;
+  export let key = "";
+  
   let state = {};
-  let action = "util/send";
+  let action = "/util/send";
   let data = {
     fiscal_code: "",
     subject: "",
@@ -21,7 +18,7 @@
     if (key == "") return;
     let id = window.atob(key);
     console.log("start");
-    fetch(base + "util/cache", {
+    fetch(api + "/util/cache", {
       method: "POST",
       body: JSON.stringify({ get: id }),
       headers: { "Content-Type": "application/json" }
@@ -44,7 +41,7 @@
   onMount(start);
 
   function submitForm() {
-    let url = base + action;
+    let url = api + action;
     console.log(url);
     fetch(url, {
       method: "POST",
@@ -78,14 +75,14 @@
   </div>
   <div>
     <button type="button" class="btn btn-primary" on:click={resetForm}>
-      Nuovo Messaggio
+      New Message
     </button>
   </div>
 {:else if state.error}
   <div class="alert alert-danger" role="alert">{state.error}</div>
   <div>
     <button type="button" class="btn btn-primary" on:click={resetForm}>
-      Nuovo Messaggio
+      New Message
     </button>
   </div>
 {:else}
@@ -131,7 +128,7 @@
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
         <label for="select">Endpoint</label>
-        <select id="select" bind:value={action} title="Select an endpoing">
+        <select id="select" bind:value={action} title="Select an endpoint">
           <option value="util/send">Development (Local)</option>
           <option value="iosdk/send">Production</option>
         </select>

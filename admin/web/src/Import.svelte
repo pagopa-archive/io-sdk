@@ -1,26 +1,31 @@
 <script>
-  export let action;
-
   import { onDestroy, onMount } from 'svelte'
   import { formData } from "./store";
   import ImportForm from "./ImportForm.svelte";
   import ImportData from "./ImportData.svelte";
 
-  const base = "http://localhost:3280/api/v1/web/guest/";
-  const url = base + action;
+  export let api;
+  export let action;
+
+  const storeURL = api + "/util/store"
+  const importURL = api + action;
 
   let message = "uploading...";
   let state
- 
+
+  onMount( () => { 
+    state = start() 
+  })
+
   async function start() {
     formData.set({})
-    return fetch(url)
+    return fetch(importURL)
       .then((res) => res.json())
       .catch((err) => { return { "error": err }})
   }
   
   async function save(data) {
-      await fetch(base + "util/store", {
+      await fetch(storeURL, {
         method: "POST",
         body: JSON.stringify({"data":data}),
         headers: { "Content-Type": "application/json" }
@@ -36,9 +41,6 @@
       });
 }
 
-onMount( () => { 
-  state = start() 
-})
 
 let unsubscribe = formData.subscribe(value => {
     console.log("subscribe")
@@ -58,7 +60,7 @@ onDestroy(unsubscribe)
     <div>loading...</div>
   {:then currState}
     {#if currState.form}
-    <ImportForm form={currState.form} {url} />
+    <ImportForm form={currState.form} {api} {action} />
     {:else if currState.data}
     <ImportData data={state.data} />
     <big><b>Import status: </b>{message}</big>
