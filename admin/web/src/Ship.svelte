@@ -103,9 +103,9 @@
       if (res.ok) {
         return res.json();
       }
-      counter +=1
+      counter += 1
       if(res.status == 429) {
-        sent[key] = "too many requests - retrying "+count+MESSAGE_RETRY
+        sent[key] = "too many requests - retrying "+counter+MESSAGE_RETRY
       } else {
         sent[key] = "ERROR: "+ res.code + " "+res.statusText
       }

@@ -4,51 +4,51 @@ packages:
     actions:
       echo:
         function: packages/util/echo.js
-        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        #docker: sciabarracom/action-nodejs-v10:2020-10-21
         docker: openwhisk/action-nodejs-v10:nightly
         web: raw
       cache:
         function: packages/util/cache.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: true
       store:
         function: packages/util/store.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: raw
       messages:
         function: packages/util/messages.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: raw
       send:
         function: packages/util/send.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: true
       upload:
         function: packages/util/upload.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: raw
       import:
         function: packages/util/import.js
-        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        #docker: sciabarracom/action-nodejs-v10:2020-10-21
         docker: openwhisk/action-nodejs-v10:nightly
         web: true
       sample:
         function: packages/util/sample.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: true
   iosdk:
     version: 1.0
     actions:
       send:
         function: packages/iosdk/send.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-13
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: true
       config:
         function: packages/iosdk/config.js
-        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        #docker: sciabarracom/action-nodejs-v10:2020-10-21
         docker: openwhisk/action-nodejs-v10:nightly
       import:
         function: packages/iosdk/import.js
-        #docker: sciabarracom/action-nodejs-v10:2020-10-13
+        #docker: sciabarracom/action-nodejs-v10:2020-10-21
         docker: openwhisk/action-nodejs-v10:nightly
         web: true

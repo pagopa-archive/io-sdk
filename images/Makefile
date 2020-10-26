@@ -1,12 +1,11 @@
-VER=2020.06.08
+VER=2020-10-21
 REPO=https://github.com/sciabarracom/openwhisk
 BRANCH=debugger
 WHISK=pagopa/openwhisk-standalone:$(VER)
 BUILDER=pagopa/builder-fpm-nsis:$(VER)
 THEIA=pagopa/theia:$(VER)
-
-PYTHONRUNTIME=sciabarracom/actionloop-python-v3.7:2020-10-13
-NODEJSRUNTIME=sciabarracom/action-nodejs-v10:2020-10-13
+PYTHONRUNTIME=sciabarracom/actionloop-python-v3.7:$(VER)
+NODEJSRUNTIME=sciabarracom/action-nodejs-v10:$(VER)
 
 .PHONY: all builder openwhisk theia pythonruntime nodejsruntime
 
@@ -18,6 +17,7 @@ openwhisk:
 	if test "$$(git rev-parse --abbrev-ref HEAD)" == $(BRANCH) ;\
 	then git pull origin $(BRANCH) ;\
 	else git checkout origin/$(BRANCH) -b $(BRANCH) ; fi'
+	cd openwhisk ; ./gradlew :core:standalone:distDocker
 	docker tag whisk/standalone $(WHISK)
 	docker push $(WHISK)
 

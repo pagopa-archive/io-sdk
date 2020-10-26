@@ -1,5 +1,6 @@
 import datetime
 import json
+import math
 
 def main(args):
   try:
@@ -21,8 +22,9 @@ def main(args):
         except Exception as e: print(str(e))
 
     res = []
+    fmt = "%%s:%%0%dd" % int(math.log10(count-1)+1)
     for i in range(0, int(count)):
-        code = "%s:%d" %  (fiscal_code, i)
+        code = fmt %  (fiscal_code, i)
         rec1 = rec.copy()
         rec1["fiscal_code"]  = code
         rec1["subject"] =  "Benvenuto  %s" % code

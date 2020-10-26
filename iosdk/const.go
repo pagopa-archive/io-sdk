@@ -30,10 +30,10 @@ const WhiskImage = DockerHubUser + "/iosdk-openwhisk"
 const RedisImage = "library/redis:5"
 
 // PythonImage is the image for python
-const PythonImage = "sciabarracom/actionloop-python-v3.7:2020-10-13"
+const PythonImage = "sciabarracom/actionloop-python-v3.7:2020-10-21"
 
 // NodeJSImage is the image for nodejs
-const NodeJSImage = "sciabarracom/action-nodejs-v10:2020-10-13"
+const NodeJSImage = "sciabarracom/action-nodejs-v10:2020-10-21"
 
 // RedisPassword is the local redis password for development
 const RedisPassword = "password"
