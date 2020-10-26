@@ -47,8 +47,8 @@ undeploy:
 
 .PHONY: test
 test: deploy
-	if ! bats test ; then echo "FAIL: check  /tmp/debug.log"; exit 1 ; fi
-
+	$(MAKE) -C test bats
+	#$(MAKE) -C test all
 
 .PHONY: nim_deploy
 nim_deploy:
