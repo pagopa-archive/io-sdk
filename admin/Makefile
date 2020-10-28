@@ -46,8 +46,7 @@ undeploy:
 
 .PHONY: test
 test: deploy
-	$(MAKE) -C test bats
-	#$(MAKE) -C test all
+	$(MAKE) -C test test
 
 .PHONY: nim_deploy
 nim_deploy:
