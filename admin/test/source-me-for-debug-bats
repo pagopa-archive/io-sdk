@@ -1,0 +1,7 @@
+source ../../source-me-first 
+source bats/util.bash
+setup
+export H=$PWD/test
+function run {
+    "$@"
+}

@@ -5,7 +5,7 @@ import math
 def main(args):
   try:
     print(args)
-    count = args.get("count", 1)
+    count = int(args.get("count", "1"))
     fiscal_code = args.get("fiscal_code", "")
     if fiscal_code == "":
         fiscal_code = "AAAAAA00A00A000A"
@@ -22,8 +22,8 @@ def main(args):
         except Exception as e: print(str(e))
 
     res = []
-    fmt = "%%s:%%0%dd" % int(math.log10(count-1)+1)
-    for i in range(0, int(count)):
+    fmt = "%%s:%%0%dd" % int(math.log10(count)+1)
+    for i in range(1, int(count)+1):
         code = fmt %  (fiscal_code, i)
         rec1 = rec.copy()
         rec1["fiscal_code"]  = code

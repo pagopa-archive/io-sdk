@@ -13,7 +13,6 @@ push:
 clean:
 	-docker rmi -f $(IMG)
 
-
 .PHONY: devel
 devel:
 	cd web && npm install && npm run dev
