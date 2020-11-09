@@ -17,6 +17,11 @@ clean:
 devel:
 	cd web && npm install && npm run dev
 
+
+.PHONY: web
+web:
+	cd web && npm install && npm run build
+
 .PHONY: start
 start: ../iosdk/iosdk
 	../iosdk/iosdk debug wskprops
