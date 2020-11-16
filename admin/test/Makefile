@@ -11,5 +11,3 @@ playwright: playwright/node_modules
 playwright/node_modules:
 	cd playwright && npm install
 
-
-

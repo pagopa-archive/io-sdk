@@ -1,11 +1,11 @@
-VER=2020-10-21
+VER=2020-11-16
 REPO=https://github.com/sciabarracom/openwhisk
 BRANCH=debugger
 WHISK=pagopa/openwhisk-standalone:$(VER)
 BUILDER=pagopa/builder-fpm-nsis:$(VER)
 THEIA=pagopa/theia:$(VER)
-PYTHONRUNTIME=sciabarracom/actionloop-python-v3.7:$(VER)
-NODEJSRUNTIME=sciabarracom/action-nodejs-v10:$(VER)
+PYTHONRUNTIME=pagopa/action-python-v3.7:$(VER)
+NODEJSRUNTIME=pagopa/action-nodejs-v10:$(VER)
 
 .PHONY: all builder openwhisk theia pythonruntime nodejsruntime
 
