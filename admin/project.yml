@@ -7,7 +7,6 @@ packages:
         web: raw
       - name: cache
         web: true
-        runtime: sciabarracom/actionloop-python-v3.7:2020-10-21
       - name: store
         web: raw
       - name: messages

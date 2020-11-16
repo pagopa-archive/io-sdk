@@ -9,23 +9,23 @@ packages:
         web: raw
       cache:
         function: packages/util/cache.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: true
       store:
         function: packages/util/store.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: raw
       messages:
         function: packages/util/messages.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: raw
       send:
         function: packages/util/send.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: true
       upload:
         function: packages/util/upload.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: raw
       import:
         function: packages/util/import.js
@@ -34,14 +34,14 @@ packages:
         web: true
       sample:
         function: packages/util/sample.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: true
   iosdk:
     version: 1.0
     actions:
       send:
         function: packages/iosdk/send.py
-        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        docker: pagopa/action-python-v3.7:2020-11-16
         web: true
       config:
         function: packages/iosdk/config.js

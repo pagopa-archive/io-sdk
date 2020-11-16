@@ -26,8 +26,8 @@ from google.oauth2 import service_account
 
 
 def redis():
-    redisIP = os.getenv('__NIM_REDIS_IP', os.getenv('__OW_REDIS_IP', ""))
-    redisPassword = os.getenv('__NIM_REDIS_PASSWORD', os.getenv('__OW_REDIS_PASSWORD', ""))
+    redisIP = os.getenv('__NIM_REDIS_IP', os.getenv('__OW_REDIS_IP', os.getenv("IOSDK_REDIS_SERVICE_HOST", "")))
+    redisPassword = os.getenv('__NIM_REDIS_PASSWORD', os.getenv('__OW_REDIS_PASSWORD', "password"))
     if len(redisIP) == 0:
         raise Exception('Key-Value store is not available.')
     elif len(redisPassword) == 0:
