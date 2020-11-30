@@ -93,8 +93,8 @@
   }
 
   function resetForm() {
-    result = "";
-    error = "";
+    state.result = "";
+    state.error = "";
     for (key in data) {
       data[key] = "";
     }
