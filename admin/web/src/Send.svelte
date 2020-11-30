@@ -65,7 +65,7 @@
   
   onMount(() => {
     start();
-    //validateForm();
+    validateForm();
   });
 
   function formatData( data ) {
@@ -96,6 +96,7 @@
   }
 
   function resetForm() {
+
     state.result = "";
     state.error = "";
 
