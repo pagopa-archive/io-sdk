@@ -80,9 +80,8 @@
   }
 
   function submitForm() {
-    console.log(base)
-    console.log(action)
     let url = base + action;
+    console.log(url);
     fetch(url, {
       method: "POST",
       body: JSON.stringify(formatData(data)),
@@ -110,8 +109,11 @@
   }
 
   function onChangeFieldValue(field, value) {
+
     data[field].value = value;
-    validateForm( );
+
+    isFormValid = formValidator.validateForm( data )
+
   }
 
 </script>
