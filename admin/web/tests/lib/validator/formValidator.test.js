@@ -66,6 +66,14 @@ describe("Validate field", () => {
 
     })
 
+    it("Should return true on empty rules", () => {
+
+        const res = formValidator.validateField("123NaN", "")
+
+        expect(res).toBe(true)
+
+    })
+
 })
 
 const cases = [
@@ -229,7 +237,7 @@ describe('Form Validator', () => {
 
         const res = formValidator.validateForm( testCase.data )
 
-        expect(res).toBe(testCase.expectedResult)
+        expect(res.isFormValid).toBe(testCase.expectedResult)
 
     })
 

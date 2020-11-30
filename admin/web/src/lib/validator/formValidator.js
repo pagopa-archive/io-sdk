@@ -12,9 +12,16 @@ const FIELD_RULES_KEY = 'rules'
 
 /**
  * Validates each form's field against a set of rule
- * The field object should contain a value and a rules key, false returne otherwise
+ * The field object should contain a value and a rules key
  * 
  * @param {array} fields 
+ * 
+ * @returns { object } validatedData
+ * 
+ * The return object contains a true/false as first property.
+ * As second property contains an the fields object, with the valid parameter foreach field.
+ * The second property can then be used by the frontend to display feedbacks or colors depending on the field validity.
+ * 
  * 
  */
 const validateForm = ( fields ) => {
@@ -23,12 +30,12 @@ const validateForm = ( fields ) => {
 
     Object.keys(fields).forEach((key, index) => {
 
-        const res = fields[key][FIELD_VALUE_KEY] 
-            && fields[key][FIELD_RULES_KEY] 
-            && validateField( 
+        const res = validateField( 
                 fields[key][FIELD_VALUE_KEY], 
                 fields[key][FIELD_RULES_KEY] 
-            )
+        );
+
+        fields[key].valid = res;
 
         if(!res) {
             found = true;
@@ -36,7 +43,10 @@ const validateForm = ( fields ) => {
             
     })
 
-    return !found
+    return {
+        isFormValid: !found,
+        validatedData: fields
+    }
 
 }
 
@@ -48,6 +58,8 @@ const validateForm = ( fields ) => {
  * @param  { string } rules
  */
 const validateField = ( value, rules ) => {
+
+    if(rules === "") return true;
 
     const rulesArray = explodeRules( rules );
 

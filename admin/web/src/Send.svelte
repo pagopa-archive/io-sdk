@@ -8,6 +8,7 @@
 
   let state = {};
   let action = "util/send";
+  let isFormValid = false;
   let data = {
     fiscal_code: {
       value: "",
@@ -31,7 +32,14 @@
     }
   };
 
-  let isFormValid = formValidator.validateForm( data );
+  function validateForm( ) {
+
+    const res = formValidator.validateForm( data );
+
+    data        = res.validatedData;
+    isFormValid = res.isFormValid;
+
+  }
 
   async function start() {
     if (key == "") return;
@@ -57,7 +65,11 @@
         state = { error: err };
       });
   }
-  onMount(start);
+  
+  onMount(() => {
+    start();
+    validateForm();
+  });
 
   function formatData( data ) {
 
@@ -93,18 +105,25 @@
   }
 
   function resetForm() {
+
     state.result = "";
     state.error = "";
-    for (key in data) {
-      data[key] = "";
-    }
+
+    Object.keys(data).forEach((key, index) => {
+
+      data[key].value = "";
+
+    });
+
+    validateForm();
+
   }
 
   function onChangeFieldValue(field, value) {
 
     data[field].value = value;
 
-    isFormValid = formValidator.validateForm( data )
+    validateForm( );
 
   }
 
@@ -131,30 +150,29 @@
 {:else}
   <div>
     <div class="form-group">
-      <label class="active" for="fiscal_code">
-        Fiscal Code
-      </label>
-      <input
-        type="text"
-        class="form-control"
-        id="fiscal_code"
-        on:input={e => onChangeFieldValue('fiscal_code', e.target.value) }
-        bind:value={data.fiscal_code.value} />
+
+        <label class="active" for="fiscal_code">
+          Fiscal Code
+        </label>
+        <input
+          type="text"
+          class={data.fiscal_code.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
+          id="fiscal_code"
+          on:input={e => onChangeFieldValue('fiscal_code', e.target.value) } />
+
     </div>
     <div class="form-group">
       <label class="active" for="subject">Subject</label>
       <input
         type="text"
-        class="form-control"
+        class={data.subject.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
         id="subject"
-        on:input={e => onChangeFieldValue('subject', e.target.value) }
-        bind:value={data.subject.value} />
+        on:input={e => onChangeFieldValue('subject', e.target.value) } />
     </div>
     <div class="form-group">
       <textarea 
         id="markdown" 
         rows="3" 
-        bind:value={data.markdown.value} 
         on:input={e => onChangeFieldValue('markdown', e.target.value) } />
       <label class="active" for="markdown">Message (markdown)</label>
     </div>
@@ -162,19 +180,17 @@
       <label class="active" for="amount">Amount</label>
       <input
         type="text"
-        class="form-control"
+        class={data.amount.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
         id="amount"
-        on:input={e => onChangeFieldValue('amount', e.target.value) }
-        bind:value={data.amount.value} />
+        on:input={e => onChangeFieldValue('amount', e.target.value) } />
     </div>
     <div class="form-group">
       <label class="active" for="amount">Notice Number</label>
       <input
         type="text"
-        class="form-control"
+        class={data.notice_number.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
         id="notice_number"
-        on:input={e => onChangeFieldValue('notice_number', e.target.value) }
-        bind:value={data.notice_number.value} />
+        on:input={e => onChangeFieldValue('notice_number', e.target.value) } />
     </div>
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
