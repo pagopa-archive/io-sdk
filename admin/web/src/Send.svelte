@@ -80,9 +80,8 @@
   }
 
   function submitForm() {
-
     let url = base + action;
-    
+    console.log(url);
     fetch(url, {
       method: "POST",
       body: JSON.stringify(formatData(data)),
