@@ -79,20 +79,6 @@
     return formattedData;
   }
 
-  function formatData( data ) {
-
-    let formattedData = {};
-
-    Object.keys(data).map((key, index) => {
-
-        formattedData[key] = data[key].value;
-
-    })
-
-    return formattedData;
-
-  }
-
   function submitForm() {
 
     let url = base + action;
