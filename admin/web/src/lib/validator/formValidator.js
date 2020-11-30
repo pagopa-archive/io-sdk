@@ -55,6 +55,8 @@ const validateForm = ( fields ) => {
  */
 const validateField = ( value, rules ) => {
 
+    if(rules === "") return true;
+
     const rulesArray = explodeRules( rules );
 
     return rulesArray.every( rule => validateFieldRule( value, rule ))
