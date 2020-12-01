@@ -16,6 +16,7 @@
               {#if location.hostname == "localhost"}
               <li><Link icon="fas fa-file-code" description="Development" target="http://localhost:3000"/></li>
               {/if}
+              <li><Link icon="fas fa-cog" description="Connectors" to="connectors"/></li>
               <li><Link icon="fas fa-info-circle" description="About" to="about"/></li>
               <li>
           </ul>

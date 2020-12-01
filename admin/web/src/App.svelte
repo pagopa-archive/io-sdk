@@ -13,6 +13,7 @@
  import Send from "./Send.svelte";
  import Ship from "./Ship.svelte";
  import Import from "./Import.svelte";
+ import Connectors from "./Connectors.svelte";
  
  let menu = ""
  let key = ""
@@ -53,6 +54,8 @@ onDestroy(url.subscribe((href) => {
 			  <Import {api} action="/iosdk/import"/>
 			{:else if menu=="devel"}
 			  <Devel {api} {key}/>
+			{:else if menu=="connectors"}
+			  <Connectors {api} {key} />
 			{/if}
 		  </div>
 		</div>
