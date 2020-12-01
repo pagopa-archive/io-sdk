@@ -16,8 +16,7 @@ const getIoGetawayConnectorReleases = () => {
         )
         .then( async res => {
 
-            const releases = await res.json();
-            resolve( releases );
+            resolve(await res.json());
 
         })
         .catch( err => reject(err) )
@@ -40,8 +39,7 @@ const getIoGetawayConnectorLatestRelease = () => {
         )
         .then( async res => {
 
-            const latestRelease = await res.json();
-            resolve( latestRelease );
+            resolve(await res.json());
 
         })
         .catch( err => reject(err) )

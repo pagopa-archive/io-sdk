@@ -10,7 +10,6 @@ const getLatestRelease = async () => {
     try{
 
         release = await githubService.getIoGetawayConnectorLatestRelease();
-        console.log(release.assets);
 
     } catch(e) {
 
