@@ -17,7 +17,7 @@ Per facilitare queste operazioni il Software Development Kit per IO (IO-SDK) for
 Per maggior informazioni potete consultare la documentazione in lingua italiana:
 
 - [il manuale dell'utilizzatore](/docs/utente.md) indirizzato all'utilizzatore finale;
-- [il mananuale dell'amministratore](/docs/amministratore.md) che fornisce le informazioni per l'installazione;
+- [il manuale dell'amministratore](/docs/amministratore.md) che fornisce le informazioni per l'installazione;
 - [il manuale dello sviluppatore](/docs/sviluppatore.md) rivolto agli sviluppatori che desiderano contribuire con nuove integrazioni.
 
 Il [documento di sviluppo dell'SDK](DEVEL.md) è invece scritto in lingua inglese, ed è rivolto a tutti coloro che desiderano contribuire allo sviluppo dell'SDK stesso.
