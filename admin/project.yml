@@ -15,6 +15,8 @@ packages:
         web: true
       - name: upload
         web: raw
+      - name: select_connectors
+        web: raw
       - name: import
         web: true
       - name: sample
