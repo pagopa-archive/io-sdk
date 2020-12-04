@@ -178,8 +178,8 @@
       <div class="bootstrap-select-wrapper">
         <label for="select">Endpoint</label>
         <select id="select" bind:value={action} title="Select an endpoint">
-          <option value="util/send">Development (Local)</option>
-          <option value="iosdk/send">Production</option>
+          <option value="/util/send">Development (Local)</option>
+          <option value="/iosdk/send">Production</option>
         </select>
       </div>
     </div>
