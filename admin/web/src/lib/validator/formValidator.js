@@ -27,9 +27,7 @@ const FIELD_RULES_KEY = 'rules'
 const validateForm = ( fields ) => {
 
     let found = false;
-
     Object.keys(fields).forEach((key, index) => {
-
         const res = validateField( 
                 fields[key][FIELD_VALUE_KEY], 
                 fields[key][FIELD_RULES_KEY] 
@@ -39,15 +37,13 @@ const validateForm = ( fields ) => {
 
         if(!res) {
             found = true;
-        }
-            
+        }       
     })
 
     return {
         isFormValid: !found,
         validatedData: fields
     }
-
 }
 
 /**
@@ -58,21 +54,14 @@ const validateForm = ( fields ) => {
  * @param  { string } rules
  */
 const validateField = ( value, rules ) => {
-
     if(rules === "") return true;
-
     const rulesArray = explodeRules( rules );
-
     return rulesArray.every( rule => validateFieldRule( value, rule ))
-
 }
 
 const explodeRules = ( rules ) => {
-
     const rulesArray = rules.split(RULES_SEPARATOR)
-
     return rulesArray.map( rule => rule.split(RULE_PARAMETER_SEPARATOR))
-
 }
 
 const validateFieldRule = ( field, rule ) => {
@@ -81,7 +70,6 @@ const validateFieldRule = ( field, rule ) => {
     const ruleParam = rule[1]
 
     switch( ruleName ) {
-
         case(RULE_NUMERIC):
             return validateNumericField( field )
         case(RULE_FISCALCODE):
@@ -93,42 +81,29 @@ const validateFieldRule = ( field, rule ) => {
         case(RULE_REQUIRED):
             return validateRequiredField( field )
         default:
-            return false
-            
+            return false       
     }
-
 }
 
 const validateNumericField = ( value ) => {
-
     return !isNaN( value )
-
 }
 
 const validateMaxLengthField = ( value, length ) => {
-
     return value.length <= length
-
 }
 
 const validateMinLengthField = ( value, length ) => {
-
     return value.length >= length
-
 }
 
 const validateRequiredField = ( value ) => {
-
     return value.length > 0
-
 }
 
 const validateFiscalCodeField = ( value ) => {
-
     const fiscalCodePattern = /^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$/
-
     return value.search(fiscalCodePattern) !== -1
-
 }
 
 export const formValidator = { validateField, validateForm }    

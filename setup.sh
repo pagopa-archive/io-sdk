@@ -7,6 +7,7 @@ export LOCAL="$HOME/.local"
 export BIN="$LOCAL/bin"
 mkdir -p "$BIN"
 
+
 case "$(uname)" in
     (Darwin)
         brew install readline xz zip unzip
@@ -16,6 +17,15 @@ case "$(uname)" in
         unzip -o $BIN/wsk.zip wsk -d $BIN 
     ;;
     (Linux)
+        if test -e /etc/os-release
+        then source /etc/os-release
+             case "$VERSION_CODENAME" in
+                 (bionic) sudo apt-get install -y libicu60 libvpx5 ;;
+                 (focal) echo -e "8\n41\n" | apt-get install -y libicu-dev libvpx-dev ;;
+                 (*) echo "unsupported ubuntu version" ; exit 1 ;;
+             esac
+        else echo "sorry only ubuntu 18/20 is supported" ; exit 1
+        fi
 	    sudo apt-get update
         sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
             libreadline-dev libsqlite3-dev wget curl libncurses5-dev libncursesw5-dev \
@@ -27,8 +37,8 @@ case "$(uname)" in
             libdbus-glib-1-2 libdrm2 libegl1 libenchant1c2a libepoxy0 libfontconfig1 libfreetype6 \
             libgbm1 libgdk-pixbuf2.0-0 libgl1 libgles2 libglib2.0-0 libgstreamer-gl1.0-0 \
             libgstreamer1.0-0 libgtk-3-0 libgtk2.0-0 libharfbuzz-icu0 libharfbuzz0b libhyphen0 \
-            libicu60 libjpeg-turbo8 libnotify4 libnspr4 libnss3 libopenjp2-7 libopus0 libpango-1.0-0 \
-            libpangocairo-1.0-0 libpangoft2-1.0-0 libpng16-16 libsecret-1-0 libvpx5 libwayland-client0 \
+            libjpeg-turbo8 libnotify4 libnspr4 libnss3 libopenjp2-7 libopus0 libpango-1.0-0 \
+            libpangocairo-1.0-0 libpangoft2-1.0-0 libpng16-16 libsecret-1-0 libwayland-client0 \
             libwayland-egl1 libwayland-server0 libwebp6 libwebpdemux2 libwoff1 libx11-6 libx11-xcb1 \
             libxcb-dri3-0 libxcb-shm0 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 \
             libxi6 libxkbcommon0 libxml2 libxrandr2 libxrender1 libxslt1.1 libxt6 libxtst6

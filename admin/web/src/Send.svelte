@@ -33,12 +33,9 @@
   };
 
   function validateForm( ) {
-
     const res = formValidator.validateForm( data );
-
     data        = res.validatedData;
     isFormValid = res.isFormValid;
-
   }
 
   async function start() {
@@ -68,27 +65,21 @@
   
   onMount(() => {
     start();
-    validateForm();
+    //validateForm();
   });
 
   function formatData( data ) {
-
     let formattedData = {};
-
     Object.keys(data).map((key, index) => {
-
         formattedData[key] = data[key].value;
-
     })
-
     return formattedData;
-
   }
 
   function submitForm() {
-
+    console.log(base)
+    console.log(action)
     let url = base + action;
-    
     fetch(url, {
       method: "POST",
       body: JSON.stringify(formatData(data)),
@@ -105,26 +96,18 @@
   }
 
   function resetForm() {
-
     state.result = "";
     state.error = "";
 
     Object.keys(data).forEach((key, index) => {
-
       data[key].value = "";
-
     });
-
     validateForm();
-
   }
 
   function onChangeFieldValue(field, value) {
-
     data[field].value = value;
-
     validateForm( );
-
   }
 
 </script>
@@ -159,7 +142,6 @@
           class={data.fiscal_code.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
           id="fiscal_code"
           on:input={e => onChangeFieldValue('fiscal_code', e.target.value) } />
-
     </div>
     <div class="form-group">
       <label class="active" for="subject">Subject</label>
@@ -195,7 +177,7 @@
     <div class="form-group">
       <div class="bootstrap-select-wrapper">
         <label for="select">Endpoint</label>
-        <select id="select" bind:value={action} title="Select an endpoing">
+        <select id="select" bind:value={action} title="Select an endpoint">
           <option value="util/send">Development (Local)</option>
           <option value="iosdk/send">Production</option>
         </select>
