@@ -38,7 +38,7 @@ class GithubService():
         if response.status_code != 200:
             raise RequestError("Error downloading binary connector file")
 
-        return response.content
+        return response.text
 
 
 def main(args):
@@ -62,4 +62,4 @@ def main(args):
         binary_connector = github_service.get_connector_file(
             connector['file_path']
         )
-        return {"body": {"detail": b64encode(binary_connector)}}
+        return {"body": {"detail": "asd"}}
