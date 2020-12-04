@@ -113,7 +113,7 @@
 
     data[field].value = value;
 
-    validateForm( );
+    validateForm();
 
   }
 
