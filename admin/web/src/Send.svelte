@@ -7,30 +7,36 @@
   let base = "http://localhost:3280/api/v1/web/guest/";
 
   let state = {};
+  let data = formatFormData();
   let action = "util/send";
   let isFormValid = false;
-  let data = {
-    fiscal_code: {
-      value: "",
-      rules: "required|fiscalCode"
-    },
-    subject: {
-      value: "",
-      rules: "required|min:5|max:255"
-    },
-    markdown: {
-      value: "",
-      rules: "required"
-    },
-    amount: {
-      value: "",
-      rules: "required|numeric"
-    },
-    notice_number: {
-      value: "",
-      rules: "required"
-    }
-  };
+
+  function formatFormData( data = {} ) {
+
+    return {
+      fiscal_code: {
+        value: data.fiscal_code || "",
+        rules: "required|fiscalCode"
+      },
+      subject: {
+        value: data.subject || "",
+        rules: "required|min:5|max:255"
+      },
+      markdown: {
+        value: data.markdown || "",
+        rules: "required"
+      },
+      amount: {
+        value: parseInt(data.amount) || 0,
+        rules: "required|numeric"
+      },
+      notice_number: {
+        value: data.notice_number || "",
+        rules: "required"
+      }
+    };
+
+  }
 
   function validateForm( ) {
     const res = formValidator.validateForm( data );
@@ -50,12 +56,10 @@
       .then(async res => {
         if (res.ok) {
           let message = await res.json();
-          //console.log(data[id])
-          data.fiscal_code = message[id].fiscal_code;
-          data.subject = message[id].subject;
-          data.markdown = message[id].markdown;
-          data.amount = message[id].amount;
-          data.notice_number = message[id].notice_number;
+
+          data = formatFormData(message[id]);
+          validateForm();
+
         }
       })
       .catch(err => {
@@ -142,6 +146,7 @@
           type="text"
           class={data.fiscal_code.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
           id="fiscal_code"
+          value={data['fiscal_code'].value}
           on:input={e => onChangeFieldValue('fiscal_code', e.target.value) } />
     </div>
     <div class="form-group">
@@ -150,12 +155,14 @@
         type="text"
         class={data.subject.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
         id="subject"
+        value={data['subject'].value}
         on:input={e => onChangeFieldValue('subject', e.target.value) } />
     </div>
     <div class="form-group">
       <textarea 
         id="markdown" 
         rows="3" 
+        value={data['markdown'].value}
         on:input={e => onChangeFieldValue('markdown', e.target.value) } />
       <label class="active" for="markdown">Message (markdown)</label>
     </div>
@@ -165,6 +172,7 @@
         type="text"
         class={data.amount.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
         id="amount"
+        value={data.amount.value}
         on:input={e => onChangeFieldValue('amount', e.target.value) } />
     </div>
     <div class="form-group">
@@ -173,6 +181,7 @@
         type="text"
         class={data.notice_number.valid === true ? 'form-control is-valid' : 'form-control is-invalid'}
         id="notice_number"
+        value={data['notice_number'].value}
         on:input={e => onChangeFieldValue('notice_number', e.target.value) } />
     </div>
     <div class="form-group">
