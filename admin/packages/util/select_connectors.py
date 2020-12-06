@@ -20,12 +20,15 @@ def main(args):
 
     ow_service = OWService()
 
+    responses = []
     for connector in valid_connectors:
 
         binary_connector = github_service.get_connector_file(
             connector['file_path']
         )
-        return ow_service.create_action(connector['name'], binary_connector)
+        responses.append(ow_service.create_action(connector['name'], binary_connector))
+
+    return {"body": {"responses": responses}}
 
 
 class RequestError(Exception):
@@ -111,11 +114,12 @@ class OWService():
             binary_data (bytes): Connector's binary data
         """
         action_name = "util/{}".format(action_name)
-        url = "{}/api/v1/namespaces/{}/actions/{}".format(
+        url = "{}/api/v1/namespaces/{}/actions/{}?overwrite=true".format(
             self.__host,
             self.__namespace,
             action_name
         )
+        # TODO: get kind by connector name (python, java ... )
         data = {
             "namespace": self.__namespace,
             "name": "123",
