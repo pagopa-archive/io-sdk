@@ -3,9 +3,15 @@
 import { onMount } from 'svelte';
 import { githubService } from './services/github.service.js';
 import { ioSDKService } from './services/iosdk.service';
+import { customConnectors } from "./store"
 
-let connectors = [];
 let loading = false;
+let connectors = [];
+let connectorsStateValue = []
+
+const unsubscribe = customConnectors.subscribe(customConnectors => {
+    connectorsStateValue = customConnectors;
+});
 
 const init = async () => {
 
@@ -21,7 +27,7 @@ const getConnectorsList = async ( custom_connectors = []) => {
 
         const response = await githubService.getIoGetawayConnectors();
 
-        connectors = response.map( e => ({...e, checked: custom_connectors.includes(e.name)}));
+        connectors = response.map( e => ({...e, checked: connectorsStateValue.includes(e.name)}));
         
 
     } catch(e) {
@@ -38,7 +44,7 @@ const getCustomConnectors = async () => {
 
         const response = await ioSDKService.getCustomConnectors();
 
-        return response?.details?.connectors || []
+        customConnectors.update( connectors =>  response?.details?.connectors || [] );
 
     } catch(e) {
 

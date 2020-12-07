@@ -4,7 +4,13 @@ import { onMount } from "svelte";
   import Link from "./Link.svelte";
   import { ioSDKService } from "./services/iosdk.service"
 
-  let connectors = []
+  import { customConnectors } from "./store"
+
+  let connectorsStateValue = []
+
+  const unsubscribe = customConnectors.subscribe(connectors => {
+      connectorsStateValue = connectors;
+  });
 
   const getCustomConnectors = async () => {
 
@@ -12,7 +18,7 @@ import { onMount } from "svelte";
 
       const response = await ioSDKService.getCustomConnectors()
 
-      connectors = response?.details?.connectors || []
+      customConnectors.update( connectors => response?.details?.connectors || [] );
 
     } catch(e) {
 
@@ -36,8 +42,8 @@ import { onMount } from "svelte";
           <ul class="link-list">
               <li><Link icon="fas fa-file-import" description="Import URL" to="import"/></li>
               <li><Link icon="fa fa-wrench" description="Custom Import" to="custom"/></li>
-              {#each connectors as connector, index}
-                <li><Link icon="fa fa-wrench" description={`IOSDK/Import${index + 1}`} to="custom"/></li>
+              {#each connectorsStateValue as connector, index}
+                <li><Link icon="fa fa-wrench" description={`IOSDK/Import${index}`} to="custom"/></li>
               {/each}
               <li><Link icon="fas fa-shipping-fast" description="Send Messages" to="ship"/></li>
               <li><Link icon="far fa-envelope" description="Single Message" to="send"/></li>
