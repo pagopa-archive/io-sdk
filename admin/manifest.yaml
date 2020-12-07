@@ -31,6 +31,10 @@ packages:
         function: packages/util/select_connectors.py
         docker: sciabarracom/actionloop-python-v3.7:2020-10-21
         web: true
+      get_custom_connectors:
+        function: packages/util/get_custom_connectors.py
+        docker: sciabarracom/actionloop-python-v3.7:2020-10-21
+        web: true
       import:
         function: packages/util/import.js
         #docker: sciabarracom/action-nodejs-v10:2020-10-21

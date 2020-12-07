@@ -7,13 +7,21 @@ import { ioSDKService } from './services/iosdk.service';
 let connectors = [];
 let loading = false;
 
-const getConnectorsList = async () => {
+const init = async () => {
+
+    await getConnectorsList(
+        await getCustomConnectors()
+    );
+
+}
+
+const getConnectorsList = async ( custom_connectors = []) => {
 
     try{
 
         const response = await githubService.getIoGetawayConnectors();
 
-        connectors = response.map( e => ({...e, checked: false}));
+        connectors = response.map( e => ({...e, checked: custom_connectors.includes(e.name)}));
         
 
     } catch(e) {
@@ -24,8 +32,24 @@ const getConnectorsList = async () => {
 
 }
 
-onMount(() => {
-    getConnectorsList();
+const getCustomConnectors = async () => {
+
+    try{
+
+        const response = await ioSDKService.getCustomConnectors();
+
+        return response?.details?.connectors || []
+
+    } catch(e) {
+
+        console.log(e);
+
+    }
+
+}
+
+onMount( async () => {
+    await init()
 })
 
 const handleCheckBox = ( connectorName, event ) => {
@@ -55,9 +79,10 @@ const onSubmit = async () => {
 
     }
 
+    init();
+
     loading = false
     
-
 }
 
 </script>
