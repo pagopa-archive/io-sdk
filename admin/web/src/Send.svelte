@@ -69,7 +69,6 @@
   
   onMount(() => {
     start();
-    validateForm();
   });
 
   function formatData( data ) {
