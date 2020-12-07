@@ -30,7 +30,7 @@ packages:
       select_connectors:
         function: packages/util/select_connectors.py
         docker: sciabarracom/actionloop-python-v3.7:2020-10-21
-        web: raw
+        web: true
       import:
         function: packages/util/import.js
         #docker: sciabarracom/action-nodejs-v10:2020-10-21

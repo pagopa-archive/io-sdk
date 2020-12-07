@@ -2,8 +2,10 @@
 
 import { onMount } from 'svelte';
 import { githubService } from './services/github.service.js';
+import { ioSDKService } from './services/iosdk.service';
 
 let connectors = [];
+let loading = false;
 
 const getConnectorsList = async () => {
 
@@ -38,10 +40,23 @@ const handleCheckBox = ( connectorName, event ) => {
 
 }
 
-const onSubmit = () => {
+const onSubmit = async () => {
 
-    //TODO: Implement POST to submit selected connectors
-    console.log(connectors);
+    loading = true;
+    try{
+
+        const response = await ioSDKService.createConnectors( 
+            connectors.filter( connector => connector.checked).map( connector => connector.name)
+        );
+
+    } catch( e ) {
+
+        console.error( e )
+
+    }
+
+    loading = false
+    
 
 }
 
@@ -70,7 +85,8 @@ const onSubmit = () => {
             </div>
 
         {/each}
-        <button 
+        <button
+            disabled={loading}
             type="button" 
             class="btn btn-primary" 
             on:click={onSubmit}>

@@ -1,10 +1,13 @@
 from requests import get, put
 from base64 import b64encode
 from os import environ
+from json import loads
+from nimbella import redis
 
 
 def main(args):
-    connectors = args.get('connectors')
+
+    connectors = loads(args['__ow_body'])['connectors']
 
     if not connectors:
         return {"body": {"detail": "connectors list is empty"}}
@@ -19,16 +22,28 @@ def main(args):
         return {"body": {"detail": "no valid connectors names provided"}}
 
     ow_service = OWService()
+    red = redis()
 
     responses = []
+    created_connectors = []
     for connector in valid_connectors:
 
         binary_connector = github_service.get_connector_file(
             connector['file_path']
         )
-        responses.append(ow_service.create_action(connector['name'], binary_connector))
 
-    return {"body": {"responses": responses}}
+        create_response = ow_service.create_action(
+            connector['name'],
+            binary_connector
+        )
+
+        responses.append(create_response)
+
+        if 'error' not in create_response:
+            created_connectors.append(connector['name'])
+
+    red.set('connectors', ",".join(created_connectors))
+    return {"body": {"detail": responses}}
 
 
 class RequestError(Exception):
@@ -114,32 +129,58 @@ class OWService():
             binary_data (bytes): Connector's binary data
         """
         action_name = "util/{}".format(action_name)
-        url = "{}/api/v1/namespaces/{}/actions/{}?overwrite=true".format(
+        url = "{}/api/v1/namespaces/{}/actions/{}?overwrite=true&web=true".format(
             self.__host,
             self.__namespace,
             action_name
         )
-        # TODO: get kind by connector name (python, java ... )
+
         data = {
             "namespace": self.__namespace,
             "name": "123",
             "exec": {
-                "kind": "python:3",
+                "kind": self.__get_connector_kind(action_name),
                 "binary": "true",
-                "code": b64encode(binary_data).decode("utf-8", "ignore")
+                "code": b64encode(binary_data).decode("utf-8", "ignore"),
+                "main": "Main"
             }
         }
         headers = {'Content-type': 'application/json'}
-   
+
         try:
+
             response = put(
                 url,
                 json=data,
                 auth=(self.__api_key[0], self.__api_key[1]),
                 headers=headers
             )
-            return {"body": {"detail": response.text, "url": url}}
-        except Exception:
-            return {"body": {
-                "detail": "Error creating action for connector {}".format(action_name)
-            }}
+            if('error' in response.text):
+                raise Exception(response.text)
+
+            return "{} connector's action created successfully.".format(
+                action_name
+            )
+
+        except Exception as e:
+            return {
+                    "message": "Error creating action for connector {}".format(
+                        action_name
+                    ),
+                    "error": str(e)
+            }
+
+    def __get_connector_kind(self, connector_name):
+
+        if('java' in connector_name):
+            return 'java:8'
+        elif('python' in connector_name):
+            return 'python:3'
+        elif('node' in connector_name):
+            return 'nodejs:10'
+        elif('php' in connector_name):
+            return 'php:7.4'
+        elif('go' in connector_name):
+            return 'go:1.11'
+        else:
+            return 'blackbox'
