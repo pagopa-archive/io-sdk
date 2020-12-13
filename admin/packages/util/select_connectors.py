@@ -41,7 +41,6 @@ def main(args):
 
         if 'error' not in create_response:
             created_connectors.append(connector['name'])
-            red.set(connector['name'] + "_params", dumps(connector['config']['params']))
 
     red.set('connectors', ",".join(created_connectors))
     return {"body": {"detail": responses}}

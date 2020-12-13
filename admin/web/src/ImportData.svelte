@@ -20,7 +20,7 @@ export let data = [];
           <td>{rec.fiscal_code}</td>
           <td>{rec.subject}</td>
           <td>{rec.markdown}</td>
-          <td>{rec.amount}</td>
+          <td>{rec.amount || ''}</td>
         </tr>
       {:else}
         <tr>
