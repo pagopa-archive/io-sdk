@@ -9,8 +9,8 @@ Tutti i servizi pubblici italiani possono integrarsi con l'app collegandosi tram
 Per facilitare queste operazioni il Software Development Kit per IO (IO-SDK) fornisce una serie di strumenti:
 
 - un server per l'esecuzione di micro-servizi;
-- una interfaccia utente per la gestione dei messaggi;
-- una interfaccia a riga di comando (CLI) per il controllo del server;
+- un'interfaccia utente per la gestione dei messaggi;
+- un'interfaccia a riga di comando (CLI) per il controllo del server;
 - una serie di componenti aggiuntivi (PLUGIN) modificabili per connettersi alle varie fonti dati;
 - un ambiente di sviluppo integrato (IDE).
 
@@ -38,11 +38,11 @@ Per incontrare la community di IO-SDK potete visitare il topic IO-SDK della [Com
 
 Consiglio vivamente di [leggere il manuale](/docs/utente.md).
 
-## Perchè non riesco a mandare messaggi alla mia app e al mio codice fiscale?
+## Perché non riesco a mandare messaggi alla mia app e al mio codice fiscale?
 
-La chiave che crei nel backend ti permette di mandare solo messaggi di email al codice fiscale mostrato nel backend.
+La chiave che crei nel backend ti permette di mandare messaggi email solo al codice fiscale mostrato nel backend.
 
-Questo codice  corrisponde all'indirizzo di email con cui ti sei loggato al backend.
+Questo codice corrisponde all'indirizzo email con cui ti sei loggato al backend.
 
 Per ottenere maggiori permessi devi contattare l'onboarding di IO.
 
@@ -50,24 +50,17 @@ Per ottenere maggiori permessi devi contattare l'onboarding di IO.
 
 Prima di tutto un computer con almeno otto giga di memoria. Se ne hai meno, è dura...
 
-- Se hai un Mac, ti serve una versione recente di OSX a 64 bit e Docker per Mac. 
+- Se hai un Mac, ti serve una versione recente di OSX a 64 bit e Docker per Mac ([leggi le linee guida per l'installazione](docs/Prerequisites/Mac/OSX.md)). 
 
-- Se hai Linux, ti serve Ubuntu versione 18 oppure 20. Può funzionare su altre versioni ma devi adattare il codice.
+- Se hai Linux, ti serve Ubuntu versione 18 oppure 20. Può funzionare anche su altre versioni, ma devi adattare il codice ([leggi le linee guida per l'installazione](docs/Prerequisites/Linux/Ubuntu.md)).
 
--  Se hai Windows devi assolutamente abilitare la virtualizzazione per poter eseguire Docker  per Windows. Poi devi istallare una versione di Windows 10 che supporta `WSL2` e innstallare Ubuntu 18 o 20, e collegare Docker a WSL2. 
+-  Se hai Windows devi assolutamente abilitare la virtualizzazione per poter eseguire Docker su Windows. Devi, inoltre, installare una versione di Windows 10 Professional che supporta `WSL2` e installare Ubuntu 18 o 20, e collegare Docker a WSL2 ([leggi le linee guida per l'installazione](docs/Prerequisites/Windows/10.md)). 
 
-Istruzioni dettagliate sono nel file [DEVEL.md](/DEVEL.md).
+Maggiori istruzioni dettagliate sono nel file [DEVEL.md](/DEVEL.md) (in lingua inglese).
 
 ## Come si sviluppa?
 
-Prima di tutto compilalo e testalo:
-
-- scarica i sorgenti da github
-- installa le dipendenze con `./setup.sh`
-- attiva l'ambiente con `source source-me-first`
-- builda tutto con `make` 
-
-In codice, se hai una delle configurazioni supportate fai:
+Prima di tutto dovrai clonare il repository, compilare il codice e testarlo, questi i comandi da eseguire:
 
 ```
 git clone https://github.com/pagopa/io-sdk
@@ -77,36 +70,69 @@ source source-me-first
 make
 ```
 
+Nel dettaglio ogni comando effettua, rispettivamente, queste attività:
+- scarica i sorgenti da github
+- accede alla cartella del repository appena scaricato
+- installa le dipendenze con `./setup.sh`
+- attiva e verifica l'ambiente con `source source-me-first`
+- compila tutto con `make` 
+
 **Se questa procedura non funziona in una delle configurazioni supportate è un bug, per favore [riportalo](https://github.com/pagopa/io-sdk/issues).**
 
-A questo punto per sviluppare l'applicazione è sotto `admin` mentre il launcher è sotto `iosdk`. Vedi dopo.
+A questo punto per sviluppare l'applicazione frontend accedi alla cartella `admin\web`, le action si trovano in `admin\packages`, mentre il launcher è sotto `iosdk`. Vedi dopo.
 
-## Che cosa devo conoscere per sviluppare per IO-SDK?
+## Che cosa devo conoscere per contribuire allo sviluppo di IO-SDK?
 
-- Il front-end è scritto in [Javascript moderno](https://javascript.info) con il framework [Svelte](https://svelte.dev).
-- Il backend è scritto in [Python 3](https://www.python.org) come azioni [OpenWhisk](https://github.com/apache/openwhisk/blob/master/docs/actions-python.md).
+- Il frontend è scritto in [Javascript moderno](https://javascript.info) con il framework [Svelte](https://svelte.dev).
+- Il backend è scritto in [Python 3](https://www.python.org) come azioni (action) [OpenWhisk](https://github.com/apache/openwhisk/blob/master/docs/actions-python.md).
 - Il launcher è scritto in [Go](https://golang.org/) e usa [Docker](https://www.docker.com/).
 
-## Come si sviluppa l'applicazione?
+## Come si sviluppa l'applicazione (frontend e action)?
 
-- Entri nella cartella `admin`,
-- Lanci il server in modalità sviluppo con `make start`.
-- Lanci una build di sviluppl con `make devel`.
+Per sviluppare l'applicazione dovrai lanciare sia il frontend che il backend con i seguenti comandi, dalla root del repository:
+
+```
+cd admin
+make start
+make devel
+```
+
+Nel dettaglio i seguenti comandi svolgono le seguenti attività:  
+- Entra nella cartella `admin`,
+- Lancia il server in modalità sviluppo con `make start`.
+- Lancia una build di sviluppo con `make devel`.
+
+### Se vuoi sviluppare il frontend
 - Editi il codice javascript/svelte sotto `admin/web/src`.
+
+### Se vuoi sviluppare le action backend
 - Editi il codice python delle azioni sotto `admin/web/packages` e le deploy con `make deploy`.
+
+### Per eseguire i test
 - Esegui i test con `make test`.
-- Una volta che tutto funziona, puoi tornare al top level e fare `make` che impacchetta il tutto e testa.
-- Non dimenticarti di [aggiornare la documentatione](/docs).
-- Se tutto funziona fai una [Pull Request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+
+### Compila e installa per l'uso
+- Una volta che tutto funziona, puoi tornare nella cartella principale del repository e lanciare il comando `make` che impacchetta il tutto ed esegue tutti i test automatici.
+
+### Aggiorna la documentazione
+- Non dimenticarti di [aggiornare la documentatione](/docs) apportando le modifiche introdotte dal tuo sviluppo.
+
+### Effettua una PR per contribuire
+- Se tutto funziona, verifica di avere l'ultima versione del codice [*upstream*](https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository) se no recupera le modifiche ed effettua un *rebase* 
+```
+git rebase master
+git push origin feature --force
+```
+e quindi crea una [Pull Request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
 ## Come si fa una release?
 
 Devi avere i permessi di accesso al repo per farlo. 
-E se li hai, per favore non fare release alla leggera...
+Anche se li hai, per favore non fare release alla leggera...
 
 `git tag <x>.<y>.<z>[<t>] ; git push --tags`
 
-e la build crea automaticamente una release (se passa i test!).
+e la build crea automaticamente una release (se passano tutti i test!).
 
 ## Come si sviluppa il launcher?
 
