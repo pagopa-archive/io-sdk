@@ -5,119 +5,24 @@
 
 # Using IO-SDK as a developer
 
-If you are one of those heroic people wanting to help and you can deal with bugs, crashes and the occasional complete destruction of you computer, you can follow with those instructions.
+If you are one of those heroic people wanting to help and you can deal with bugs, crashes and the occasional complete destruction of your computer, you can follow with those instructions.
 
 After you read this document, do not forget to [check also this other document](DEBUG.md) for debugging tips.
 
 ## Prerequisites
 
 Supported development platforms are:
-- Linux Ubuntu 18.x
-- Mac OS Catalina
-- Windows 10 build 2003 with WSL2 and Ubuntu 18.04
+- Linux Ubuntu 18.x ([read installation guidelines](docs/Prerequisites/Linux/Ubuntu.md))
+- Mac OS Catalina ([read installation guidelines](docs/Prerequisites/Mac/OSX.md))
+- Windows 10 Professional build 2003 with WSL2 and Ubuntu 18.04 ([read installation guidelines](docs/Prerequisites/Windows/10.md))
 
 Also your workstation needs at least 8gb of memory.
 
 It may work on other configurations but it is not tested.
 
-Before doing anything, you have to setup your environment as follows
+## First setup of the development environment
 
-### Linux Ubuntu 18.x
-
-You need to install docker [as described here](https://docs.docker.com/engine/install/ubuntu/)
-
-### Mac OSX Catalina
-
-You need to:
-- Install brew [as described here](https://brew.sh/)
-- Install command line tools with the command:  `xcode-select --install`
-- Install [Docker for Mac](https://docs.docker.com/docker-for-mac/install/) and give at leas 4GB of memory
-
-### Windows 10
-
-Windows configuration is a bit more complex. The steps are:
-- update Windows 10 to build 2009
-- install Ubuntu-18.04 under WSL2
-- install Docker for Windows
-- use docker from WSL2-Ubuntu
-- create an ssh proxy to access localhost
-
-More details below.
-
-#### Update to build 2009
-
-You need to update Windows 10 at lest to build 2009 in order to have WSL2.
-
-Check here to read more informations [to update windows are here](https://support.microsoft.com/en-us/help/4027667/windows-10-update)
-
-#### Install Ubuntu-18.04 under WSL2
-
-Go into the Microsof Store and seach for Ubuntu. Install version 18.04 and launch it.
-
-By default it may be installed on WSL1, so you need to ensure it works with WSL2.
-
-Open PowerShell, ensure you see `Ubuntu-18.04` with the command `wsl -l` then type: `wsl --set-version Ubuntu-18.04 2`.
-
-Now you can enter in the distro with the command `wsl -d Ubuntu-18.04`
-
-#### Install Docker Desktop for Windows
-
-Instructions to install Docker Desktop for Windows [are here](https://docs.docker.com/docker-for-windows/install/). You need at least version 2.3.0.2
-
-#### Use docker for windows as docker backend in WSL 2
-
-This step is critical.
-
-After installation follow [these instructions](https://docs.docker.com/docker-for-windows/wsl/) to use the Docker running in Windows as the Docker to use in WSL.
-
-#### Setup a port forwarding to localhost
-
-A common assumption for development tools is that they listen to localhost.
-
-This is the case for development mode of Svelte, since it listens to `http://localhost:5000`. However in version 2004 of WSL is not yet possible to access localhost, as everything is run in a virtual machine with its own ip address. To access localhost you need to setup port forwarding with ssh.
-
-You can do as follows in Ubuntu (for other distributions you need to adapt). First install and start SSH:
-
-```
-sudo apt-get remove --purge openssh-server
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get install -y openssh-server
-sudo service ssh start
-```
-
-Then get the ip address of your virtual machine. For example:
-
-```
-$ ifconfig | grep "inet "
-    inet 172.17.166.104  netmask 255.255.240.0  broadcast 172.17.175.255
-    inet 127.0.0.1  netmask 255.0.0.0
-```
-
-The IP is the one that is NOT `127.0.0.1`. The output in your case can be different.
-
-Once you found your IP address, use an SSH client to create a tunnel. I used the [one included in Git for Windows](https://gitforwindows.org/).
-
-Type:
-
-```
-ssh -L 5000:127.0.0.1:5000 <user>@<ip>
-```
-
-where `<user>` is the user you set up when you installed WSL2, and `<ip>` is the IP address you just found. You will also need to type the password you setup when you istalled WSL2.
-
-Once done you can launch the development kit. For example (see below for more inforations):
-
-```
-cd io-sdk/admin
-make devel
-```
-
-And you will be able to access to `http://localhost:5000` for development.
-
-## Setup the development environmewnt
-
-If the prerequisites are satisfied, you can setup and test the development environment as follows:
+If the prerequisites are satisfied, you can make the first setup and test the development environment as follows:
 
 ```
 git clone https://github.com/pagopa/io-sdk
@@ -127,9 +32,18 @@ source source-me-first
 make
 ````
 
-If all the test passes, congratulations, you development environment is ready.
+In detail, each command performs these activities:
+- download the sources from github
+- enter in the repository folder
+- install dependencies with `./setup.sh`
+- activate and verify the environment with `source source-me-first`
+- build everything with `make`
 
-## Daily development tasks
+If all the test passes, congratulations, your development environment is ready.
+
+**If this procedure does not work in one of the supported installations it is a bug, please [report it](https://github.com/pagopa/io-sdk/issues).**
+
+## Daily development tasks (after first setup)
 
 In general you do not need to repeat the entire setup procedure every day.
 
@@ -149,7 +63,8 @@ You can start development services. Do:
 ```
 
 Note the `--wskprops` that will setup locally the configuration file to access and deploy actions in OpenWhisk.
-Note also the `--skip-pull-images` that will use the local copy without downloading images from the net
+Note also the `--skip-pull-images` that will use the local copy without downloading images from the net.
+Note the command `--skip-ide` exclude the theia ide for edit code direcly on the application.
 
 If you are lucky, your browser will open and you will get the IO-SDK user interface.
 
@@ -166,7 +81,7 @@ make devel
 
 Now you have a development version of the UI in `http://localhost:5000`.
 
-**NOTE:** on windows with WSL2 you will need to setup a tunnel to reach that port. See the section on installing on Windows.
+**NOTE:** on windows with WSL2 you will need to setup a tunnel to reach that port. [See the section on installing on Windows](docs/Prerequisites/Windows/10.md).
 
 Code is writtend javascript, based on [Svelte](https://svelte.dev/). Sources are under `src`
 
