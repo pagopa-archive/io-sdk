@@ -24,7 +24,7 @@ onMount(() => {
 	navigate(menu, key)
 })
 
-onDestroy(url.subscribe((href) => {
+onDestroy(url.subscribe((href) => {	
 	[menu, key, api] = parseURL(href)
 	console.log("menu=",menu, "key=", key, "api=", api)
 }))
@@ -51,7 +51,7 @@ onDestroy(url.subscribe((href) => {
 			{:else if menu=="import"}
 			  <Import {api} action="/util/import"/>
 			{:else if menu=="custom"}
-			  <Import {api} action="/iosdk/import"/>
+			  <Import {api} action={key ? `/util/${key}` : "/iosdk/import"} />
 			{:else if menu=="devel"}
 			  <Devel {api} {key}/>
 			{:else if menu=="connectors"}

@@ -15,7 +15,10 @@ const createConnectors = ( connectors ) => {
             url,
             {
                 method: 'PUT',
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
         )
         .then( async res => resolve(await res.json()))
@@ -44,4 +47,74 @@ const getCustomConnectors = () => {
 
 }
 
-export const ioSDKService = { createConnectors, getCustomConnectors }
+const getCustomConnectorParams = ( connector_name ) => {
+
+    const url = IOSDK_HOST + `/web/${IOSDK_NAMESPACE}/util/get_custom_connector_params?blocking=true&result=true&connector_name=${connector_name}`;
+
+    return new Promise((resolve,reject) => {
+
+        fetch(
+            url,
+            {
+                method: 'GET'
+            }
+        )
+        .then( async res => resolve(await res.json()))
+        .catch( err => reject(err))
+
+    })
+
+}
+
+const triggerCustomConnectorAction = (api, connector_name, params ) => {
+
+    const url = `${api}/util/${connector_name}`;
+
+    return new Promise((resolve,reject) => {
+
+        fetch(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify(params),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+        .then( async res => resolve(await res.json()))
+        .catch( err => reject(err))
+    })
+
+}
+
+const storeMessages = (api, messages ) => {
+
+    const url = `${api}/util/store`;
+
+    return new Promise((resolve,reject) => {
+
+        fetch(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({data: messages}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+        .then( async res => resolve(await res.json()))
+        .catch( err => reject(err))
+
+    });
+
+}
+
+export const ioSDKService = { 
+    createConnectors, 
+    getCustomConnectors, 
+    getCustomConnectorParams, 
+    triggerCustomConnectorAction,
+    storeMessages
+}

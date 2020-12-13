@@ -1,13 +1,13 @@
 from requests import get, put
 from base64 import b64encode
 from os import environ
-from json import loads
+from json import loads, dumps
 from nimbella import redis
 
 
 def main(args):
 
-    connectors = loads(args['__ow_body'])['connectors']
+    connectors = args.get('connectors')
 
     if not connectors:
         return {"body": {"detail": "connectors list is empty"}}
@@ -33,7 +33,7 @@ def main(args):
         )
 
         create_response = ow_service.create_action(
-            connector['name'],
+            connector,
             binary_connector
         )
 
@@ -41,6 +41,7 @@ def main(args):
 
         if 'error' not in create_response:
             created_connectors.append(connector['name'])
+            red.set(connector['name'] + "_params", dumps(connector['config']['params']))
 
     red.set('connectors', ",".join(created_connectors))
     return {"body": {"detail": responses}}
@@ -120,7 +121,7 @@ class OWService():
         self.__api_key = environ["__OW_API_KEY"].split(":")
         self.__namespace = "guest"
 
-    def create_action(self, action_name, binary_data):
+    def create_action(self, connector, binary_data):
         """
         Creates a new connection
 
@@ -128,7 +129,7 @@ class OWService():
             action_name (string): Action's name to be create
             binary_data (bytes): Connector's binary data
         """
-        action_name = "util/{}".format(action_name)
+        action_name = "util/{}".format(connector['name'])
         url = "{}/api/v1/namespaces/{}/actions/{}?overwrite=true&web=true".format(
             self.__host,
             self.__namespace,
@@ -139,11 +140,18 @@ class OWService():
             "namespace": self.__namespace,
             "name": "123",
             "exec": {
-                "kind": self.__get_connector_kind(action_name),
+                "kind": connector['config']['kind'],
                 "binary": "true",
                 "code": b64encode(binary_data).decode("utf-8", "ignore"),
-                "main": "Main"
-            }
+                "main": connector['config']['main'],
+                "image": connector['config']['image'],
+            },
+            "annotations": [
+                {
+                    "key": "web-export",
+                    "value": True
+                }
+            ]
         }
         headers = {'Content-type': 'application/json'}
 
@@ -169,18 +177,3 @@ class OWService():
                     ),
                     "error": str(e)
             }
-
-    def __get_connector_kind(self, connector_name):
-
-        if('java' in connector_name):
-            return 'java:8'
-        elif('python' in connector_name):
-            return 'python:3'
-        elif('node' in connector_name):
-            return 'nodejs:10'
-        elif('php' in connector_name):
-            return 'php:7.4'
-        elif('go' in connector_name):
-            return 'go:1.11'
-        else:
-            return 'blackbox'

@@ -1,4 +1,4 @@
-const GITHUB_REPO_HOST  = 'https://sf3ris.github.io';
+const GITHUB_REPO_HOST  = 'https://pagopa.github.io';
 const GITHUB_REPO_NAME  = '/io-gateway-connectors/';
 const GITHUB_REPO_INDEX = 'index.json';
 

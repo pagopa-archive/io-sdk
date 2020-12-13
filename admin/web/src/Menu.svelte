@@ -43,7 +43,7 @@ import { onMount } from "svelte";
               <li><Link icon="fas fa-file-import" description="Import URL" to="import"/></li>
               <li><Link icon="fa fa-wrench" description="Custom Import" to="custom"/></li>
               {#each connectorsStateValue as connector, index}
-                <li><Link icon="fa fa-wrench" description={`IOSDK/Import${index}`} to="custom"/></li>
+                <li><Link icon="fa fa-wrench" description={`IOSDK/Import${index}`} to={`custom/${connector}`}/></li>
               {/each}
               <li><Link icon="fas fa-shipping-fast" description="Send Messages" to="ship"/></li>
               <li><Link icon="far fa-envelope" description="Single Message" to="send"/></li>
