@@ -21,12 +21,12 @@ case "$(uname)" in
         then source /etc/os-release
              case "$VERSION_CODENAME" in
                  (bionic) sudo apt-get install -y libicu60 libvpx5 ;;
-                 (focal) echo -e "8\n41\n" | apt-get install -y libicu-dev libvpx-dev ;;
+                 (focal) echo -e "8\n41\n" | sudo apt-get install -y libicu-dev libvpx-dev ;;
                  (*) echo "unsupported ubuntu version" ; exit 1 ;;
              esac
         else echo "sorry only ubuntu 18/20 is supported" ; exit 1
         fi
-	    sudo apt-get update
+	sudo apt-get update
         sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
             libreadline-dev libsqlite3-dev wget curl libncurses5-dev libncursesw5-dev \
             xz-utils  libffi-dev liblzma-dev python-openssl git zip
@@ -95,5 +95,4 @@ echo $GOENV_VERSION >.go-version
 
 # etc
 python3 -mpip install redis==3.4.1 httpie==2.1.0
-npm install -g https://apigcp.nimbella.io/downloads/nim/nimbella-cli.tgz
-
+curl https://apigcp.nimbella.io/downloads/nim/nim-install-linux.sh | sudo bash
