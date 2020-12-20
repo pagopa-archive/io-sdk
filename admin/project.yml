@@ -15,6 +15,11 @@ packages:
         web: true
       - name: upload
         web: raw
+      - name: select_connectors
+        web: true
+      - name: get_custom_connectors
+        web: true
+        runtime: sciabarracom/actionloop-python-v3.7:2020-10-21
       - name: import
         web: true
       - name: sample

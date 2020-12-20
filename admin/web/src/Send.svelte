@@ -111,7 +111,7 @@
 
   function onChangeFieldValue(field, value) {
     data[field].value = value;
-    validateForm( );
+    validateForm();
   }
 
 </script>

@@ -7,8 +7,8 @@
   export let api;
   export let action;
 
-  const storeURL = api + "/util/store"
-  const importURL = api + action;
+  let storeURL = api + "/util/store"
+  let importURL = api + action;
 
   let message = "uploading...";
   let state
@@ -16,6 +16,14 @@
   onMount( () => { 
     state = start() 
   })
+
+      /**
+     * Called only when api or action prop is updated by the parent
+    */
+    $: {
+        importURL = api + action;
+        state = start();
+    }
 
   async function start() {
     formData.set({})

@@ -98,9 +98,7 @@ const validateMinLengthField = ( value, length ) => {
 }
 
 const validateRequiredField = ( value ) => {
-
     return value.toString().length > 0
-
 }
 
 const validateFiscalCodeField = ( value ) => {
