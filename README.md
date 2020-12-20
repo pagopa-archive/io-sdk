@@ -33,7 +33,6 @@ Per incontrare la community di IO-SDK potete visitare il topic IO-SDK della [Com
 - Leggi la [documentazione di installazione](/docs/amministratore.md).
 - Ottieni una chiave dal [backend di io](https://developers.io.italia.it).
 
-
 ## Come lo uso?
 
 Consiglio vivamente di [leggere il manuale](/docs/utente.md).
@@ -150,6 +149,15 @@ Se un test fallisce c'è uno script che ti permette di capire quale output diffe
 - i test del backend sono fatti con [bats](https://github.com/sstephenson/bats)
 - i test del launcher sono fatti in Go come [Testable Examples](https://blog.golang.org/examples)
 - i test del frontend sono fatti in [Playwright](https://playwright.dev/)
+
+
+## Il master non funziona!
+
+Il master riceve le pull requests e può essere instabile.  Se vuoi usare una versione stabile ma senza le ultime novità guarda i tag con `git tag` e usa:
+
+```
+git checkout v<tag>
+```
 
 ## Come vi contatto?
 
