@@ -63,6 +63,7 @@ func ideDockerRun(dir string, info string) (err error) {
 	}
 
 	command := fmt.Sprintf(`docker run -d -p 3000:3000
+	-v //var/run/docker.sock:/var/run/docker.sock
 	--rm --name iosdk-theia -e HOME=/home/project 
 	%s %s --add-host=openwhisk:%s %s`, mount, uid, *openwhiskIP, image)
 	Sys(command)
