@@ -23,7 +23,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "marked": "^1.1.1",
+    "marked": "^4.0.10",
     "sirv-cli": "^1.0.0"
   }
 }
